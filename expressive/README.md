@@ -1,150 +1,86 @@
-# Expressive Skeleton and Installer
 
-[![Build Status](https://secure.travis-ci.org/zendframework/zend-expressive-skeleton.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-expressive-skeleton)
-[![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-expressive-skeleton/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-expressive-skeleton?branch=master)
 
-*Begin developing PSR-15 middleware applications in seconds!*
+# PHP Checkout Application #
 
-[zend-expressive](https://github.com/zendframework/zend-expressive) builds on
-[zend-stratigility](https://github.com/zendframework/zend-stratigility) to
-provide a minimalist PSR-15 middleware framework for PHP with routing, DI
-container, optional templating, and optional error handling capabilities.
+Author: Jan F Kowalski
+Date:   April 2018
 
-This installer will setup a skeleton application based on zend-expressive by
-choosing optional packages based on user input as demonstrated in the following
-screenshot:
+List of Content:
+* About
+* [General Notes](#anchor-g_notes)
+* [Installation](#anchor-installation)
+* [Frontend](#anchor-frontend)
+* [Testing](#anchor-testing)
+* [Development Mode](#anchor-development_mode)
+* [VMbox](#anchor-vmbox)
+* [Todo](#anchor-todo)
 
-![screenshot-installer](https://cloud.githubusercontent.com/assets/459648/10410494/16bdc674-6f6d-11e5-8190-3c1466e93361.png)
+Developed on ubuntu/xenial (bento/ubuntu-16.04)
 
-The user selected packages are saved into `composer.json` so that everyone else
-working on the project have the same packages installed. Configuration files and
-templates are prepared for first use. The installer command is removed from
-`composer.json` after setup succeeded, and all installer related files are
-removed.
+Author is Jan Franciszek Kowalski
 
-## Getting Started
+### <a id="anchor-about" />About ###
+Application for displaying static HTML Pages. If development mode is disabled the the requested Handler (Controller) output
+should be cached into flat *.html file and read from there.
 
-Start your new Expressive project with composer:
 
-```bash
-$ composer create-project zendframework/zend-expressive-skeleton <project-path>
-```
 
-After choosing and installing the packages you want, go to the
-`<project-path>` and start PHP's built-in web server to verify installation:
+### <a id="anchor-g_notes" />General notes ###
 
-```bash
-$ composer run --timeout=0 serve
-```
+The application is based on zend-expressive-skeleton in `Zend-Expressive v3` flavour and follows zend-framework module structure.
 
-You can then browse to http://localhost:8080.
+Application is written in PHP 7.2. This README is written wit intention for use with VM attached.
+There may be no problem with running the application on the previous versions of PHP (<7.2). The Development been done
+ in `bento/Ubuintu` environment.
 
-> ### Linux users
->
-> On PHP versions prior to 7.1.14 and 7.2.2, this command might not work as
-> expected due to a bug in PHP that only affects linux environments. In such
-> scenarios, you will need to start the [built-in web
-> server](http://php.net/manual/en/features.commandline.webserver.php) yourself,
-> using the following command:
->
-> ```bash
-> $ php -S 0.0.0.0:8080 -t public/ public/index.php
-> ```
+Detailed information about the stack maybe found in `./Vagrantfile`
 
-> ### Setting a timeout
->
-> Composer commands time out after 300 seconds (5 minutes). On Linux-based
-> systems, the `php -S` command that `composer serve` spawns continues running
-> as a background process, but on other systems halts when the timeout occurs.
->
-> As such, we recommend running the `serve` script using a timeout. This can
-> be done by using `composer run` to execute the `serve` script, with a
-> `--timeout` option. When set to `0`, as in the previous example, no timeout
-> will be used, and it will run until you cancel the process (usually via
-> `Ctrl-C`). Alternately, you can specify a finite timeout; as an example,
-> the following will extend the timeout to a full day:
->
-> ```bash
-> $ composer run --timeout=86400 serve
-> ```
 
-## Troubleshooting
+### <a id="anchor-installation" />Installation ###
 
-If the installer fails during the ``composer create-project`` phase, please go
-through the following list before opening a new issue. Most issues we have seen
-so far can be solved by `self-update` and `clear-cache`.
+To download the libraries with [composer](https://getcomposer.org/download/) run `composer install` from `./build`. the packages will be deployed to the `./application/vendor` directory.
 
-1. Be sure to work with the latest version of composer by running `composer self-update`.
-2. Try clearing Composer's cache by running `composer clear-cache`.
+The frontend assets may be compiled by running command `gulp` from `./build`
 
-If neither of the above help, you might face more serious issues:
+To install manually:
+* create db, fill the pre-config (`./build.config/credentials.yml`) with db credentials, run `php ./build/bin/populate.db-credentials.php`
+* run `composer install` from `./build`
+* run `yarn` from `./build`
+* run `composer install` from `./application`
+* open your web instance in the browser [VM address](htttp://localhost:8088)
 
-- Info about the [zlib_decode error](https://github.com/composer/composer/issues/4121).
-- Info and solutions for [composer degraded mode](https://getcomposer.org/doc/articles/troubleshooting.md#degraded-mode).
+For some reason the gulp needs to be run twice to compile the assets. For that reason I left the *assets* compield in the public directory.
 
-## Application Development Mode Tool
+The zend-expressive installer does not accept package choice using print, for that reason i left the `./application/` in the package. Normally it should be deployed with the `composer install project`.
 
-This skeleton comes with [zf-development-mode](https://github.com/zfcampus/zf-development-mode). 
-It provides a composer script to allow you to enable and disable development mode.
+### <a id="anchor-frontend" />Frontend ###
 
-### To enable development mode
+There is Node, npm, yarn and gulp flow. The `package.json` inside the `./build/` directory is prepared for the *scripts* and *styles*. The assets gets compiled into `./application/public/assets/`
 
-**Note:** Do NOT run development mode on your production server!
+Modules used are Bootstrap3, jquery, bootstrap-multiselect. The frontend styles use sass framework. To change page styles edit those from `./build/src/assets/styles/styles.scss`
 
-```bash
-$ composer development-enable
-```
+To run the compilation from the VM run `cd /var/www/build && gulp`.
 
-**Note:** Enabling development mode will also clear your configuration cache, to 
-allow safely updating dependencies and ensuring any new configuration is picked 
-up by your application.
+#### <a id="anchor-development_mode" />Development Mode #####
 
-### To disable development mode
 
-```bash
-$ composer development-disable
-```
+To enable development mode you will ned to run `composer run-script development-enable` inside the `./application/` directory.
 
-### Development mode status
+That should switch the cache off.
 
-```bash
-$ composer development-status
-```
+#### Testing ####
+run unit test from `./expressive` using `composer test` command.
 
-## Configuration caching
+### <a id="anchor-vmbox" />VMbox ###
+TIP: If using as VM it is best to run on host-machine with SSD.
 
-By default, the skeleton will create a configuration cache in
-`data/config-cache.php`. When in development mode, the configuration cache is
-disabled, and switching in and out of development mode will remove the
-configuration cache.
+To run the VM will need to install [Virtualbox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html) installed.
 
-You may need to clear the configuration cache in production when deploying if
-you deploy to the same directory. You may do so using the following:
+There is php-7.2 and composer installed.
 
-```bash
-$ composer clear-config-cache
-```
+To access the site, after `vagrant up` open `http://127.0.0.1:8089` in your browser
 
-You may also change the location of the configuration cache itself by editing
-the `config/config.php` file and changing the `config_cache_path` entry of the
-local `$cacheConfig` variable.
-
-## Skeleton Development
-
-This section applies only if you cloned this repo with `git clone`, not when you
-installed expressive with `composer create-project ...`.
-
-If you want to run tests against the installer, you need to clone this repo and
-setup all dependencies with composer.  Make sure you **prevent composer running
-scripts** with `--no-scripts`, otherwise it will remove the installer and all
-tests.
-
-```bash
-$ composer update --no-scripts
-$ composer test
-```
-
-Please note that the installer tests remove installed config files and templates
-before and after running the tests.
-
-Before contributing read [the contributing guide](docs/CONTRIBUTING.md).
+#### <a id="anchor-todo" />TASKS TODO ####
+* Flash Messages
+* Memcache
+* Twig

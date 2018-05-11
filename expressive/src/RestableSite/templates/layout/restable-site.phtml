@@ -1,0 +1,156 @@
+<?php
+$this->headLink()
+    ->prependStylesheet('https://use.fontawesome.com/releases/v5.0.6/css/all.css')
+    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+$this->inlineScript()
+    ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
+    ->prependFile('https://code.jquery.com/jquery-3.3.1.min.js');
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="shortcut icon" href="https://framework.zend.com/ico/favicon.ico" />
+        <?=$this->headTitle('zend-expressive')->setSeparator(' - ')->setAutoEscape(false)?>
+        <?=$this->headMeta()?>
+        <?=$this->headLink()?>
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,600|Lato:400,700|Titillium+Web:400,700" rel="stylesheet">
+        <style>
+            body { padding-top: 56px; }
+            .app { min-height: 100vh; }
+            .app-footer { padding-bottom: 1em; }
+            .zf-green, h2 a { color: #68b604; }
+            /* Sticky footer styles
+    -------------------------------------------------- */
+            html {
+                position: relative;
+                min-height: 100%;
+            }
+            body {
+                /* Margin bottom by footer height */
+                margin-bottom: 300px;
+            }
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                /* Set the fixed height of the footer here */
+                height: 300px;
+                line-height: 1.7rem;
+                background-color: #f5f5f5;
+            }
+            .form-container.has-errors ul {
+                margin:0px;
+                list-style:none;
+                padding:0px;
+                color:#990000
+            }
+            #trigger-chat-open {
+                position:fixed;
+                bottom:20px;
+                right:20px;
+                font-size:64px;
+                background: #1e5799;
+                color:#eeeeee;
+            }
+        </style>
+    </head>
+
+<body>
+
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-sm _navbar-dark bg-light fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggler float-right" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="<?=$this->url('home')?>">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-inline mx-auto"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
+                    <span class="text-right">ResTable</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="<?=$this->url('restable.site.page.features')?>" class="nav-link">
+                            Features
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="<?=$this->url('restable.site.page.pricing')?>" class="nav-link">
+                            Pricing
+                        </a>
+                    </li>
+                </ul>
+                <?php if( ! $this->currentRoute('restable.site.page.request_demo') && ! $this->currentRoute('restable.site.page.request_demo.post')):?>
+                <a href="<?=$this->url('restable.site.page.request_demo');?>" target="_self" class="btn btn-success">
+                    <!--                        <i class="fa fa-shopping-cart"></i>&nbsp;-->
+                    <span>Request Demonstration Access</span>
+                </a>
+                <?php endif;?>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Begin page content -->
+<main role="main" class="app-content">
+    <?=$this->content?>
+</main>
+
+    <footer class="app-footer footer pt-md-5 bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#eeeeee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-2 mr-2 float-left">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                        <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                        <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                        <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                        <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                        <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                    </svg>
+                    <span class="float-left text-light">ResTable</span>
+                    <hr class="mt-5" />
+                    <small class="d-block mb-3 text-muted">&copy; 2018 Secalith Limited</small>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>Features</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="#">Cool stuff</a></li>
+                        <li><a class="text-muted" href="#">Wordpress Integration</a></li>
+                        <li><a class="text-muted" href="#">For developers</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="#">Login to Dashboard</a></li>
+                        <li><a class="text-muted" href="#">Stuff for developers</a></li>
+                        <li><a class="text-muted" href="#">Client</a></li>
+                        <li><a class="text-muted" href="#">Manager</a></li>
+                        <li><a class="text-muted" href="#">Admin</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>About</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="#">Applications</a></li>
+                        <li><a class="text-muted" href="#">Privacy</a></li>
+                        <li><a class="text-muted" href="#">Terms</a></li>
+                        <li><a class="text-muted" href="#">Cookies</a></li>
+                        <li><a class="text-muted" href="#">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <?=$this->inlineScript()?>
+</body>
+</html>

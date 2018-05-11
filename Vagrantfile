@@ -9,6 +9,11 @@ VAGRANTFILE_API_VERSION = '2'
 
 export APP_ENV=development
 
+
+###################
+#   Install PHP   #
+###################
+
 sudo add-apt-repository ppa:ondrej/php
 sudo apt-get update
 
@@ -20,7 +25,11 @@ apt-get install -y php7.2
 apt-get install -y php7.2-bcmath php7.2-bz2 php7.2-cli php7.2-curl php7.2-intl php7.2-json php7.2-mbstring
 apt-get install -y php7.2-xml php7.2-xsl php7.2-zip libapache2-mod-php7.2 php-xdebug
 
-# Configure Apache
+
+########################
+#   Configure Apache   #
+########################
+
 echo "<VirtualHost *:80>
 	DocumentRoot \"/var/www/expressive/public\"
 	AllowEncodedSlashes On
@@ -48,6 +57,11 @@ service apache2 restart
 
 rm -Rf /var/www/html
 
+
+################
+#   Composer   #
+################
+
 # Install Composer
 if [ -e /usr/local/bin/composer ]; then
     /usr/local/bin/composer self-update
@@ -59,13 +73,35 @@ fi
 cd /var/www/expressive && composer install
 composer development-enable
 
-cd ~
+################
+#   FRONTEND   #
+################
+
+## Install Node.js
+curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+sudo bash nodesource_setup.sh
+sudo rm nodesource_setup.sh
+
+## Install YARN package Manager
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update && sudo apt-get install -y yarn
+
+sudo npm install --global gulp-cli -D
+
+
+#############
+#   Other   #
+#############
+
+
 
 # Reset home directory of vagrant user
 if ! grep -q "cd /var/www" /home/vagrant/.profile; then
     echo "cd /var/www" >> /home/vagrant/.profile
 fi
 
+cd ~
 
 echo "** Visit http://localhost:8089 in your browser for to view the application **"
 SCRIPT
@@ -76,7 +112,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box_version = "201803.24.0"
 
     config.vm.network "forwarded_port", guest: 80, host: 8089
-    config.vm.synced_folder '.', '/var/www'
+    config.vm.synced_folder '.', '/var/www', id:"application-root",owner:"vagrant",group:"www-data",mount_options:["dmode=775,fmode=664"]
     config.vm.provision 'shell', inline: @script
     config.vm.hostname = 'expressive-static-pages.local.vm'
 

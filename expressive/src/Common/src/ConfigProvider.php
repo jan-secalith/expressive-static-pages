@@ -70,7 +70,7 @@ class ConfigProvider
                 'type' => SessionArrayStorage::class
             ],
             'cache' => [
-                'enabled' => true,
+                'enabled' => false,
                 'path' => 'data/cache/',
                 'lifetime' => 3600
             ],

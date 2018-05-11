@@ -128,7 +128,6 @@ class RequestDemoForm extends Form
 //            'type' => 'Zend\Form\Element\Csrf',
 //            'name' => 'csrf',
 //        ], ['priority'=>60]);
-
         $this->add([
             'name' => 'submit',
             'attributes' => [

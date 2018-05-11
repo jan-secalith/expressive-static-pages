@@ -60,8 +60,6 @@ class RequestDemoPageHandler implements RequestHandlerInterface
 
         return new HtmlResponse($this->template->render('staticpages::page-request-demo', $data));
 
-        return new HtmlResponse($this->template->render('staticpages::page-features', $data));
-
     }
 
     private function getRequestDemoForm()

@@ -33,7 +33,7 @@ class GetFormAttached extends AbstractHelper
             $form = $forms[$index];
 
             if( $render !== true ) {
-                return $form;
+//                return $form;
             }
 
             $output .= $this->getView()->plugin('partial')($template,['form'=>$form]);

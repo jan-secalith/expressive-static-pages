@@ -110,6 +110,10 @@
         -moz-box-shadow: 0px 0px 139px -37px rgba(0,0,0,0.2);
         box-shadow: 0px 0px 139px -37px rgba(0,0,0,0.2);
     }
+    .form-container-wrapper .form-title {
+        font-family: 'Titillium Web', sans-serif;
+        color:#666;
+    }
 </style>
 <style>
     .form-container-wrapper {
@@ -126,13 +130,15 @@
     <div id="landing-header-bg-1" class="position-relative overflow-hidden p-3 p-md-5 m-0 mb-0 pb-10 text-left mt-5">
         <div class="container">
             <div class="row justify-content-around h-100 mx-auto">
-                <div class="col-6 col-lg-6 p-lg-5 mx-auto my-0">
+                <div class="col-12 col-md-6 p-lg-5 mx-0 my-0">
                     <h1 style="color:#fefefe" class="mb-0 display-4 font-weight-normal">Request Demo Access</h1>
                     <hr class="pb-1" />
                     <p style="color:#fefefe" class="lead font-weight-normal">After the approval proccess we will send you the link to the demo app.</p>
+                    <p style="color:#fefefe" class="lead font-weight-normal"><strong>In short:</strong> We will send you the email with login credentials. The access will be granted for 72 hours from the first login. The link will be valid for 7 days.</p>
                 </div>
-                <div class="col-4 col-lg-4 offset-2 p-2 my-0 bg-light rounded form-container-wrapper">
-                    <?=$this->getFormAttached($forms,null,'form_request_demo',true,'staticpages::page-request-demo-form');?>
+                <div class="col-12 col-md-6 col-lg-4 offset-md-2 mt-sm-2 mt-md-0 p-2 my-0  pt-sm-4 bg-light rounded form-container-wrapper">
+                    <h3 class="display-5 form-title text-center">Demo Request Form</h3>
+                    <?=$this->getFormAttached($forms,null,'form_request_demo',true,'restablesite-staticpages-form::page-request-demo-form');?>
                 </div>
             </div>
         </div>

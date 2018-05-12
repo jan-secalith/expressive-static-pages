@@ -21,18 +21,14 @@ class RequestDemoPageHandler implements RequestHandlerInterface
 
     private $template;
 
-    private $urlHelper;
-
     public function __construct(
         Router\RouterInterface $router,
         Template\TemplateRendererInterface $template = null,
-        string $containerName,
-        UrlHelper $urlHelper = null
+        string $containerName
     ) {
         $this->router        = $router;
         $this->template      = $template;
         $this->containerName = $containerName;
-        $this->urlHelper = $urlHelper;
     }
 
     public function handle(ServerRequestInterface $request) : ResponseInterface
@@ -44,19 +40,24 @@ class RequestDemoPageHandler implements RequestHandlerInterface
         $data['forms']['form_request_demo'] = $this->getRequestDemoForm();
 
         if(strtoupper($request->getMethod())==="POST") {
+
             $formData = $request->getParsedBody();
 
             $data['forms']['form_request_demo']->setData($formData);
 
             if ($data['forms']['form_request_demo']->isValid()) {
+//
+                $filteredData = $data['forms']['form_request_demo']->getData();
 
-                return new HtmlResponse($this->template->render('staticpages::page-request-demo-success', $data));
+//                var_dump($filteredData);
 
-                return new HtmlResponse($this->template->render('staticpages::page-features', $data));
+//                return new HtmlResponse($this->template->render('staticpages::page-request-demo-success', $data));
 
+            } else {
+                $messages = $data['forms']['form_request_demo']->getMessages();
+                var_dump($messages);
             }
         }
-
 
         return new HtmlResponse($this->template->render('staticpages::page-request-demo', $data));
 
@@ -66,7 +67,7 @@ class RequestDemoPageHandler implements RequestHandlerInterface
     {
         $form = new RequestDemoForm();
 
-        $form->setAttribute('action', $this->urlHelper->generate('restable.site.page.request_demo'));
+//        $form->setAttribute('action', $this->urlHelper->generate('restable.site.page.request_demo'));
 
         $form->setAttribute('method', 'POST');
 

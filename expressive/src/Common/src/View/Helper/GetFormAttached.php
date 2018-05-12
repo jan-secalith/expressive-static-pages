@@ -8,10 +8,9 @@ use Zend\View\Helper\AbstractHelper;
 
 class GetFormAttached extends AbstractHelper
 {
-    public function __invoke($forms, $itemId=null, $index, $render=true, $template=null)
+    public function __invoke($forms=null, $itemId=null, $index, $render=true, $template=null)
     {
         $output = null;
-
         $template = ($template!==null)?$template:'common::form-attached';
 
         if( $itemId !== null && is_string($itemId)) {
@@ -33,7 +32,7 @@ class GetFormAttached extends AbstractHelper
             $form = $forms[$index];
 
             if( $render !== true ) {
-//                return $form;
+                return $form;
             }
 
             $output .= $this->getView()->plugin('partial')($template,['form'=>$form]);

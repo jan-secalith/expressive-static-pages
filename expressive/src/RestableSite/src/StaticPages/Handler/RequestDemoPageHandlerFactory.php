@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace RestableSite\StaticPages\Handler;
 
+use RestableSite\StaticPages\Handler\RequestDemoPageHandler;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
@@ -18,13 +18,12 @@ class RequestDemoPageHandlerFactory
         $template = $container->has(TemplateRendererInterface::class)
             ? $container->get(TemplateRendererInterface::class)
             : null;
-        $urlHelper = $container->get(UrlHelper::class);
-
+        $gatewayService = $container->has("RestableSite\StaticPages\RequestDemo\TableGateway");
+//var_duMP($gatewayService);
         return new RequestDemoPageHandler(
             $router,
             $template,
-            get_class($container),
-            $urlHelper
+            get_class($container)
         );
     }
 }

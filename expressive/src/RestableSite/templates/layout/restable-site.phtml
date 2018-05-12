@@ -22,8 +22,18 @@ $this->inlineScript()
             .app { min-height: 100vh; }
             .app-footer { padding-bottom: 1em; }
             .zf-green, h2 a { color: #68b604; }
-            /* Sticky footer styles
-    -------------------------------------------------- */
+
+            button.btn,
+            h1,
+            h2,
+            h3{
+                font-family: 'Titillium Web', sans-serif;
+            }
+
+            p {
+                font-family: 'Lato', sans-serif;
+            }
+
             html {
                 position: relative;
                 min-height: 100%;
@@ -55,6 +65,25 @@ $this->inlineScript()
                 background: #1e5799;
                 color:#eeeeee;
             }
+            header .navbar {
+                border-top:2px solid #3B5986;
+                border-bottom: 1px solid #cccccc;
+                background-color:#efefef;
+            }
+            header .navbar .navbar-brand span {
+                font-size:1.5rem
+            }
+            header .navbar .nav-item a {
+                font-size: 1.1rem;
+
+                border-left: 1px solid transparent;
+                border-right: 1px solid transparent;
+            }
+            header .navbar .nav-item.active a {
+                background: #fff;
+                border-left: 1px solid #dfdfdf;
+                border-right: 1px solid #dfdfdf;
+            }
         </style>
     </head>
 
@@ -62,35 +91,47 @@ $this->inlineScript()
 
 <header>
     <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-sm _navbar-dark bg-light fixed-top" role="navigation">
+    <nav class="navbar navbar-expand-sm _navbar-dark navbar-light fixed-top shadow py-0" role="navigation">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggler float-right" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand" href="<?=$this->url('home')?>">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-inline mx-auto"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
-                    <span class="text-right">ResTable</span>
+                <a class="navbar-brand p-0 d-block mr-5" href="<?=$this->url('home')?>">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#454545" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="logo-svg mt-1 mb-0 p-0 mr-2 float-left d-block">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                        <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                        <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                        <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                        <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                        <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                    </svg>
+                    <span>ResTable</span>
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a href="<?=$this->url('restable.site.page.features')?>" class="nav-link">
+                    <li class="nav-item mx-0<?=($this->currentRoute('restable.site.page.features'))?' active':null;?>">
+                        <a href="<?=$this->url('restable.site.page.features')?>" class="nav-link py-3 px-4">
                             Features
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="<?=$this->url('restable.site.page.pricing')?>" class="nav-link">
+                    <li class="nav-item mx-0<?=($this->currentRoute('restable.site.page.pricing'))?' active':null;?>">
+                        <a href="<?=$this->url('restable.site.page.pricing')?>" class="nav-link py-3 px-4">
                             Pricing
                         </a>
                     </li>
                 </ul>
                 <?php if( ! $this->currentRoute('restable.site.page.request_demo') && ! $this->currentRoute('restable.site.page.request_demo.post')):?>
                 <a href="<?=$this->url('restable.site.page.request_demo');?>" target="_self" class="btn btn-success">
-                    <!--                        <i class="fa fa-shopping-cart"></i>&nbsp;-->
-                    <span>Request Demonstration Access</span>
+                    <span>Request <span class="d-lg-inline d-sm-none">Demonstration</span> Access</span>
                 </a>
+                <?php else: ?>
+                    <a href="<?=$this->url('restable.site.page.request_demo');?>" target="_self" class="btn btn-secondary disabled">
+                        <span>Request <span class="d-lg-inline d-sm-none">Demonstration</span> Access</span>
+                    </a>
                 <?php endif;?>
             </div>
         </div>
@@ -105,7 +146,7 @@ $this->inlineScript()
     <footer class="app-footer footer pt-md-5 bg-dark">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-md">
+                <div class="col-12 col-md mt-0">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#eeeeee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-2 mr-2 float-left">
                         <circle cx="12" cy="12" r="10"></circle>
                         <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
@@ -122,28 +163,38 @@ $this->inlineScript()
                 <div class="col-6 col-md">
                     <h5>Features</h5>
                     <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" href="#">Cool stuff</a></li>
-                        <li><a class="text-muted" href="#">Wordpress Integration</a></li>
-                        <li><a class="text-muted" href="#">For developers</a></li>
+                        <li><a class="text-muted" href="#">Online Booking</a></li>
+                        <li><a class="text-muted" href="#">Point of Sale</a></li>
+                        <li><a class="text-muted" href="#">Stock Monitoring</a></li>
+                        <li><a class="text-muted" href="#">Business Website</a></li>
                     </ul>
                 </div>
                 <div class="col-6 col-md">
                     <h5>Resources</h5>
                     <ul class="list-unstyled text-small">
-                        <li><a class="text-muted" href="#">Login to Dashboard</a></li>
-                        <li><a class="text-muted" href="#">Stuff for developers</a></li>
-                        <li><a class="text-muted" href="#">Client</a></li>
-                        <li><a class="text-muted" href="#">Manager</a></li>
-                        <li><a class="text-muted" href="#">Admin</a></li>
+                        <li><a class="text-muted" href="#">Manager Guides</a></li>
+                        <li><a class="text-muted" href="#">F.A.Q.</a></li>
+                        <li><a class="text-muted" href="#">Login to ResTable</a></li>
+                        <li><a class="text-muted" href="#">API Documentation</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="<?=$this->url('home')?>">Homepage</a></li>
+                        <li><a class="text-muted" href="<?=$this->url('restable.site.page.features')?>">Features</a></li>
+                        <li><a class="text-muted" href="<?=$this->url('restable.site.page.pricing')?>">Pricing</a></li>
+                        <li><a class="text-muted" href="<?=$this->url('restable.site.page.request_demo')?>">Demo Request</a></li>
+                        <li><a class="text-muted" href="#">Login</a></li>
                     </ul>
                 </div>
                 <div class="col-6 col-md">
                     <h5>About</h5>
                     <ul class="list-unstyled text-small">
                         <li><a class="text-muted" href="#">Applications</a></li>
-                        <li><a class="text-muted" href="#">Privacy</a></li>
+                        <li><a class="text-muted" href="<?=$this->url('restable.site.page.privacy_policy')?>">Privacy Policy</a></li>
                         <li><a class="text-muted" href="#">Terms</a></li>
-                        <li><a class="text-muted" href="#">Cookies</a></li>
                         <li><a class="text-muted" href="#">Sitemap</a></li>
                     </ul>
                 </div>

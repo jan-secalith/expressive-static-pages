@@ -48,9 +48,9 @@ class ConfigProvider
             'templates'    => $this->getTemplates(),
             'view_helpers'  => [
                 'invokables' => [
-                    'isFormSet'    => IsFormSet::class,
-                    'getFormAttached'    => GetFormAttached::class,
-                    'flashMessage'    => FlashMessage::class,
+                    'isFormSet' => IsFormSet::class,
+                    'getFormAttached' => GetFormAttached::class,
+                    'flashMessage' => FlashMessage::class,
                 ],
                 'factories' => [
                     'currentRoute' => CurrentUrlHelperFactory::class,
@@ -58,7 +58,7 @@ class ConfigProvider
             ],
             'session_config' => [
                 'cookie_lifetime' => 60*60*1,
-                'gc_maxlifetime'     => 60*60*24*30,
+                'gc_maxlifetime' => 60*60*24*30,
             ],
             'session_manager' => [
                 'validators' => [
@@ -94,6 +94,9 @@ class ConfigProvider
                 CurrentRouteNameHelper::class => CurrentRouteNameHelperFactory::class,
                 StaticPageHandlerCacheMiddleware::class => StaticPageHandlerCacheMiddlewareFactory::class,
             ],
+            'abstract_factories' => [
+                Service\GatewayAbstractFactory::class,
+            ],
         ];
     }
 
@@ -101,7 +104,7 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'common'    => [__DIR__ . '/../templates/common'],
+                'common' => [__DIR__ . '/../templates/common'],
             ],
         ];
     }

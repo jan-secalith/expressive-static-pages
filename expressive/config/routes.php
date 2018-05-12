@@ -33,20 +33,32 @@ use Zend\Expressive\MiddlewareFactory;
  * );
  */
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
-    $app->get('/', App\Handler\HomePageHandler::class, 'home');
+//    $app->get('/', App\Handler\HomePageHandler::class, 'home');
 //    $app->get('/api/ping', App\Handler\PingHandler::class, 'api.ping');
 
 ## THE RESTABLE WEBSITE: ##
 
     # LANDING PAGES:
+    $app->get('/', [
+        Common\Middleware\StaticPageHandlerCacheMiddleware::class,
+        Common\Handler\StaticPageHandler::class,
+    ], 'home');
+
     $app->get('/restable/pages/pricing', [
         Common\Middleware\StaticPageHandlerCacheMiddleware::class,
         Common\Handler\StaticPageHandler::class,
     ], 'restable.site.page.pricing');
+
     $app->get('/restable/pages/features', [
         Common\Middleware\StaticPageHandlerCacheMiddleware::class,
         Common\Handler\StaticPageHandler::class,
     ], 'restable.site.page.features');
+
+    $app->get('/restable/pages/privacy-policy', [
+        Common\Middleware\StaticPageHandlerCacheMiddleware::class,
+        Common\Handler\StaticPageHandler::class,
+    ], 'restable.site.page.privacy_policy');
+
     $app->get('/restable/pages/request-demo', RestableSite\StaticPages\Handler\RequestDemoPageHandler::class, 'restable.site.page.request_demo');
     $app->post('/restable/pages/request-demo', RestableSite\StaticPages\Handler\RequestDemoPageHandler::class, 'restable.site.page.request_demo.post');
 

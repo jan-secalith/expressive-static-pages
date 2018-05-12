@@ -1,6 +1,8 @@
 <?php
 namespace RestableSite\StaticPages\Form;
 
+use RestableSite\StaticPages\InputFilter\RequestDemoInputFilter;
+use RestableSite\StaticPages\Model\RequestDemoModel;
 use Zend\InputFilter\InputFilter;
 use Zend\Form\Form as Form;
 
@@ -12,13 +14,11 @@ class RequestDemoForm extends Form
 
         $this
             ->setAttribute('method', 'post')
-//            ->setObject(new CartItemModel())
-            ->setInputFilter(new InputFilter())
+            ->setObject(new RequestDemoModel())
+            ->setInputFilter(new RequestDemoInputFilter())
         ;
 
         $this->addElements();
-
-//        $this->addInputFilter();
 
     }
 
@@ -26,11 +26,16 @@ class RequestDemoForm extends Form
     {
 
         $this->add([
+            'type' => 'Zend\Form\Element\Hidden',
+            'name' => 'application_id',
+        ], ['priority'=>0]);
+
+        $this->add([
             'type' => 'Zend\Form\Element\Text',
             'name' => 'name_first',
             'attributes' => [
                 'class' => 'form-control',
-                'placeholder' => 'First Name',
+                'placeholder' => '* First Name',
             ],
             'options' => [
                 'label' => "First Name",
@@ -66,7 +71,7 @@ class RequestDemoForm extends Form
             'name' => 'contact_email',
             'attributes' => [
                 'class' => 'form-control',
-                'placeholder' => "Email",
+                'placeholder' => "* Email",
             ],
             'options' => [
                 'label' => "Email",
@@ -75,10 +80,10 @@ class RequestDemoForm extends Form
 
         $this->add([
             'type' => 'Zend\Form\Element\Text',
-            'name' => 'name_venue',
+            'name' => 'venue_name',
             'attributes' => [
                 'class' => 'form-control',
-                'placeholder' => "Venue Name",
+                'placeholder' => "* Venue Name",
             ],
             'options' => [
                 'label' => "Venue Name",
@@ -94,7 +99,7 @@ class RequestDemoForm extends Form
             ],
             'options' => [
                 'label' => "Work Title",
-                'empty_option' => 'Please choose Work Title',
+                'empty_option' => '* Please choose Work Title',
                 'value_options' => array(
                     'owner' => 'Owner',
                     'director' => 'Director',
@@ -114,7 +119,7 @@ class RequestDemoForm extends Form
             ],
             'options' => [
                 'label' => "Country",
-                'empty_option' => 'Please choose your Country',
+                'empty_option' => '* Please choose your Country',
                 'value_options' => array(
                     'gb' => 'United Kingdom',
                     'us' => 'United States',
@@ -124,10 +129,11 @@ class RequestDemoForm extends Form
             ],
         ], ['priority'=>30]);
 
-//        $this->add([
-//            'type' => 'Zend\Form\Element\Csrf',
-//            'name' => 'csrf',
-//        ], ['priority'=>60]);
+        $this->add([
+            'type' => 'Zend\Form\Element\Csrf',
+            'name' => 'csrf',
+        ], ['priority'=>60]);
+
         $this->add([
             'name' => 'submit',
             'attributes' => [
@@ -136,95 +142,5 @@ class RequestDemoForm extends Form
                 'class' => 'btn btn-warning btn-lg w-100',
             ],
         ], ['priority'=>-100]);
-    }
-
-    private function addInputFilter()
-    {
-
-        $inputFilter = new InputFilter();
-        $this->setInputFilter($inputFilter);
-
-        $inputFilter->add([
-            'name'     => 'application_id',
-            'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-            'validators' => [
-                [
-                    'name'    => 'StringLength',
-                    'options' => [
-                        'min' => 1,
-                        'max' => 64,
-                        'encoding' => 'UTF-8',
-                    ],
-                ],
-            ],
-        ]);
-
-        $inputFilter->add([
-            'name'     => 'name_first',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-        ]);
-
-
-        $inputFilter->add([
-            'name'     => 'contact_email',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-        ]);
-
-        $inputFilter->add([
-            'name'     => 'contact_phone',
-            'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-        ]);
-
-        $inputFilter->add([
-            'name'     => 'work_title',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-        ]);
-
-        $inputFilter->add([
-            'name'     => 'name_venue',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-        ]);
-
-        $inputFilter->add([
-            'name'     => 'country',
-            'required' => true,
-            'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'StripNewlines'],
-            ],
-        ]);
-
-        return $inputFilter;
     }
 }

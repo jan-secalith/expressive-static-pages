@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace RestableSite;
 
+use Zend\Hydrator\ObjectProperty;
+
 /**
  * The configuration provider for the RestableSite module
  *
@@ -63,15 +65,35 @@ class ConfigProvider
                     'application_name' => 'restablesite',
                 ]
             ],
+            'gateway' => [
+                'RestableSite\StaticPages\RequestDemo\TableGateway' => [
+                    'name' => 'RestableSite\StaticPages\RequestDemo\TableGateway',
+                    'table' => [
+                        'name' => 'form_request_demo',
+                        'object' => \RestableSite\StaticPages\Model\RequestDemoFormTable::class,
+                    ],
+                    'adapter' => [
+                        'name' => 'Application\Db\LocalAdapter',
+                    ],
+                    'model' => [
+                        "object" => StaticPages\Model\RequestDemoModel::class,
+                    ],
+                    'hydrator' => [
+                        "object" => ObjectProperty::class,
+                    ],
+                ],
+            ],
             'route' => [
-                'restable.site.page.homepage' => [
+                'home' => [
                     'cache_response' => [
                         'enabled' => true,
                     ],
-                    'static_pages' => [
-                        'view_template_model' => [
-                            'layout' => 'restablesite-layout::restable-site',
-                            'template' => 'staticpages::page-features',
+                    'module' => [
+                        'static_pages' => [
+                            'view_template_model' => [
+                                'layout' => 'restablesite-layout::restable-site',
+                                'template' => 'staticpages::page-features',
+                            ],
                         ],
                     ],
                 ],
@@ -99,6 +121,51 @@ class ConfigProvider
                                 'template' => 'staticpages::page-pricing',
                             ],
                         ],
+                    ],
+                ],
+                'restable.site.page.privacy_policy' => [
+                    'cache_response' => [
+                        'enabled' => true,
+                    ],
+                    'module' => [
+                        'static_pages' => [
+                            'view_template_model' => [
+                                'layout' => 'restablesite-layout::restable-site',
+                                'template' => 'staticpages::page-privacy-policy',
+                            ],
+                        ],
+                    ],
+                ],
+                'restable.site.page.request_demo.post' => [
+                    'cache_response' => [
+                        'enabled' => false,
+                    ],
+                    'module' => [
+                        'static_pages' => [
+                            'view_template_model' => [
+                                'layout' => 'restablesite-layout::restable-site',
+                                'template' => 'staticpages::page-privacy-policy',
+                            ],
+                        ],
+                    ],
+                    'form' => [
+                        [
+                            // https://framework.zend.com/blog/2017-06-21-zend-hydrator.html
+                            // https://framework.zend.com/manual/2.4/en/modules/zend.stdlib.hydrator.namingstrategy.mapnamingstrategy.html
+                            'name' => 'form_request_demo',
+                            'map_direction_src' => 'form',
+                            'map' => [
+                                'application_id' => 'application_id',
+                                'name_first' => 'name_first',
+                                'contact_email' => 'contact_email',
+                                'contact_phone' => 'contact_phone',
+                                'work_title' => 'work_title',
+                                'venue_name' => 'venue_name',
+                                'country' => 'country',
+                                'ip' => 'ip',
+                                'created' => 'created',
+                            ],
+                        ]
                     ],
                 ],
             ],

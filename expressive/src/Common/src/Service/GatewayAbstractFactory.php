@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Common\Service;
 
 use Zend\Expressive\Router;
@@ -9,7 +11,9 @@ use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\ServiceManager\AbstractFactoryInterface;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
-use Psr\Container\ContainerInterface;
+//use Psr\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
+use Zend\Db\TableGateway\TableGateway;
 
 class GatewayAbstractFactory implements AbstractFactoryInterface
 {
@@ -20,30 +24,39 @@ class GatewayAbstractFactory implements AbstractFactoryInterface
     public function canCreate(\Interop\Container\ContainerInterface $container, $requestedName)
     {
         return $this->canCreateServiceWithName($container, $requestedName, $requestedName);
-        // TODO: Implement canCreate() method.
     }
 
     public function canCreateServiceWithName(
         ServiceLocatorInterface $serviceLocator, $name, $requestedName
     ) {
-        return (fnmatch('*PageAction', $requestedName));
+        return (fnmatch('*\TableGateway', $requestedName));
     }
 
     public function createServiceWithName(
         ServiceLocatorInterface $serviceLocator, $name, $requestedName
     ) {
-        if (class_exists($requestedName)) {
-            $router   = $serviceLocator->get(RouterInterface::class);
-            $template = ($serviceLocator->has(TemplateRendererInterface::class))
-                ? $serviceLocator->get(TemplateRendererInterface::class)
-                : null;
+        if ( ! class_exists($requestedName)) {
 
-            switch ($requestedName) {
-                case(\App\Action\AboutPageAction::class):
-                case(\App\Action\ContactPageAction::class):
-                    return new $requestedName($router, $template);
-                    break;
-            }
+            $config = $serviceLocator->get('config');
+            $gatewayConfig = $config['app']['module']['gateway'][$name];
+
+            $tableName = $gatewayConfig['table']['name'];
+            $dbAdapterName = $gatewayConfig['adapter']['name'];
+            $modelName = $gatewayConfig['model']['object'];
+            $dbHydratorName = $gatewayConfig['hydrator']['object'];
+
+            $dbAdapter = $serviceLocator->get($dbAdapterName);
+            $resultSet = new \Zend\Db\ResultSet\HydratingResultSet(
+                new $dbHydratorName(),
+                new $modelName()
+            );
+
+            return new TableGateway(
+                $tableName,
+                $dbAdapter,
+                null,
+                $resultSet
+            );
 
         }
 

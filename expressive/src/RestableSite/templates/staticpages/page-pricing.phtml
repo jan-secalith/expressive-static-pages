@@ -21,6 +21,7 @@
 
     body {
         background: #f0f9ff;
+        background-url: http://api.thumbr.it/whitenoise-361x370.png?background=#f0f9ff00&noise=626262&density=14&opacity=8
     }
     #landing-header-bg-1
     {
@@ -112,12 +113,23 @@
         -moz-box-shadow: inset 0px 0px 199px 0px rgba(0,0,0,0.2);
         box-shadow: inset 0px 0px 199px 0px rgba(0,0,0,0.2);
         border-top: 2px solid #e6e6e6;
+        background-image: url("/assets/images/restable/site/theme-clean/hbg-2.png ");
     }
     #landing-header-bg-3 {
         background:#139974;
         background-color:#d7dfe5;
         border-radius:0px;
         border-top: 2px solid #e6e6e6;
+        /*background-image: url("http://api.thumbr.it/whitenoise-361x370.png?background=#d7dfe5ff&noise=efefef&density=14&opacity=68 ");*/
+        background-image: url("/assets/images/restable/site/theme-clean/hbg-1.png ");
+
+    }
+    #landing-header-bg-3 h1,
+    #landing-header-bg-3 p {
+         text-shadow: 1px 1px #efefef;
+    }
+    #landing-header-bg-3 p {
+        text-shadow: 1px 1px #efefef;
     }
     main .card-deck .card-hseader {
         /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f0f9ff+8,f0f9ff+49,dfe8f2+49,f0f9ff+84 */
@@ -131,11 +143,38 @@
         -webkit-box-shadow: inset 0px 0px 20px 10px rgba(0,0,0,0.01);
         -moz-box-shadow: inset 0px 0px 20px 10px rgba(0,0,0,0.01);
         box-shadow: inset 0px 0px 20px 10px rgba(0,0,0,0.01);
+
+        background: rgb(239,239,239);
+        background: -moz-linear-gradient(top, rgba(239,239,239,1) 0%, rgba(255,255,255,1) 52%, rgba(255,255,255,1) 72%, rgba(239,239,239,1) 100%);
+        background: -webkit-linear-gradient(top, rgba(239,239,239,1) 0%,rgba(255,255,255,1) 52%,rgba(255,255,255,1) 72%,rgba(239,239,239,1) 100%);
+        background: linear-gradient(to bottom, rgba(239,239,239,0.05) 0%,rgba(255,255,255,1) 52%,rgba(255,255,255,1) 72%,rgba(222,222,222,0.5) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#efefef',GradientType=0 );
+
     }
     .card {
         -webkit-box-shadow: 0px 0px 139px -37px rgba(0,0,0,0.2);
         -moz-box-shadow: 0px 0px 139px -37px rgba(0,0,0,0.2);
         box-shadow: 0px 0px 139px -37px rgba(0,0,0,0.2);
+    }
+    .card-title {
+        text-shadow: 2px 2px #efefef;
+    }
+    .card-header {
+        background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e8e8e8' fill-opacity='0.35' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+
+    }
+    .card-footer {
+        -webkit-box-shadow: inset 0px 0px 34px -5px rgba(0,0,0,0.15);
+        -moz-box-shadow: inset 0px 0px 34px -5px rgba(0,0,0,0.15);
+        box-shadow: inset 0px 0px 34px -5px rgba(0,0,0,0.15);
+        inset 0px -2px 12px 0px rgba(0,0,0,0.15);
+    }
+    .card-footer {
+        background-color: #ffffff;
+        background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23e8e8e8' fill-opacity='0.35' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+    .card-footer .btn {
+        rounded-corners:3px;
     }
 </style>
 
@@ -160,7 +199,7 @@
                 <div class="card-header">
                     <h4 class="my-0 font-weight-normal">Basic</h4>
                 </div>
-                <div class="card-body shadow-lg">
+                <div class="card-body">
                     <h1 class="card-title pricing-card-title">£19 <small class="text-muted">/ mo</small></h1>
                     <ul class="list-unstyled mt-3 mb-4 text-left">
                         <li><i class="fa fa-angle-right" aria-hidden="true"></i>Online Table Reservations</li>
@@ -172,7 +211,7 @@
                     </ul>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="<?=$this->url('restable.site.page.request_demo');?>" type="button" class="btn btn-lg btn-block btn-success">Get started</a>
+                    <a href="<?=$this->url('restable.site.page.request_demo');?>" class="btn btn-lg btn-block btn-success">Get started</a>
                 </div>
             </div>
             <div class="card mb-4 px-0 col-md-3 col-offset-1 box-shadow">
@@ -193,7 +232,7 @@
                     </ul>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="<?=$this->url('restable.site.page.request_demo');?>" type="button" class="btn btn-lg btn-block btn-success">Get started</a>
+                    <a href="<?=$this->url('restable.site.page.request_demo');?>" class="btn btn-lg btn-block btn-success">Get started</a>
                 </div>
             </div>
             <div class="card mb-4 px-0 col-3 col-offset-1 box-shadow">
@@ -214,7 +253,7 @@
                     </ul>
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="<?=$this->url('restable.site.page.request_demo');?>" type="button" class="btn btn-lg btn-block btn-secondary disabled">Coming Soon</a>
+                    <a href="<?=$this->url('restable.site.page.request_demo');?>" class="btn btn-lg btn-block btn-secondary disabled">Coming Soon</a>
                 </div>
             </div>
         </div>
@@ -229,7 +268,7 @@
                     <p style="color:#fefefe" class="lead font-weight-normal text-muted">Get started with a no obligation free trial.</p>
                 </div>
                 <div class="col-6 p-lg-5 mx-auto my-0 text-center">
-                    <a href="<?=$this->url('restable.site.page.request_demo');?>" style="background: #F6B44A" class="btn btn-lg btn-warning">Get Started</a>
+                    <a href="<?=$this->url('restable.site.page.request_demo');?>"  class="btn btn-lg btn-warning">Get Started</a>
                 </div>
             </div>
 

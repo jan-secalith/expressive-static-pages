@@ -43,12 +43,14 @@
         "robmorgan/phinx": "^0.9.2",
         "zendframework/zend-component-installer": "^2.1.1",
         "zendframework/zend-config-aggregator": "^1.0",
+        "zendframework/zend-db": "^2.9",
         "zendframework/zend-diactoros": "^1.7.1",
         "zendframework/zend-expressive": "^3.0.1",
         "zendframework/zend-expressive-fastroute": "^3.0",
         "zendframework/zend-expressive-helpers": "^5.0",
         "zendframework/zend-expressive-zendviewrenderer": "^2.0",
         "zendframework/zend-form": "^2.11",
+        "zendframework/zend-http": "^2.8",
         "zendframework/zend-i18n": "^2.8",
         "zendframework/zend-inputfilter": "^2.8",
         "zendframework/zend-math": "^3.1",
@@ -67,7 +69,9 @@
         "psr-4": {
             "App\\": "src/App/src/",
             "RestableSite\\": "src/RestableSite/src/",
-            "Common\\": "src/Common/src/"
+            "Common\\": "src/Common/src/",
+            "Product\\": "src/Product/src/",
+            "Stock\\": "src/Stock/src/"
         }
     },
     "autoload-dev": {

@@ -1,70 +1,45 @@
 
 
-# PHP Checkout Application #
-
-Author: Jan F Kowalski
+# Static Pages Application [Dev] #
+## based on Zend expressive Skeleton Application ##
 Date:   April 2018
 
 List of Content:
 * [Installation](#anchor-installation)
 * [General Notes](#anchor-g_notes)
-* [Frontend](#anchor-frontend)
 * [Database](#anchor-database)
-* [Currencylayer API](#anchor-currencylayer)
+* [Frontend](#anchor-frontend)
 * [Forms] TODO
 * [Testing](#anchor-testing)
 * [Development Mode](#anchor-development_mode)
 * [VMbox](#anchor-vmbox)
 * [Todo](#anchor-todo)
 
-Developed on ubuntu/xenial (bento/ubuntu-16.04)
-https://docs.zendframework.com/zend-expressive/v2/features/error-handling/
+Simple application which purpose is to deliver simple application composed in zend-expressive. At its current version itdisplay static content.
+
+It also has Form submission functionality and saves data to local sqlite database. There are migrations written in phinx inside `./build/data/db/` .
+The Form submission page is not cached due to security, otherwise it would use inalid CSRF token. This subject is covered in [Symofony Docs](https://symfony.com/doc/current/http_cache/form_csrf_caching.html).
+After some consideration I think it would be best to use ajax for form loading (response without layout) and submission. Such solution also would enhance enduser experience.
+
+@todo: memcache in VM
 
 ### <a id="anchor-g_notes" />General notes ###
 
 The application is based on zend-expressive-skeleton and `Zend-Expressive v2` and follows zend-framework module structure.
 The approach taken should make it fairly easy to tranform the Project to work with `Zend-Expressive v3` 
 
-Application is written in PHP 7.2, Mysql 5.7 This README is written for use with VM attached.
-There should be no problem with running the application on the previous versions. The Development been done
- in `bento/Ubuintu` environment.
+Application is written in PHP 7.2, Mysql 5.7 This README is written for use with VM attached. The Development been done in `bento/Ubuntu` environment.
 
-Author is Jan Franciszek Kowalski
-
-The cart and its products are stored in database. I dont trust sessions enough to store such critical data.
-
-For the specification of the assesment task the service jsonrates is integrated into `CurrencyExchange`  module.
-
-After the *Purchase* id done the *Currency* and *sessionId* are reset. So the cart appears to be empty.
-The *Cart* data is saved to DB. IN future version the Cart should be converted to the Order and also saved to DB.
-
-Detailed information about the stack maybe found in `./Vagrantfile`
-
-The configuration-driven pipeline approcah does not work for me. That may be something wrong with ZExpressive.
-@todo investigate.
-
-It is possible to use currency exchange rates with Cart Action. The property '$useCurrencyExchange' in `Cart\Action\CartListAction` does is set
-
-To add new option to the cart
-* declare it in `./application/src/Cart/ConfigProvider` index `module/cart/service/options` 
-* depends on your hydrating method, set properties and methods`\Cart\Model\CartOptionsModel`. (required)
-
-The the limitation per item in the cart may be changed by updating `product_qty` index in `\Cart\Form\ItemAddForm` and `\Cart\Form\ItemUpdateForm`
-Database schema attached has the `tinyint(6)` set.
+Detailed information about the development stack maybe found in `./Vagrantfile`
 
 ### <a id="anchor-installation" />Installation ###
-
-Pre-set database credentials and apikeys in `./build/config/credentials.yml` and run  `php populate.db-credentials.php`
-and `php populate.currency_exchange.api-credentials.php` respectively. Those scripts run also afted `composer install` command (more in composer.json).
 
 To download the libraries with [composer](https://getcomposer.org/download/) run `composer install` from `./build`. the packages will be deployed to the `./application/vendor` directory.
 
 The frontend assets may be compiled by running command `gulp` from `./build`
 
 To install manually:
-* create db, fill the pre-config (`./build.config/credentials.yml`) with db credentials, run `php ./build/bin/populate.db-credentials.php`
-* jsonrates account, fill the pre-config (`./build.config/credentials.yml`) with api key, run `php ./build/bin/populate.currency_exchange.api-credentials.php`
-* run `composer install` from `./build`
+* ??run `composer install` from `./build`
 * run `yarn` from `./build`
 * run `composer install` from `./application`
 * open your web instance in the browser [VM address](htttp://localhost:8088)
@@ -104,8 +79,6 @@ If using the installation script then set your ApiKey in `./build/config/credent
 ApiKey may be changed in `./application/`
 
 #### <a id="anchor-development_mode" />Development Mode #####
-
-
 To enable development mode you will ned to run `composer run-script development-enable` inside the `./application/` directory.
 
 #### Testing ####
@@ -133,7 +106,6 @@ To access the site, after `vagrant up` open `http://127.0.0.1:8088` in your brow
 * when creating new cart, check if id has not been used already
 * export APP_ENV=development, actually not used
 * POSTMAN and NEWMAN tests
-* Phinx migrations
 * Custom error middleware
 * event logging
 * jsonrates request with etag (to save bandwidth)

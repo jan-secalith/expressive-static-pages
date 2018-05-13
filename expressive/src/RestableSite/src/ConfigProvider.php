@@ -65,6 +65,13 @@ class ConfigProvider
                     'application_name' => 'restablesite',
                 ]
             ],
+            'table_service' => [
+                'RestableSite\StaticPages\RequestDemo\TableService' => [
+                    'gateway' => [
+                        'name' => 'RestableSite\StaticPages\RequestDemo\TableGateway',
+                    ],
+                ],
+            ],
             'gateway' => [
                 'RestableSite\StaticPages\RequestDemo\TableGateway' => [
                     'name' => 'RestableSite\StaticPages\RequestDemo\TableGateway',
@@ -73,7 +80,7 @@ class ConfigProvider
                         'object' => \RestableSite\StaticPages\Model\RequestDemoFormTable::class,
                     ],
                     'adapter' => [
-                        'name' => 'Application\Db\LocalAdapter',
+                        'name' => 'Application\Db\LocalSQLiteAdapter',
                     ],
                     'model' => [
                         "object" => StaticPages\Model\RequestDemoModel::class,
@@ -92,7 +99,7 @@ class ConfigProvider
                         'static_pages' => [
                             'view_template_model' => [
                                 'layout' => 'restablesite-layout::restable-site',
-                                'template' => 'staticpages::page-features',
+                                'template' => 'staticpages::page-homepage-2018',
                             ],
                         ],
                     ],

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace RestableSite\StaticPages\Model;
 
+use RestableSite\StaticPages\Model\RequestDemoModel;
 use Zend\Db\TableGateway\TableGateway;
 
 class RequestDemoFormTable
@@ -22,19 +23,41 @@ class RequestDemoFormTable
         $this->tableGateway = $tableGateway;
     }
 
-    /**
-     * @param \Cart\Model\CartItemModel $item
-     */
-    public function saveItem($item)
+    public function fetchByIpAndDateCount($ip=null,$date=null)
     {
-        $updated = new \DateTime('now');
+        $resultSet = $this->tableGateway->select(['ip = ?'=>$ip,'created >= ?'=>$date]);
+        $resultSet->buffer();
+
+        return $resultSet->count();
+    }
+
+    public function fetchAll()
+    {
+        $resultSet = $this->tableGateway->select();
+        $resultSet->buffer();
+
+        return $resultSet;
+    }
+
+    /**
+     * @param \RestableSite\StaticPages\Model\RequestDemoModel $item
+     */
+    public function saveItem(RequestDemoModel $item)
+    {
+        $dateTime = new \DateTime('now');
 
         $data = [
-            'cart_id' => $item->getCartId(),
-            'product_id' => $item->getProductId(),
-            'product_qty' => $item->getProductQty(),
-            'price_unit' => $item->getPriceUnit(),
-            'updated' => $updated->format('Y-m-d\TH:i:s.u'),
+            'id' => $item->getId(),
+            'application_id' => $item->getApplicationId(),
+            'name_first' => $item->getNameFirst(),
+            'name_last' => $item->getNameLast(),
+            'contact_phone' => $item->getContactPhone(),
+            'contact_email' => $item->getContactEmail(),
+            'venue_name' => $item->getVenueName(),
+            'work_title' => $item->getWorkTitle(),
+            'country' => $item->getCountry(),
+            'ip' => $item->getIp(),
+            'created' => $dateTime->format('Y-m-d\TH:i:s.u'),
         ];
         $this->tableGateway->insert($data);
     }

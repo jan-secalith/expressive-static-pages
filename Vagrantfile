@@ -25,7 +25,22 @@ apt-get install -y php7.2
 apt-get install -y php7.2-bcmath php7.2-bz2 php7.2-cli php7.2-curl php7.2-intl php7.2-json php7.2-mbstring
 apt-get install -y php7.2-xml php7.2-xsl php7.2-zip libapache2-mod-php7.2 php-xdebug
 apt-get install -y php7.2-sqlite3
+apt-get install -y php-mysql
+##
 
+echo "\n[xdebug]" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.default_enable: 1" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_autostart: 1\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_connect_back: 1\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_enable=1\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_handler: dbgp\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_port: '9000'\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_host: '127.0.0.1'\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.idekey: 'PHPSTORM'\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_mode: 'req'\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.var_display_max_depth: '-1'\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.var_display_max_children: '-1'\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.var_display_max_data: '-1'\n" >> /etc/php/7.2/mods-available/xdebug.ini
 
 ###############
 #   Apache2   #
@@ -57,7 +72,7 @@ a2enmod rewrite
 service apache2 restart
 
 rm -Rf /var/www/html
-
+##
 
 ################
 #   Composer   #
@@ -73,6 +88,27 @@ fi
 # Install the Composer dependencies
 cd /var/www/expressive && composer install
 composer development-enable
+##
+
+
+#############
+#   MYSQL   #
+#############
+
+# Install MySQL
+#echo "Install MySQL"
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password root'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password root'
+apt-get update
+apt-get install -y mysql-server
+
+mysql -u root -proot -e "CREATE DATABASE restable;"
+mysql -u root -proot restable < /var/www/build/data/db/schema.sql
+
+# Install Adminer.php
+cd /var/www/build/bin
+sh adminer.sh
+##
 
 
 ##############
@@ -82,7 +118,7 @@ composer development-enable
 touch /var/www/expressive/data/db/db.sqlite
 cd /var/www
 php vendor/bin/phinx migrate
-
+##
 
 ################
 #   FRONTEND   #
@@ -97,15 +133,13 @@ sudo rm nodesource_setup.sh
 curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt-get update && sudo apt-get install -y yarn
-
+## Gulp has to be installed with npm
 sudo npm install --global gulp-cli -D
-
+##
 
 #############
 #   Other   #
 #############
-
-
 
 # Reset home directory of vagrant user
 if ! grep -q "cd /var/www" /home/vagrant/.profile; then
@@ -114,7 +148,9 @@ fi
 
 cd ~
 
-echo "** Visit http://localhost:8089 in your browser for to view the application **"
+##
+
+echo "** Visit http://localhost:8089 or http://expressive-static-pages.local.vm in your browser for to view the application **"
 SCRIPT
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
@@ -123,6 +159,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.box_version = "201803.24.0"
 
     config.vm.network "forwarded_port", guest: 80, host: 8089
+    config.vm.network :public_network, ip: "192.168.0.201"
     config.vm.synced_folder '.', '/var/www', id:"application-root",owner:"vagrant",group:"www-data",mount_options:["dmode=775,fmode=664"]
     config.vm.provision 'shell', inline: @script
     config.vm.hostname = 'expressive-static-pages.local.vm'

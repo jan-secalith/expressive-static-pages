@@ -96,6 +96,7 @@ class ConfigProvider
             ],
             'abstract_factories' => [
                 Service\GatewayAbstractFactory::class,
+                Service\TableServiceAbstractFactory::class,
             ],
         ];
     }

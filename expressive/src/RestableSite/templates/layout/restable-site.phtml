@@ -69,6 +69,12 @@ $this->inlineScript()
                 border-top:2px solid #3B5986;
                 border-bottom: 1px solid #cccccc;
                 background-color:#efefef;
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#efefef+0,ffffff+52,ffffff+72,efefef+100 */
+                background: rgb(239,239,239); /* Old browsers */
+                background: -moz-linear-gradient(top, rgba(239,239,239,1) 0%, rgba(255,255,255,1) 52%, rgba(255,255,255,1) 72%, rgba(239,239,239,1) 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(top, rgba(239,239,239,1) 0%,rgba(255,255,255,1) 52%,rgba(255,255,255,1) 72%,rgba(239,239,239,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to bottom, rgba(239,239,239,1) 0%,rgba(255,255,255,1) 52%,rgba(255,255,255,1) 72%,rgba(239,239,239,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#efefef',GradientType=0 ); /* IE6-9 */
             }
             header .navbar .navbar-brand span {
                 font-size:1.5rem
@@ -83,6 +89,12 @@ $this->inlineScript()
                 background: #fff;
                 border-left: 1px solid #dfdfdf;
                 border-right: 1px solid #dfdfdf;
+            }
+            .btn.btn-success {
+                background-color:#3F6826;
+            }
+            .btn.btn-warning {
+                background: #eab92d;
             }
         </style>
     </head>
@@ -165,7 +177,7 @@ $this->inlineScript()
                     <ul class="list-unstyled text-small">
                         <li><a class="text-muted" href="#">Online Booking</a></li>
                         <li><a class="text-muted" href="#">Point of Sale</a></li>
-                        <li><a class="text-muted" href="#">Stock Monitoring</a></li>
+                        <li><a class="text-muted" href="<?=$this->url('stock.product.list')?>"">Stock Monitoring</a></li>
                         <li><a class="text-muted" href="#">Business Website</a></li>
                     </ul>
                 </div>

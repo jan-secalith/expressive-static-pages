@@ -2,3 +2,4 @@
 .vagrant
 logs
 !logs/.keepme
+expressive/db.sqlite

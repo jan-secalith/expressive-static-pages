@@ -18,12 +18,13 @@ class RequestDemoPageHandlerFactory
         $template = $container->has(TemplateRendererInterface::class)
             ? $container->get(TemplateRendererInterface::class)
             : null;
-        $gatewayService = $container->has("RestableSite\StaticPages\RequestDemo\TableGateway");
-//var_duMP($gatewayService);
+        $tableService = $container->get("RestableSite\StaticPages\RequestDemo\TableService");
+
         return new RequestDemoPageHandler(
             $router,
             $template,
-            get_class($container)
+            get_class($container),
+            $tableService
         );
     }
 }

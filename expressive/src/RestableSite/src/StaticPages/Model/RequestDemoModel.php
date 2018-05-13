@@ -105,4 +105,204 @@ class RequestDemoModel implements CommonModelInterface
         return $this->toArray();
     }
 
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     * @return RequestDemoModel
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApplicationId()
+    {
+        return $this->application_id;
+    }
+
+    /**
+     * @param mixed $application_id
+     * @return RequestDemoModel
+     */
+    public function setApplicationId($application_id)
+    {
+        $this->application_id = $application_id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameFirst()
+    {
+        return $this->name_first;
+    }
+
+    /**
+     * @param mixed $name_first
+     * @return RequestDemoModel
+     */
+    public function setNameFirst($name_first)
+    {
+        $this->name_first = $name_first;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNameLast()
+    {
+        return $this->name_last;
+    }
+
+    /**
+     * @param mixed $name_last
+     * @return RequestDemoModel
+     */
+    public function setNameLast($name_last)
+    {
+        $this->name_last = $name_last;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContactPhone()
+    {
+        return $this->contact_phone;
+    }
+
+    /**
+     * @param mixed $contact_phone
+     * @return RequestDemoModel
+     */
+    public function setContactPhone($contact_phone)
+    {
+        $this->contact_phone = $contact_phone;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getContactEmail()
+    {
+        return $this->contact_email;
+    }
+
+    /**
+     * @param mixed $contact_email
+     * @return RequestDemoModel
+     */
+    public function setContactEmail($contact_email)
+    {
+        $this->contact_email = $contact_email;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVenueName()
+    {
+        return $this->venue_name;
+    }
+
+    /**
+     * @param mixed $venue_name
+     * @return RequestDemoModel
+     */
+    public function setVenueName($venue_name)
+    {
+        $this->venue_name = $venue_name;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWorkTitle()
+    {
+        return $this->work_title;
+    }
+
+    /**
+     * @param mixed $work_title
+     * @return RequestDemoModel
+     */
+    public function setWorkTitle($work_title)
+    {
+        $this->work_title = $work_title;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     * @return RequestDemoModel
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIp()
+    {
+        return $this->ip;
+    }
+
+    /**
+     * @param mixed $ip
+     * @return RequestDemoModel
+     */
+    public function setIp($ip)
+    {
+        $this->ip = $ip;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * @param mixed $created
+     * @return RequestDemoModel
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+        return $this;
+    }
+
+
+
 }

@@ -38,7 +38,7 @@ class GatewayAbstractFactory implements AbstractFactoryInterface
         if ( ! class_exists($requestedName)) {
 
             $config = $serviceLocator->get('config');
-            $gatewayConfig = $config['app']['module']['gateway'][$name];
+            $gatewayConfig = $config['app']['gateway'][$name];
 
             $tableName = $gatewayConfig['table']['name'];
             $dbAdapterName = $gatewayConfig['adapter']['name'];

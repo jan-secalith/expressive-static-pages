@@ -30,6 +30,10 @@
         box-shadow: inset 0px 0px 20px 10px rgba(0,0,0,0.08);
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,212b97+92,212b97+97,212b97+100 */
         background:#139974;
+        background-color: #139974;
+        background-color: #139974;
+        background-image: url("data:image/svg+xml,%3Csvg width='12' height='24' viewBox='0 0 12 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300946b' fill-opacity='0.4'%3E%3Cpath d='M2 0h2v12H2V0zm1 20c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM9 8c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-1 4h2v12H8V12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        /*background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%2300946b' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");*/
         /*background: -moz-radial-gradient(center, ellipse cover, #1e5799 0%, #212b97 92%, #212b97 97%, #212b97 100%); !* FF3.6-15 *!*/
         /*background: -webkit-radial-gradient(center, ellipse cover, #1e5799 0%,#212b97 92%,#212b97 97%,#212b97 100%); !* Chrome10-25,Safari5.1-6 *!*/
         /*background: radial-gradient(ellipse at center, #1e5799 0%,#212b97 92%,#212b97 97%,#212b97 100%); !* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *!*/
@@ -127,7 +131,7 @@
         background: radial-gradient(ellipse at center,#fff 0,#f0f0ec 100%);
     }
 </style>
-    <div id="landing-header-bg-1" class="position-relative overflow-hidden p-3 p-md-5 m-0 mb-0 pb-10 text-left mt-5">
+    <div id="landing-header-bg-1" class="position-relative overflow-hidden p-3 p-md-5 m-0 my-5 pb-10 text-left">
         <div class="container">
             <div class="row justify-content-around h-100 mx-auto">
                 <div class="col-12 col-md-6 p-lg-5 mx-0 my-0">
@@ -136,7 +140,7 @@
                     <p style="color:#fefefe" class="lead font-weight-normal">After the approval proccess we will send you the link to the demo app.</p>
                     <p style="color:#fefefe" class="lead font-weight-normal"><strong>In short:</strong> We will send you the email with login credentials. The access will be granted for 72 hours from the first login. The link will be valid for 7 days.</p>
                 </div>
-                <div class="col-12 col-md-6 col-lg-4 offset-md-2 mt-sm-2 mt-md-0 p-2 my-0  pt-sm-4 bg-light rounded form-container-wrapper">
+                <div class="col-12 col-md-6 col-lg-4 offset-md-2 mt-sm-2 mt-md-0 p-2 my-0 pt-sm-4 bg-light rounded form-container-wrapper">
                     <h3 class="display-5 form-title text-center">Demo Request Form</h3>
                     <?=$this->getFormAttached($forms,null,'form_request_demo',true,'restablesite-staticpages-form::page-request-demo-form');?>
                 </div>

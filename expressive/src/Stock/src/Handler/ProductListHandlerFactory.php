@@ -19,7 +19,6 @@ class ProductListHandlerFactory
         $template = $container->has(TemplateRendererInterface::class)
             ? $container->get(TemplateRendererInterface::class)
             : null;
-
         $productService = $container->get(ProductService::class);
         $urlHelper = $container->get(UrlHelper::class);
 

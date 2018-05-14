@@ -10,14 +10,7 @@
             </div>
         <?php endif;?>
     </td>
-    <td><?php
-        if($this->cartHelper()->allowCartCurrency() === true){
-            $currentProductPriceUnit = ($product->getPrice()*$this->cartHelper()->getCurrencyRate());
-        } else {
-            $currentProductPriceUnit = ($product->getPrice());
-        }
-        echo $this->currencyFormat($currentProductPriceUnit, "GBP", "en_GB");
-        ?>
+    <td><?=$this->currencyFormat($product->getPrice(), "GBP", "en_GB"); ?>
         <i>/ <?=$product->getUnit()?></i>
     </td>
 </tr>

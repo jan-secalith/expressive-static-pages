@@ -54,21 +54,21 @@ class ProductListHandler implements RequestHandlerInterface
     {
         $data = null;
 
-        $data['layout'] = 'layout::ecommerce';
+//        $data['layout'] = 'layout::ecommerce';
+        $data['layout'] = 'layout::default';
 
         $productList = $this->productService->getItems();
 
-        $prgData = $request->getAttribute('prg');
+//        $prgData = $request->getAttribute('prg');
 
         if(strtoupper($request->getMethod())==="POST") {
             $postData = $request->getParsedBody();
-        } elseif (false !== $prgData || ! empty($prgData)) {
+        } elseif (1==2 /*false !== $prgData || ! empty($prgData)*/) {
 //            var_dump($prgData);
-            $postData = $prgData;
+//            $postData = $prgData;
         } else {
             $postData = [];
         }
-
         $data['list'] = $productList;
 
         $data['forms']['stock_barcode_form'] = $this->getStockBarcodeForm();

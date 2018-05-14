@@ -40,36 +40,37 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 ## STOCK: ##
 
     # INDEX
-    $app->get('/stock/', [
+    $app->get('/stock[/]', [
 //        \Zend\Expressive\Session\SessionMiddleware::class,
 //        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
         Stock\Handler\ProductListHandler::class
     ], 'stock.product.list');
-    $app->post('/stock/', [
-        \Zend\Expressive\Session\SessionMiddleware::class,
-        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
+    $app->post('/stock[/]', [
+//        \Zend\Expressive\Session\SessionMiddleware::class,
+//        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
         Stock\Handler\SearchBarcodeHandler::class
     ], 'stock.product.list.post');
 
     # SCAN IN
     $app->get('/stock/scan/in', [
-        \Zend\Expressive\Session\SessionMiddleware::class,
-        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
+//        \Zend\Expressive\Session\SessionMiddleware::class,
+//        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
         Stock\Handler\ScanBarcodeInHandler::class
     ], 'stock.scan.in');
     $app->post('/stock/scan/in', [
-        \Zend\Expressive\Session\SessionMiddleware::class,
-        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
+//        \Zend\Expressive\Session\SessionMiddleware::class,
+//        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
         Stock\Handler\ScanBarcodeInHandler::class
     ], 'stock.scan.in.post');
 
     #SCAN OUT
     $app->get('/stock/scan/out', [
-        \Zend\Expressive\Session\SessionMiddleware::class,
-        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
+//        \Zend\Expressive\Session\SessionMiddleware::class,
+//        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
         Stock\Handler\ProductListHandler::class
     ], 'stock.scan.out');
 
+## PRODUCTS
 
 
 ## THE RESTABLE WEBSITE: ##

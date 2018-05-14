@@ -1,13 +1,8 @@
 <?php
-namespace Product\Service;
+namespace Stock\Service;
 
-use Cart\Model\CartItemModel;
-use Cart\Model\CartItemTable;
-use Cart\Model\CartTable;
-use Common\Helper\RouteHelper;
-use CurrencyExchange\Service\CurrencyExchangeService;
-use Product\Model\ProductTable;
-use Zend\Expressive\Helper\UrlHelper;
+use Stock\Model\StockTable;
+use Stock\Model\StockBarcodeTable;
 
 /**
  * Class CartService
@@ -16,17 +11,16 @@ use Zend\Expressive\Helper\UrlHelper;
  *
  * @package Cart\Service
  */
-class ProductService
+class StockService
 {
 
-    /**
-     * @var ProductTable
-     */
-    protected $productTable;
+    protected $stockTable;
+    protected $stockBarcodeTable;
 
-    public function __construct(ProductTable $productTable = null)
+    public function __construct(StockTable $stockTable = null, StockBarcodeTable $stockBarcodeTable = null)
     {
-        $this->productTable = $productTable;
+        $this->stockTable = $stockTable;
+        $this->stockBarcodeTable = $stockBarcodeTable;
     }
 
     /**
@@ -45,9 +39,15 @@ class ProductService
         return null;
     }
 
-
+    /**
+     * Returns cartProduct by cartId and productId
+     *
+     * @param $id
+     * @return \Product\Model\ProductModel
+     */
     public function getItem($productId)
     {
         return $this->productTable->getItem($productId);
     }
+
 }

@@ -25,6 +25,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
+            'app'    => $this->getApplicationConfig(),
         ];
     }
 
@@ -38,6 +39,7 @@ class ConfigProvider
                 Handler\ScanBarcodeInHandler::class => Handler\ScanBarcodeInHandlerFactory::class,
                 Handler\ProductListHandler::class => Handler\ProductListHandlerFactory::class,
                 Handler\SearchBarcodeHandler::class => Handler\SearchBarcodeHandlerFactory::class,
+                Service\StockService::class => Service\StockServiceFactory::class,
             ],
         ];
     }
@@ -51,6 +53,58 @@ class ConfigProvider
             'paths' => [
                 'stock'    => [__DIR__ . '/../templates/stock'],
                 'stock-form'    => [__DIR__ . '/../templates/stock-form'],
+            ],
+        ];
+    }
+
+    public function getApplicationConfig()
+    {
+        return [
+            'application' => [
+                [
+                    'application_id' => '2',
+                    'application_name' => 'restablestock',
+                ]
+            ],
+            'table_service' => [
+                'Stock\TableService' => [
+                    'gateway' => [
+                        'name' => 'Stock\TableGateway',
+                    ],
+                ],
+            ],
+            'gateway' => [
+                'Stock\TableGateway' => [
+                    'name' => 'Stock\TableGateway',
+                    'table' => [
+                        'name' => 'form_request_demo',
+                        'object' => Model\StockBarcodeTable::class,
+                    ],
+                    'adapter' => [
+                        'name' => 'Application\Db\LocalAdapter',
+                    ],
+                    'model' => [
+                        "object" => Model\StockBarcodeModel::class,
+                    ],
+                    'hydrator' => [
+                        "object" => ObjectProperty::class,
+                    ],
+                ],
+            ],
+            'route' => [
+                'stock.product.list' => [
+                    'cache_response' => [
+                        'enabled' => false,
+                    ],
+                    'module' => [
+                        'stock' => [
+                            'view_template_model' => [
+                                'layout' => 'restablesite-layout::restable-site',
+                                'template' => 'staticpages::page-homepage-2018',
+                            ],
+                        ],
+                    ],
+                ],
             ],
         ];
     }

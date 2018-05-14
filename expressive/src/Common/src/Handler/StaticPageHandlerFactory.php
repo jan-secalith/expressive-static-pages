@@ -33,7 +33,7 @@ class StaticPageHandlerFactory
             ? $container->get(TemplateRendererInterface::class)
             : null;
         $urlHelper = $container->get(UrlHelper::class);
-
+        $dbCacheService = $container->get('memcached');
         $currentRouteName = $container->get(\Common\Helper\CurrentRouteNameHelper::class)->getMatchedRouteName();
 
         $config = $container->has('config') ? $container->get('config') : [];
@@ -53,7 +53,8 @@ class StaticPageHandlerFactory
                 $template,
                 get_class($container),
                 $urlHelper,
-                $viewTemplateModel
+                $viewTemplateModel,
+                $dbCacheService
             );
         } else {
             throw new Exception(sprintf("The Applications` configuration is not set for route %s module %s.",$currentRouteName,$this->module_name));

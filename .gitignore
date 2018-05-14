@@ -3,3 +3,5 @@
 logs
 !logs/.keepme
 expressive/db.sqlite
+logs/access.log
+logs/error-restable.log

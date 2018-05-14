@@ -26,21 +26,22 @@ apt-get install -y php7.2-bcmath php7.2-bz2 php7.2-cli php7.2-curl php7.2-intl p
 apt-get install -y php7.2-xml php7.2-xsl php7.2-zip libapache2-mod-php7.2 php-xdebug
 apt-get install -y php7.2-sqlite3
 apt-get install -y php-mysql
+apt-get -y install php-memcache
 ##
 
 echo "\n[xdebug]" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.default_enable: 1" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.remote_autostart: 1\n" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.remote_connect_back: 1\n" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.remote_enable=1\n" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.remote_handler: dbgp\n" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.remote_port: '9000'\n" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.remote_host: '127.0.0.1'\n" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.idekey: 'PHPSTORM'\n" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.remote_mode: 'req'\n" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.var_display_max_depth: '-1'\n" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.var_display_max_children: '-1'\n" >> /etc/php/7.2/mods-available/xdebug.ini
-echo "xdebug.var_display_max_data: '-1'\n" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.default_enable=1" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_autostart=1" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_connect_back=1" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_enable=1" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_handler=dbgp" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_port='9000'" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_host='127.0.0.1'" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.idekey='PHPSTORM'" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.remote_mode='req'" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.var_display_max_depth='-1'" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.var_display_max_children='-1'" >> /etc/php/7.2/mods-available/xdebug.ini
+echo "xdebug.var_display_max_data='-1'" >> /etc/php/7.2/mods-available/xdebug.ini
 
 ###############
 #   Apache2   #
@@ -140,6 +141,8 @@ sudo npm install --global gulp-cli -D
 #############
 #   Other   #
 #############
+
+apt-get -y install memcached
 
 # Reset home directory of vagrant user
 if ! grep -q "cd /var/www" /home/vagrant/.profile; then

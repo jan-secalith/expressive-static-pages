@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Stock\Handler;
 
+use Stock\Service\StockService;
 use Common\Helper\RouteHelper;
 use Cart\Form\ItemAddForm;
 use Stock\Form\StockBarcodeForm;
@@ -38,6 +39,7 @@ class ProductListHandler implements RequestHandlerInterface
         Template\TemplateRendererInterface $template = null,
         string $containerName,
         ProductService $productService = null,
+        StockService $stockService = null,
         UrlHelper $urlHelper = null
     ) {
         $this->router        = $router;
@@ -53,6 +55,7 @@ class ProductListHandler implements RequestHandlerInterface
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $data = null;
+
 
 //        $data['layout'] = 'layout::ecommerce';
         $data['layout'] = 'layout::default';

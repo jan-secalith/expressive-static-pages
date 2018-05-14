@@ -13,6 +13,7 @@ use Zend\Expressive\Router;
 use Zend\Expressive\Template;
 use Common\Model\StaticPageViewModel;
 use Zend\Expressive\Flash\FlashMessageMiddleware;
+use Zend\Cache\Storage\Adapter\Memcached;
 
 class StaticPageHandler implements RequestHandlerInterface
 {
@@ -26,8 +27,6 @@ class StaticPageHandler implements RequestHandlerInterface
 
     private $viewTemplateModel;
 
-
-
     public function __construct(
         Router\RouterInterface $router,
         Template\TemplateRendererInterface $template = null,
@@ -35,6 +34,7 @@ class StaticPageHandler implements RequestHandlerInterface
         UrlHelper $urlHelper = null,
         StaticPageViewModel $viewTemplateModel = null
     ) {
+
         $this->router        = $router;
         $this->template      = $template;
         $this->containerName = $containerName;

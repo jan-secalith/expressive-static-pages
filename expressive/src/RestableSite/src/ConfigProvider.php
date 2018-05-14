@@ -23,8 +23,8 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
-            'app'    => $this->getApplicationConfig(),
+            'templates' => $this->getTemplates(),
+            'app' => $this->getApplicationConfig(),
         ];
     }
 

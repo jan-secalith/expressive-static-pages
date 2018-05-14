@@ -10,7 +10,7 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Select;
 
-class ProductCodeTable
+class StockTable
 {
     /**
      * @var TableGateway

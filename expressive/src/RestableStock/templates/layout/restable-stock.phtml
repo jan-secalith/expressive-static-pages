@@ -1,0 +1,223 @@
+<?php
+$this->headLink()
+    ->prependStylesheet('https://use.fontawesome.com/releases/v5.0.6/css/all.css')
+    ->prependStylesheet('/assets/styles/styles.min.css');
+$this->inlineScript()
+    ->prependFile('/assets/scripts/scripts.min.js');
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <link rel="shortcut icon" href="https://framework.zend.com/ico/favicon.ico" />
+        <?=$this->headTitle('zend-expressive')->setSeparator(' - ')->setAutoEscape(false)?>
+        <?=$this->headMeta()?>
+        <?=$this->headLink()?>
+        <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,600|Lato:400,700|Titillium+Web:400,700" rel="stylesheet">
+        <style>
+            body { padding-top: 56px; }
+            .app { min-height: 100vh; }
+            .app-footer { padding-bottom: 1em; }
+            .zf-green, h2 a { color: #68b604; }
+
+            button.btn,
+            h1,
+            h2,
+            h3{
+                font-family: 'Titillium Web', sans-serif;
+            }
+
+            p {
+                font-family: 'Lato', sans-serif;
+            }
+
+            html {
+                position: relative;
+                min-height: 100%;
+            }
+            body {
+                /* Margin bottom by footer height */
+                margin-bottom: 300px;
+            }
+            .footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                /* Set the fixed height of the footer here */
+                height: 300px;
+                line-height: 1.7rem;
+                background-color: #f5f5f5;
+            }
+            .form-container.has-errors ul {
+                margin:0px;
+                list-style:none;
+                padding:0px;
+                color:#990000
+            }
+            #trigger-chat-open {
+                position:fixed;
+                bottom:20px;
+                right:20px;
+                font-size:64px;
+                background: #1e5799;
+                color:#eeeeee;
+            }
+            header .navbar {
+                border-top:2px solid #3B5986;
+                border-bottom: 1px solid #cccccc;
+                background-color:#efefef;
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#efefef+0,ffffff+52,ffffff+72,efefef+100 */
+                background: rgb(239,239,239); /* Old browsers */
+                background: -moz-linear-gradient(top, rgba(239,239,239,1) 0%, rgba(255,255,255,1) 52%, rgba(255,255,255,1) 72%, rgba(239,239,239,1) 100%); /* FF3.6-15 */
+                background: -webkit-linear-gradient(top, rgba(239,239,239,1) 0%,rgba(255,255,255,1) 52%,rgba(255,255,255,1) 72%,rgba(239,239,239,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to bottom, rgba(239,239,239,1) 0%,rgba(255,255,255,1) 52%,rgba(255,255,255,1) 72%,rgba(239,239,239,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefef', endColorstr='#efefef',GradientType=0 ); /* IE6-9 */
+            }
+            header .navbar .navbar-brand span {
+                font-size:1.5rem
+            }
+            header .navbar .nav-item a {
+                font-size: 1.1rem;
+
+                border-left: 1px solid transparent;
+                border-right: 1px solid transparent;
+            }
+            header .navbar .nav-item.active a {
+                background: #fff;
+                border-left: 1px solid #dfdfdf;
+                border-right: 1px solid #dfdfdf;
+            }
+            .btn.btn-success {
+                background-color:#3F6826;
+            }
+            .btn.btn-warning {
+                background: #eab92d;
+            }
+        </style>
+    </head>
+
+<body>
+
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-sm _navbar-dark navbar-light fixed-top shadow py-0" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggler float-right" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="#navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand p-0 d-block mr-5" href="<?=$this->url('home')?>">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#454545" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                         class="logo-svg mt-1 mb-0 p-0 mr-2 float-left d-block">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                        <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                        <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                        <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                        <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                        <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                    </svg>
+                    <span>ResTable</span>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item mx-0<?=($this->currentRoute('stock.product.list'))?' active':null;?>">
+                        <a href="<?=$this->url('stock.product.list')?>" class="nav-link py-3 px-4">
+                            Stock
+                        </a>
+                    </li>
+                    <li class="nav-item mx-0<?=($this->currentRoute('stock.scan.in'))?' active':null;?>">
+                        <a href="<?=$this->url('stock.scan.in')?>" class="nav-link py-3 px-4">
+                            Scan In
+                        </a>
+                    </li>
+                    <li class="nav-item mx-0<?=($this->currentRoute('stock.scan.out'))?' active':null;?>">
+                        <a href="<?=$this->url('stock.scan.out')?>" class="nav-link py-3 px-4">
+                            Scan Out
+                        </a>
+                    </li>
+                </ul>
+                <?php if( ! $this->currentRoute('restable.site.page.request_demo') && ! $this->currentRoute('restable.site.page.request_demo.post')):?>
+                <a href="<?=$this->url('restable.site.page.request_demo');?>" target="_self" class="btn btn-success">
+                    <span>Request <span class="d-lg-inline d-sm-none">Demonstration</span> Access</span>
+                </a>
+                <?php else: ?>
+                    <a href="<?=$this->url('restable.site.page.request_demo');?>" target="_self" class="btn btn-secondary disabled">
+                        <span>Request <span class="d-lg-inline d-sm-none">Demonstration</span> Access</span>
+                    </a>
+                <?php endif;?>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Begin page content -->
+<main role="main" class="app-content">
+    <?=$this->content?>
+</main>
+
+    <footer class="app-footer footer pt-md-5 bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md mt-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#eeeeee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-2 mr-2 float-left">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="14.31" y1="8" x2="20.05" y2="17.94"></line>
+                        <line x1="9.69" y1="8" x2="21.17" y2="8"></line>
+                        <line x1="7.38" y1="12" x2="13.12" y2="2.06"></line>
+                        <line x1="9.69" y1="16" x2="3.95" y2="6.06"></line>
+                        <line x1="14.31" y1="16" x2="2.83" y2="16"></line>
+                        <line x1="16.62" y1="12" x2="10.88" y2="21.94"></line>
+                    </svg>
+                    <span class="float-left text-light">ResTable</span>
+                    <hr class="mt-5" />
+                    <small class="d-block mb-3 text-muted">&copy; 2018 Secalith Limited</small>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>Features</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="#">Online Booking</a></li>
+                        <li><a class="text-muted" href="#">Point of Sale</a></li>
+                        <li><a class="text-muted" href="<?=$this->url('stock.product.list')?>"">Stock Monitoring</a></li>
+                        <li><a class="text-muted" href="#">Business Website</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="#">Manager Guides</a></li>
+                        <li><a class="text-muted" href="#">F.A.Q.</a></li>
+                        <li><a class="text-muted" href="#">Login to ResTable</a></li>
+                        <li><a class="text-muted" href="#">API Documentation</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-6 col-md">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="<?=$this->url('home')?>">Homepage</a></li>
+                        <li><a class="text-muted" href="<?=$this->url('restable.site.page.features')?>">Features</a></li>
+                        <li><a class="text-muted" href="<?=$this->url('restable.site.page.pricing')?>">Pricing</a></li>
+                        <li><a class="text-muted" href="<?=$this->url('restable.site.page.request_demo')?>">Demo Request</a></li>
+                        <li><a class="text-muted" href="#">Login</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md">
+                    <h5>About</h5>
+                    <ul class="list-unstyled text-small">
+                        <li><a class="text-muted" href="#">Applications</a></li>
+                        <li><a class="text-muted" href="<?=$this->url('restable.site.page.privacy_policy')?>">Privacy Policy</a></li>
+                        <li><a class="text-muted" href="#">Terms</a></li>
+                        <li><a class="text-muted" href="#">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <?=$this->inlineScript()?>
+</body>
+</html>

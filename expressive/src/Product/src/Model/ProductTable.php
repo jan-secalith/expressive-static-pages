@@ -24,6 +24,11 @@ class ProductTable
         $this->tableGateway = $tableGateway;
     }
 
+    public function getTableGateway()
+    {
+        return $this->tableGateway;
+    }
+
     /**
      * @return \Zend\Db\ResultSet\ResultSet
      */

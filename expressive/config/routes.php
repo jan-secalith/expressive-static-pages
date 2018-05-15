@@ -40,7 +40,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
 ## STOCK: ##
 
     # INDEX
-    $app->get('/stock[/]', [
+    $app->get('/stock[/{page:\d+}]', [
 //        \Zend\Expressive\Session\SessionMiddleware::class,
 //        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
         Stock\Handler\ProductListHandler::class
@@ -52,12 +52,12 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     ], 'stock.product.list.post');
 
     # SCAN IN
-    $app->get('/stock/scan/in', [
+    $app->get('/stock/scan/in[/]', [
 //        \Zend\Expressive\Session\SessionMiddleware::class,
 //        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
         Stock\Handler\ScanBarcodeInHandler::class
     ], 'stock.scan.in');
-    $app->post('/stock/scan/in', [
+    $app->post('/stock/scan/in[/]', [
 //        \Zend\Expressive\Session\SessionMiddleware::class,
 //        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
         Stock\Handler\ScanBarcodeInHandler::class

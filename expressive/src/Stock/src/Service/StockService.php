@@ -23,6 +23,24 @@ class StockService
         $this->stockBarcodeTable = $stockBarcodeTable;
     }
 
+    public function getStockTable()
+    {
+        return $this->stockTable;
+    }
+
+    public function search($term)
+    {
+        return $this->stockBarcodeTable->getItem($term);
+    }
+
+    public function stockIncrease($stock_barcode,$stock_qty)
+    {
+
+    }
+
+    public function getAllFull(){
+        return $this->stockTable->fetchAllFull();
+    }
     /**
      *
      *
@@ -30,7 +48,7 @@ class StockService
      */
     public function getItems()
     {
-        $cartProducts = $this->productTable->fetchAll();
+        $cartProducts = $this->stockTable->fetchAll();
 
         if (!empty($cartProducts)) {
             return $cartProducts;

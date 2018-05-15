@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Common\Service;
 
+use Zend\Hydrator\AbstractHydrator;
 use Zend\Expressive\Router;
 use Zend\Expressive\Template;
 use Zend\Expressive\Router\RouterInterface;
@@ -42,13 +43,23 @@ class GatewayAbstractFactory implements AbstractFactoryInterface
 
             $tableName = $gatewayConfig['table']['name'];
             $dbAdapterName = $gatewayConfig['adapter']['name'];
-            $modelName = $gatewayConfig['model']['object'];
+            $objectPrototype = $gatewayConfig['model']['object'];
+
             $dbHydratorName = $gatewayConfig['hydrator']['object'];
 
+            if(fnmatch('*Mapper', $dbHydratorName)) {
+                $map = $gatewayConfig['hydrator']['map'];
+                $hydrator = new $dbHydratorName($map);
+            } else {
+                $hydrator = new $dbHydratorName();
+            }
+
             $dbAdapter = $serviceLocator->get($dbAdapterName);
+//var_dump($dbAdapter);
+
             $resultSet = new \Zend\Db\ResultSet\HydratingResultSet(
-                new $dbHydratorName(),
-                new $modelName()
+                $hydrator,
+                new $objectPrototype()
             );
 
             return new TableGateway(

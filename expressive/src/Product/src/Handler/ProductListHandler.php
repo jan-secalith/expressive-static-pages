@@ -75,11 +75,6 @@ class ProductListHandler implements RequestHandlerInterface
             $postData = [];
         }
 
-        if( ! empty($postData)) {
-//            var_dump($postData);
-        }
-
-
         if( $this->cartService!==null&&$this->cartService->allowCartUse() === true ) {
             if (! empty($productList)) {
                 /* @var \Product\Model\ProductModel $product */

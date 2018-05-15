@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace Stock\Handler;
 
-use Stock\Service\StockService;
-use Common\Helper\RouteHelper;
-use Cart\Form\ItemAddForm;
-use Stock\Form\StockBarcodeForm;
-use Cart\Service\CartService;
 use Product\Service\ProductService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Stock\Form\StockBarcodeForm;
+use Stock\Service\StockService;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Router;
 use Zend\Expressive\Template;
-use Zend\Expressive\Flash\FlashMessageMiddleware;
+use Zend\Paginator\Paginator;
+use Zend\Paginator\ScrollingStyle\Sliding;
 
 class ProductListHandler implements RequestHandlerInterface
 {
@@ -29,10 +27,11 @@ class ProductListHandler implements RequestHandlerInterface
 
     private $productService;
 
+    private $stockService;
+
     private $urlHelper;
 
-    protected $useCurrencyExchange;
-    protected $useCurrencyExchangeForm;
+    private $paginator;
 
     public function __construct(
         Router\RouterInterface $router,
@@ -40,32 +39,41 @@ class ProductListHandler implements RequestHandlerInterface
         string $containerName,
         ProductService $productService = null,
         StockService $stockService = null,
-        UrlHelper $urlHelper = null
+        UrlHelper $urlHelper = null,
+        Paginator $paginator = null
     ) {
         $this->router        = $router;
         $this->template      = $template;
         $this->containerName = $containerName;
         $this->productService = $productService;
+        $this->stockService = $stockService;
+        $this->paginator = $paginator;
         $this->urlHelper = $urlHelper;
-
-        $this->useCurrencyExchange = true;
-        $this->useCurrencyExchangeForm = true;
     }
 
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $data = null;
 
+        $currentPage = $request->getAttribute('page');
+        $this->paginator->setCurrentPageNumber($currentPage);
+        $this->paginator->setDefaultItemCountPerPage(10);
 
-//        $data['layout'] = 'layout::ecommerce';
-        $data['layout'] = 'layout::default';
+//        $data['layout'] = 'layout::default';
+
+        $data['layout'] = 'restable-stock-layout::restable-stock';
 
         $productList = $this->productService->getItems();
 
-//        $prgData = $request->getAttribute('prg');
+        $data['stock_list'] = $this->stockService->getAllFull();
+
+        $data['paginator'] = $this->paginator;
 
         if(strtoupper($request->getMethod())==="POST") {
             $postData = $request->getParsedBody();
+
+            $data['stock_list'] = $this->stockService->search($postData->getStockBarcode());
+
         } elseif (1==2 /*false !== $prgData || ! empty($prgData)*/) {
 //            var_dump($prgData);
 //            $postData = $prgData;
@@ -79,7 +87,7 @@ class ProductListHandler implements RequestHandlerInterface
 //        $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
 //        $data['messages'] = $flashMessages->getFlashes();
 
-        return new HtmlResponse($this->template->render('stock::product-list', $data));
+        return new HtmlResponse($this->template->render('stock::stock-list', $data));
     }
 
     /**

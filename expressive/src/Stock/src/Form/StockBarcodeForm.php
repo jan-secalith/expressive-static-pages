@@ -3,6 +3,7 @@ namespace Stock\Form;
 
 use Zend\InputFilter\InputFilter as InputFilter;
 use Zend\Form\Form as Form;
+use Stock\Model\StockBarcodeModel;
 
 class StockBarcodeForm extends Form
 {
@@ -12,7 +13,7 @@ class StockBarcodeForm extends Form
 
         $this
             ->setAttribute('method', 'post')
-//            ->setObject(new CartItemModel())
+//            ->setObject(new StockBarcodeModel())
             ->setInputFilter(new InputFilter())
         ;
 

@@ -32,35 +32,20 @@
         <tbody>
         <?php
         /* @var \Product\Model\ProductModel $product */
-        foreach($list as $product):
-            echo $this->partial('stock::product-list-table-row', ['product'=>$product,'forms'=>(isset($forms))?$forms:null]);
+        foreach($paginator as $stockItem):
+            echo $this->partial('stock::stock-list-table-row', ['stockItem'=>$stockItem,'forms'=>(isset($forms))?$forms:null]);
         endforeach; ?>
         </tbody>
     </table>
 
 <?php endif; ?>
 
-<?php if( ! empty($stock_list)): ?>
-    <table class="table table-hover" style="table-layout: fixed;">
-        <thead class="thead-light">
-        <tr>
-            <th COLSPAN="2">Name</th>
-            <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>s
-        <?php
-        /* @var \Product\Model\ProductModel $product */
-        foreach($stock_list as $product):
-?>
-        <tr>
-            <td><?php var_dump($product);?></td>
-            <td></td>
-        </tr>
+<hr />
+
 <?php
-//            echo $this->partial('stock::product-list-table-row', ['product'=>$product,'forms'=>(isset($forms))?$forms:null]);
-        endforeach; ?>
-        </tbody>
-    </table>
+echo $this->paginationControl($paginator,
+    'Sliding',
+    'common::pagination-control', array('route' => 'stock.product.list'));
+?>
 
-<?php endif; ?>
+<hr />

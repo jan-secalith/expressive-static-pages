@@ -8,7 +8,7 @@ namespace Product\Model;
 
 class ProductModel
 {
-    public $product_id;
+    public $product_uid;
     public $name;
     public $price;
     public $unit;
@@ -33,7 +33,7 @@ class ProductModel
      */
     public function exchangeArray(array $data = [])
     {
-        $this->product_id = ( ! empty($data['product_id']) ) ? $data['product_id'] : null;
+        $this->product_uid = ( ! empty($data['product_uid']) ) ? $data['product_uid'] : null;
         $this->name = ( ! empty($data['name']) ) ? $data['name'] : null;
         $this->price = ( ! empty($data['price']) ) ? $data['price'] : null;
         $this->unit = ( ! empty($data['unit']) ) ? $data['unit'] : null;
@@ -48,8 +48,8 @@ class ProductModel
     public function toArray()
     {
         $data = [];
-        if ($this->product_id !== null) {
-            $data['product_id'] = $this->product_id;
+        if ($this->product_uid !== null) {
+            $data['product_uid'] = $this->product_uid;
         }
         if ($this->name !== null) {
             $data['name'] = $this->name;
@@ -78,18 +78,18 @@ class ProductModel
     /**
      * @return mixed
      */
-    public function getProductId()
+    public function getProductUid()
     {
-        return $this->product_id;
+        return $this->product_uid;
     }
 
     /**
-     * @param mixed $product_id
+     * @param mixed $product_uid
      * @return ProductModel
      */
-    public function setProductId($product_id)
+    public function setProductUid($product_uid)
     {
-        $this->product_id = $product_id;
+        $this->product_uid = $product_uid;
         return $this;
     }
 

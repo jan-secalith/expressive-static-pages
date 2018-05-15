@@ -43,9 +43,9 @@ class StockBarcodeTable
      * @return array|\ArrayObject|null
      * @throws \Exception
      */
-    public function getItem($id)
+    public function getItem($stock_barcode)
     {
-        $rowset = $this->tableGateway->select(['product_id' => $id]);
+        $rowset = $this->tableGateway->select(['barcode_value' => $stock_barcode]);
         $row = $rowset->current();
         if (!$row) {
             return null;

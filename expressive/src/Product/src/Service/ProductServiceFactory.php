@@ -17,8 +17,11 @@ class ProductServiceFactory
 
         $productTable = $container->get(ProductTableService::class);
 
+        $cacheService = $container->get('memcached');
+
         return new ProductService(
-            $productTable
+            $productTable,
+            $cacheService
         );
 
     }

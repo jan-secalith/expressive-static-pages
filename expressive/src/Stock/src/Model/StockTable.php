@@ -26,6 +26,24 @@ class StockTable
         $this->tableGateway = $tableGateway;
     }
 
+    public function getTableGateway()
+    {
+        return $this->tableGateway;
+    }
+
+    public function fetchAllFull()
+    {
+        $sqlSelect = $this->tableGateway->getSql()->select();
+
+        $sqlSelect->columns(array('stock_uid','product_qty'));
+        $sqlSelect->join('product', 'product.product_uid = stock.product_uid', array('name','price','description_short','unit'), 'left');
+
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSet = $statement->execute();
+
+        return $resultSet;
+    }
+
     /**
      * @return \Zend\Db\ResultSet\ResultSet
      */
@@ -45,7 +63,7 @@ class StockTable
      */
     public function getItem($id)
     {
-        $rowset = $this->tableGateway->select(['product_id' => $id]);
+        $rowset = $this->tableGateway->select(['barcode_value' => $id]);
         $row = $rowset->current();
         if (!$row) {
             return null;

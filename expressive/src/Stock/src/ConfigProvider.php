@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Stock;
 
+use Stock\Hydrator\ProductStockMapper;
 use Zend\Hydrator\ObjectProperty;
 
 /**
@@ -72,12 +73,44 @@ class ConfigProvider
                         'name' => 'Stock\TableGateway',
                     ],
                 ],
+                'Stock\Barcode\TableService' => [
+                    'gateway' => [
+                        'name' => 'Stock\Barcode\TableGateway',
+                    ],
+                ],
             ],
             'gateway' => [
                 'Stock\TableGateway' => [
                     'name' => 'Stock\TableGateway',
                     'table' => [
-                        'name' => 'form_request_demo',
+                        'name' => 'stock',
+                        'object' => Model\StockTable::class,
+                    ],
+                    'adapter' => [
+                        'name' => 'Application\Db\LocalAdapter',
+                    ],
+                    'model' => [
+                        "object" => Model\ProductStockModel::class,
+                    ],
+                    'hydrator' => [
+                        "object" => Hydrator\ProductStockMapper::class,
+                        'map' => [
+                            'stock_uid' => 'stock_uid',
+                            'product_uid' => 'product_uid',
+                            'product_qty' => 'product_qty',
+                            'name' => 'name',
+                            'price' => 'price',
+                            'unit' => 'unit',
+                            'barcodes' => 'barcodes',
+                            'updated' => 'updated',
+                            'created' => 'created',
+                        ],
+                    ],
+                ],
+                'Stock\Barcode\TableGateway' => [
+                    'name' => 'Stock\BarcodeTableGateway',
+                    'table' => [
+                        'name' => 'stock_barcode',
                         'object' => Model\StockBarcodeTable::class,
                     ],
                     'adapter' => [

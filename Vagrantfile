@@ -26,7 +26,7 @@ apt-get install -y php7.2-bcmath php7.2-bz2 php7.2-cli php7.2-curl php7.2-intl p
 apt-get install -y php7.2-xml php7.2-xsl php7.2-zip libapache2-mod-php7.2 php-xdebug
 apt-get install -y php7.2-sqlite3
 apt-get install -y php-mysql
-apt-get -y install php-memcache
+apt-get -y install php-memcached
 ##
 
 echo "\n[xdebug]" >> /etc/php/7.2/mods-available/xdebug.ini

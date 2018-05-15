@@ -38,6 +38,7 @@ class TableServiceAbstractFactory implements AbstractFactoryInterface
     )
     {
         if (fnmatch('*\TableService', $requestedName)) {
+
             // Check if the Gateway Service is registered
             $resquestedNamespace = substr($requestedName, 0, strlen($requestedName) - strlen('TableService'));
             if ($serviceLocator->has($resquestedNamespace . "TableGateway")) {

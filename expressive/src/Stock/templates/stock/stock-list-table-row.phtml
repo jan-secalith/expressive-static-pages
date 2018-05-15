@@ -1,0 +1,8 @@
+<tr>
+    <td COLSPAN="2">
+        <h4><?=$stockItem->getName()?></h4>
+    </td>
+    <td><?=$this->currencyFormat($stockItem->getPrice(), "GBP", "en_GB"); ?>
+        <i>/ <?=$stockItem->getUnit()?></i>
+    </td>
+</tr>

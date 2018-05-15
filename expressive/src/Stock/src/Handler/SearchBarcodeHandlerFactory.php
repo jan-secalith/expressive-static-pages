@@ -7,6 +7,7 @@ namespace Stock\Handler;
 use Product\Service\ProductService;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Stock\Service\StockService;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
@@ -20,6 +21,7 @@ class SearchBarcodeHandlerFactory
             ? $container->get(TemplateRendererInterface::class)
             : null;
         $productService = $container->get(ProductService::class);
+        $stockService = $container->get(StockService::class);
         $urlHelper = $container->get(UrlHelper::class);
 
         return new SearchBarcodeHandler(
@@ -27,6 +29,7 @@ class SearchBarcodeHandlerFactory
             $template,
             get_class($container),
             $productService,
+            $stockService,
             $urlHelper
         );
     }

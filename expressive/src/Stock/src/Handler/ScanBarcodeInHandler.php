@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Stock\Handler;
 
-use Common\Helper\RouteHelper;
-use Cart\Form\ItemAddForm;
-use Stock\Form\ScanBarcodeInForm;
-use Stock\Form\StockBarcodeForm;
-use Cart\Service\CartService;
 use Product\Service\ProductService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Stock\Form\ScanBarcodeInForm;
+use Stock\Form\StockBarcodeForm;
+use Stock\Service\StockService;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Router;
 use Zend\Expressive\Template;
-use Zend\Expressive\Flash\FlashMessageMiddleware;
 
 class ScanBarcodeInHandler implements RequestHandlerInterface
 {
@@ -29,33 +26,31 @@ class ScanBarcodeInHandler implements RequestHandlerInterface
 
     private $productService;
 
-    private $urlHelper;
+    private $stockService;
 
-    protected $useCurrencyExchange;
-    protected $useCurrencyExchangeForm;
+    private $urlHelper;
 
     public function __construct(
         Router\RouterInterface $router,
         Template\TemplateRendererInterface $template = null,
         string $containerName,
         ProductService $productService = null,
+        StockService $stockService = null,
         UrlHelper $urlHelper = null
     ) {
         $this->router        = $router;
         $this->template      = $template;
         $this->containerName = $containerName;
         $this->productService = $productService;
+        $this->stockService = $stockService;
         $this->urlHelper = $urlHelper;
-
-        $this->useCurrencyExchange = true;
-        $this->useCurrencyExchangeForm = true;
     }
 
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
         $data = null;
 
-        $data['layout'] = 'layout::ecommerce';
+        $data['layout'] = 'restable-stock-layout::restable-stock';
 
 
 
@@ -84,8 +79,10 @@ class ScanBarcodeInHandler implements RequestHandlerInterface
 
             if($data['forms']['stock_barcode_form']->isValid()) {
 
+                $postedData = $data['forms']['stock_barcode_form']->getData();
 
-                var_dump($data['forms']['stock_barcode_form']->getData());
+                $this->stockService->stockIncrease($postedData['stock_barcode'],$postedData['stock_qty']);
+
             } else {
                 var_dump($data['forms']['stock_barcode_form']->getMessages());
             }

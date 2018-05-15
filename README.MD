@@ -56,6 +56,13 @@ Modules used are Bootstrap3, jquery, bootstrap-multiselect. The frontend styles 
 
 To run the compilation from the VM run `cd /var/www/build && gulp`.
 
+### <a id="" />Internal Services ###
+
+@todo:
+service getters starts with 'get', tableService getters start with 'fetch'. $service->getItems() mirrors to $tableService->fetchItems() etc
+
+This project is an attempt to use namingHydrator for different contexts: view, application layer and database
+
 ### <a id="anchor-database" />Database ###
 Uses Mysql 5.7. The credentials may be set in `./application/config/autoload/zend-db.local.php`
 
@@ -82,7 +89,7 @@ ApiKey may be changed in `./application/`
 To enable development mode you will ned to run `composer run-script development-enable` inside the `./application/` directory.
 
 #### Testing ####
-run unit test from `./applciation` using `composer test` command.
+run unit test from `./application` using `composer test` command.
 
 ### <a id="anchor-vmbox" />VMbox ###
 TIP: If using as VM it is best to run on host-machine with SSD.

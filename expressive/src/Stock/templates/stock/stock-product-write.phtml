@@ -7,7 +7,18 @@
         <?php endif;?>
     </div>
 </div>
+
 <hr />
+
+<?php if(isset($messages)&&array_key_exists('error',$messages)):?>
+    <?=$this->flashMessage($messages['error'],'error',true,true);?>
+<?php endif;?>
+<?php if(isset($messages)&&array_key_exists('success',$messages)):?>
+    <?=$this->flashMessage($messages['success'],'success',true,true);?>
+<?php endif;?>
+<?php if(isset($messages)&&array_key_exists('info',$messages)):?>
+    <?=$this->flashMessage($messages['info'],'info',true,true);?>
+<?php endif;?>
 
 <?php
 $form->prepare();

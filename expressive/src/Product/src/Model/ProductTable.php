@@ -6,9 +6,10 @@
  */
 namespace Product\Model;
 
+use Common\Model\WriteTableInterface;
 use Zend\Db\TableGateway\TableGateway;
 
-class ProductTable
+class ProductTable implements WriteTableInterface
 {
     /**
      * @var TableGateway
@@ -71,7 +72,7 @@ class ProductTable
         return $row;
     }
 
-    public function getItemCount($product_uid = null)
+    public function getItemCount($product_uid = null) : int
     {
         if ($product_uid===null) {
             return 0;
@@ -81,11 +82,19 @@ class ProductTable
         } else {
             $rowset = $this->tableGateway->select(['product_uid' => $product_uid]);
         }
-        $row = $rowset->current();
-        if (!$row) {
-            return 0;
-        }
 
-        return $row;
+        return $rowset->count();
+    }
+
+    public function updateItem($uid,$data)
+    {
+        $rowsAffected = $this->tableGateway->update($data, ['product_uid' => $uid]);
+
+        return $rowsAffected;
+    }
+
+    public function saveItem($item)
+    {
+
     }
 }

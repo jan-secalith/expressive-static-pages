@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Stock\Handler;
 
+use Common\Handler\DataAwareInterface;
+use Common\Handler\DataAwareTrait;
 use Product\Service\ProductService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,10 +19,11 @@ use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Router;
 use Zend\Expressive\Template;
 
-class StockWriteHandler implements RequestHandlerInterface, StockServiceAwareInterface
+class StockWriteHandler implements RequestHandlerInterface, StockServiceAwareInterface, DataAwareInterface
 {
 
     use StockServiceAwareTrait;
+    use DataAwareTrait;
 
     private $containerName;
 
@@ -52,46 +55,52 @@ class StockWriteHandler implements RequestHandlerInterface, StockServiceAwareInt
 
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
-        $data = null;
-
-        $data['layout'] = 'restable-stock-layout::restable-stock';
+        $this->addData('restable-stock-layout::restable-stock','layout');
+        $messages = null;
 
         $this->currentProductUid = $request->getAttribute('product_uid');
 
         $requestedProductUid = $request->getAttribute('product_uid');
 
-        $data['product_data'] = $this->productService->getItem($requestedProductUid);
-        $data['stock_data'] = $this->getStockService()->getItem($requestedProductUid);
+        $this->addData('restable-stock-layout::restable-stock','layout');
+        $this->addData($this->productService->getItem($requestedProductUid),'product_data');
+        $this->addData($this->getStockService()->getItem($requestedProductUid),'stock_data');
+        $this->addData($this->getWriteForm(),'form');
 
         $data['form'] = $this->getWriteForm();
 
         if(strtoupper($request->getMethod())==="POST") {
             $postData = $request->getParsedBody();
 
-            $data['form']->setData($postData);
+            $this->getData('form')->setData($postData);
 
-            if ($data['form']->isValid()) {
+            if ($this->getData('form')->isValid()) {
 
-                $formData = $data['form']->getData();
+                $formData = $this->getData('form')->getData();
 
-//                $this->productService->addProduct($formData);
-//                $this->getStockService()->addStock($formData);
-                $this->getStockService()->addStockProduct($formData);
+                $rowsAffected = $this->getStockService()->addStockProduct($formData);
 
+                if($rowsAffected['rows_affected']['product']!==0||$rowsAffected['rows_affected']['stock']) {
+                    $messages['success'][] = 'Item has been updated.';
+                } else {
+                    $messages['info'][] = 'Data unchanged. Item has NOT been updated.';
+                }
             } else {
-                print_r($data['form']->getMessages());
+                $messages['error'][] = 'Form seems to be invalid. Item has NOT been updated.';
             }
 
         } else {
             $model = new \Stock\Model\StockWriteModel([
-                'fieldset_product'=>$data['product_data']->toArray(),
-                'fieldset_stock'=>$data['stock_data']->toArray(),
+                'fieldset_product'=>$this->getData('product_data')->toArray(),
+                'fieldset_stock'=>$this->getData('stock_data')->toArray(),
             ]);
 
-            $data['form']->setData($model->toArray());
+            $this->getData('form')->setData($model->toArray());
         }
 
-        return new HtmlResponse($this->template->render('stock::stock-product-write', $data));
+        $this->addData($messages,'messages');
+
+        return new HtmlResponse($this->template->render('stock::stock-product-write', $this->getData()));
     }
 
     /**

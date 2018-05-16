@@ -6,11 +6,12 @@
  */
 namespace Stock\Model;
 
+use Common\Model\WriteTableInterface;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Select;
 
-class StockTable
+class StockTable implements WriteTableInterface
 {
     /**
      * @var TableGateway
@@ -93,22 +94,18 @@ class StockTable
         return $row;
     }
 
-    public function getItemCount($id = null)
+    public function getItemCount($product_uid = null) : int
     {
-        if ($id===null) {
+        if ($product_uid===null) {
             return 0;
         }
-        if (is_array($id)) {
-            $rowset = $this->tableGateway->select($id);
+        if (is_array($product_uid)) {
+            $rowset = $this->tableGateway->select($product_uid);
         } else {
-            $rowset = $this->tableGateway->select(['product_uid' => $id]);
-        }
-        $row = $rowset->current();
-        if (!$row) {
-            return 0;
+            $rowset = $this->tableGateway->select(['product_uid' => $product_uid]);
         }
 
-        return $row;
+        return $rowset->count();
     }
 
     /**
@@ -146,6 +143,12 @@ class StockTable
         $this->tableGateway->delete($data);
     }
 
+    public function updateItem($uid,$data)
+    {
+        $rowsAffected = $this->tableGateway->update($data, ['product_uid' => $uid]);
+
+        return $rowsAffected;
+    }
 
     /**
      * @param \Cart\Model\CartModel $item

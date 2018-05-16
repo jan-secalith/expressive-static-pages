@@ -9,6 +9,9 @@ use Common\Model\CommonModelInterface;
 class StockWriteModel implements CommonModelInterface
 {
     public $application_id;
+    /**
+     * @var \Product\Model\ProductModel|null
+     */
     public $fieldset_product;
     public $fieldset_stock;
 
@@ -84,7 +87,7 @@ class StockWriteModel implements CommonModelInterface
     }
 
     /**
-     * @return mixed
+     * @return \Product\Model\ProductModel|null
      */
     public function getFieldsetProduct()
     {
@@ -102,7 +105,7 @@ class StockWriteModel implements CommonModelInterface
     }
 
     /**
-     * @return mixed
+     * @return \Stock\Model\StockModel|null
      */
     public function getFieldsetStock()
     {

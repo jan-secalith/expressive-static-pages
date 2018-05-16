@@ -35,7 +35,7 @@ class ProductModel
         $this->name = ( ! empty($data['name']) ) ? $data['name'] : null;
         $this->price = ( ! empty($data['price']) ) ? $data['price'] : null;
         $this->unit = ( ! empty($data['unit']) ) ? $data['unit'] : null;
-        $this->description_short = ( ! empty($data['description_short']) ) ? $data['description_short'] : null;
+        $this->description_short = ( ! empty($data['description_short']) && strlen($data['description_short'])>0 ) ? $data['description_short'] : null;
 
         return $this;
     }

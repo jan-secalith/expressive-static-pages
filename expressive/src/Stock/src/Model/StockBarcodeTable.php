@@ -77,7 +77,7 @@ class StockBarcodeTable
      * @param string $name
      * @throws \Exception
      */
-    public function fetchBy($value, $name = "product_id")
+    public function fetchBy($value, $name = "product_uid")
     {
         $rowset = $this->tableGateway->select([$name => $value]);
         $row = $rowset->current();

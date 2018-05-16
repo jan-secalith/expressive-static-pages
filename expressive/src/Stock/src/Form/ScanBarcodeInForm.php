@@ -57,6 +57,17 @@ class ScanBarcodeInForm extends Form
             ],
         ], ['priority'=>40]);
 
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Checkbox',
+            'name' => 'keep_qty',
+            'options' => array(
+                'label' => 'Keep the Quantity for the next request',
+                'use_hidden_element' => true,
+                'checked_value' => 'yes',
+                'unchecked_value' => 'no'
+            )
+        ));
+
         $this->add([
             'type' => 'Zend\Form\Element\Csrf',
             'name' => 'csrf',
@@ -104,6 +115,15 @@ class ScanBarcodeInForm extends Form
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],
+                ['name' => 'StripNewlines'],
+            ],
+        ]);
+
+        $inputFilter->add([
+            'name'     => 'keep_qty',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
                 ['name' => 'StripNewlines'],
             ],
         ]);

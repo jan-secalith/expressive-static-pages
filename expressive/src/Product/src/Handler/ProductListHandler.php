@@ -80,10 +80,10 @@ class ProductListHandler implements RequestHandlerInterface
                 /* @var \Product\Model\ProductModel $product */
                 foreach($productList as $product) {
                     // Attach Forms to the Product
-                    $data['forms']['id_' . $product->getProductId()] = [
-                        'product_id' => $product->getProductId(),
+                    $data['forms']['id_' . $product->getProductUid()] = [
+                        'product_uid' => $product->getProductUid(),
                         'form' => [
-                            'cart_product_add' => $this->getFormCartProductAdd($product),
+//                            'cart_product_add' => $this->getFormCartProductAdd($product),
                         ],
                     ];
                 }
@@ -99,30 +99,6 @@ class ProductListHandler implements RequestHandlerInterface
 //        $data['messages'] = $flashMessages->getFlashes();
 
         return new HtmlResponse($this->template->render('product::product-list', $data));
-    }
-
-    /**
-     * Use the `null` argument if want an empty form
-     *
-     * @param null $product
-     * @return ItemAddForm
-     */
-    private function getFormCartProductAdd($product=null)
-    {
-        $form = new ItemAddForm();
-
-        if($product !== null) {
-            $form->setAttribute('action', $this->urlHelper->generate('cart.item.add'));
-            $form->get('redirect_url')->setValue(
-                $this->urlHelper->generate()
-            );
-            $form->get('product_id')->setValue($product->getProductId());
-            $form->bind($product);
-        }
-
-        $form->setAttribute('method', 'POST');
-
-        return $form;
     }
 
     /**

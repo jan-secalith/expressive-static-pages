@@ -1,0 +1,66 @@
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h1 class="m-0 text-muted">Stock Details</h1>
+        <hr />
+        <h2 class="m-0"><?=$product_data->getName();?></h2>
+    </div>
+</div>
+
+<hr />
+
+<a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.list');?>">Stock List</a>
+<a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.write',['product_uid'=>$product_data->getProductUid()]);?>">Update</a>
+
+<table class="table mt-3">
+    <tbody>
+    <tr>
+        <th scope="row">Product Name</th>
+        <td>
+            <span><?=$product_data->getName();?></span>
+            <span class="float-right">Edit</span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Product UID</th>
+        <td><small><?=$product_data->getProductUid();?></small></td>
+    </tr>
+    <tr>
+        <th scope="row">Summary</th>
+        <td>
+            <span><?=($product_data->getDescriptionShort())?$product_data->getDescriptionShort():'-';?></span>
+            <span class="float-right">Edit</span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Stock Qty</th>
+        <td>
+            <span><?=$stock_data->getProductQty();?></span>
+            <span class="float-right">Edit</span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Unit</th>
+        <td>
+            <span><?=$stock_data->getUnit();?></span>
+            <span class="float-right">Edit</span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Price</th>
+        <td>
+            <span><?=$stock_data->getPrice();?></span>
+            <span class="float-right">Edit</span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Barcodes</th>
+        <td>-</td>
+    </tr>
+    </tbody>
+</table>
+
+<hr />
+
+<?php
+//var_dump($product_data);
+//var_dump($stock_data);

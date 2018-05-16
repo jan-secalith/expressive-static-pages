@@ -13,6 +13,7 @@ class StockServiceFactory
     {
 
         $stockTable = $container->get("Stock\TableService");
+        $productTable = $container->get("Product\TableService");
         $stockBarcodeTable = $container->get("Stock\Barcode\TableService");
 
 

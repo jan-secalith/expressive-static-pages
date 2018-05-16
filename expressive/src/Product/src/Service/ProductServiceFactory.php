@@ -15,7 +15,7 @@ class ProductServiceFactory
     public function __invoke(ContainerInterface $container, $requestedName = null)
     {
 
-        $productTable = $container->get(ProductTableService::class);
+        $productTable = $container->get("Product\TableService");
 
         $cacheService = $container->get('memcached');
 

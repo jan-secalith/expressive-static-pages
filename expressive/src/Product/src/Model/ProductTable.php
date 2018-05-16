@@ -47,7 +47,7 @@ class ProductTable
      */
     public function getItem($id)
     {
-        $rowset = $this->tableGateway->select(['product_id' => $id]);
+        $rowset = $this->tableGateway->select(['product_uid' => $id]);
         $row = $rowset->current();
         if (!$row) {
             throw new \Exception("Could not find row $id");
@@ -68,6 +68,24 @@ class ProductTable
         if (!$row) {
             throw new \Exception("Could not find row $value");
         }
+        return $row;
+    }
+
+    public function getItemCount($product_uid = null)
+    {
+        if ($product_uid===null) {
+            return 0;
+        }
+        if (is_array($product_uid)) {
+            $rowset = $this->tableGateway->select($product_uid);
+        } else {
+            $rowset = $this->tableGateway->select(['product_uid' => $product_uid]);
+        }
+        $row = $rowset->current();
+        if (!$row) {
+            return 0;
+        }
+
         return $row;
     }
 }

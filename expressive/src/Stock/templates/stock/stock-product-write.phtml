@@ -1,0 +1,105 @@
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h1 class="m-0 text-muted">Stock Write</h1>
+        <?php if(isset($product_data)&&!empty($product_data)):?>
+            <hr />
+            <h2 class="m-0"><?=$product_data->getName();?></h2>
+        <?php endif;?>
+    </div>
+</div>
+<hr />
+
+<?php
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+<a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.list');?>">Stock List</a>
+<?php if(isset($product_data)&&!empty($product_data)):?>
+    <a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.details',['product_uid'=>$product_data->getProductUid()]);?>">View Details</a>
+<?php endif;?>
+<span class="float-right"><?=$this->formSubmit($form->get('submit_top'));?></span>
+<table class="table mt-3">
+    <tbody>
+    <tr>
+        <th scope="row"><?=$this->formLabel($form->get('fieldset_product')->get('name'));?></th>
+        <td>
+            <span>
+                <?=$this->formText($form->get('fieldset_product')->get('name'));?>
+                <?=$this->formElementErrors($form->get('fieldset_product')->get('name'));?>
+            </span>
+            <span class="float-right">Edit</span>
+            <span class="float-right">Save</span>
+            <span class="float-right">Dismiss</span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Product UID</th>
+        <td><small></small></td>
+    </tr>
+    <tr>
+        <th scope="row"><?=$this->formLabel($form->get('fieldset_product')->get('description_short'));?></th>
+        <td>
+            <span>
+                <?=$this->formTextarea($form->get('fieldset_product')->get('description_short'));?>
+                <?=$this->formElementErrors($form->get('fieldset_product')->get('description_short'));?>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><?=$this->formLabel($form->get('fieldset_stock')->get('product_qty'));?></th>
+        <td>
+            <span>
+                <?=$this->formNumber($form->get('fieldset_stock')->get('product_qty'));?>
+                <?=$this->formElementErrors($form->get('fieldset_stock')->get('product_qty'));?>
+            </span>
+            <span class="float-right">Save</span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><?=$this->formLabel($form->get('fieldset_product')->get('unit'));?></th>
+        <td>
+            <span>
+                <?=$this->formText($form->get('fieldset_product')->get('unit'));?>
+                <?=$this->formElementErrors($form->get('fieldset_product')->get('unit'));?>
+            </span>
+            <span class="float-right">Save</span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><?=$this->formLabel($form->get('fieldset_product')->get('price'));?></th>
+        <td>
+            <span>
+                <?=$this->formText($form->get('fieldset_product')->get('price'));?>
+                <?=$this->formElementErrors($form->get('fieldset_product')->get('price'));?>
+            </span>
+            <span class="float-right">Save</span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Barcodes</th>
+        <td>-</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="-d-flex flex-row-reverse">
+    <?=$this->formSubmit($form->get('submit'));?>
+</div>
+
+<div class="hidden">
+    <?=$this->formElement($form->get('application_id'));?>
+    <?=$this->formElement($form->get('csrf'));?>
+    <?=$this->formElement($form->get('fieldset_product')->get('product_uid'));?>
+    <?=$this->formElement($form->get('fieldset_stock')->get('stock_uid'));?>
+    <?=$this->formElement($form->get('fieldset_stock')->get('product_uid'));?>
+</div>
+
+<?=$this->formElementErrors($form->get('application_id'));?>
+<?=$this->formElementErrors($form->get('csrf'));?>
+<?=$this->formElement($form->get('fieldset_product')->get('product_uid'));?>
+<?=$this->formElement($form->get('fieldset_stock')->get('product_uid'));?>
+<?=$this->formElement($form->get('fieldset_stock')->get('stock_uid'));?>
+<?php
+echo $this->form()->closeTag();
+?>
+<hr />

@@ -1,6 +1,6 @@
 <tr>
     <td COLSPAN="2">
-        <h4><?=$stockItem->getName()?></h4>
+        <a href="<?=$this->url('stock.product.details',['product_uid'=>$stockItem->getProductUid()]);?>"><?=$stockItem->getName();?></a>
     </td>
     <td><?=$this->currencyFormat($stockItem->getPrice(), "GBP", "en_GB"); ?>
         <i>/ <?=$stockItem->getUnit()?></i>

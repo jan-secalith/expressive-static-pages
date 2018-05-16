@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Stock;
 
 use Stock\Hydrator\ProductStockMapper;
+use Whoops\Handler\Handler;
 use Zend\Hydrator\ObjectProperty;
 
 /**
@@ -37,10 +38,12 @@ class ConfigProvider
     {
         return [
             'factories'  => [
-                Handler\ScanBarcodeInHandler::class => Handler\ScanBarcodeInHandlerFactory::class,
-                Handler\ProductListHandler::class => Handler\ProductListHandlerFactory::class,
-                Handler\SearchBarcodeHandler::class => Handler\SearchBarcodeHandlerFactory::class,
-                Service\StockService::class => Service\StockServiceFactory::class,
+                \Stock\Handler\ScanInHandler::class => \Stock\Handler\Factory\ScanInHandlerFactory::class,
+                \Stock\Handler\SearchBarcodeHandler::class => \Stock\Handler\Factory\SearchBarcodeHandlerFactory::class,
+                \Stock\Handler\StockDetailsHandler::class => \Stock\Handler\Factory\StockDetailsHandlerFactory::class,
+                \Stock\Handler\StockListHandler::class => \Stock\Handler\Factory\StockListHandlerFactory::class,
+                \Stock\Handler\StockWriteHandler::class => \Stock\Handler\Factory\StockWriteHandlerFactory::class,
+                \Stock\Service\StockService::class => \Stock\Service\StockServiceFactory::class,
             ],
         ];
     }
@@ -90,10 +93,10 @@ class ConfigProvider
                         'name' => 'Application\Db\LocalAdapter',
                     ],
                     'model' => [
-                        "object" => Model\ProductStockModel::class,
+                        "object" => Model\StockProductModel::class,
                     ],
                     'hydrator' => [
-                        "object" => Hydrator\ProductStockMapper::class,
+                        "object" => \Common\Hydrator\CommonMapper::class,
                         'map' => [
                             'stock_uid' => 'stock_uid',
                             'product_uid' => 'product_uid',
@@ -137,6 +140,42 @@ class ConfigProvider
                             ],
                         ],
                     ],
+                ],
+                'stock.product.update' => [
+                    'get' => [
+                        'method' => 'GET',
+                        'cache_response' => [
+                            'enabled' => false,
+                        ],
+                        'module' => [
+                            'stock' => [
+                                'view_template_model' => [
+                                    'layout' => 'restable-stock-layout::restable-stock',
+                                    'template' => 'stock::stock-product-write',
+                                ],
+                            ],
+                        ],
+                    ],
+                    'post' => [
+                        'method' => 'GET',
+                        'cache_response' => [
+                            'enabled' => false,
+                        ],
+                        'module' => [
+                            'stock' => [
+                                'redirect' => [
+                                    'success' => [
+                                        'route_name' => 'stock.product.details'
+                                    ],
+                                ],
+                                'view_template_model' => [
+                                    'layout' => 'restable-stock-layout::restable-stock',
+                                    'template' => 'stock::stock-product-write',
+                                ],
+                            ],
+                        ],
+                    ],
+
                 ],
             ],
         ];

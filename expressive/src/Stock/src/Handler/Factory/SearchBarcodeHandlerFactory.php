@@ -2,17 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Stock\Handler;
+namespace Stock\Handler\Factory;
 
 use Product\Service\ProductService;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Stock\Handler\SearchBarcodeHandler;
 use Stock\Service\StockService;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Router\RouterInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class ScanBarcodeInHandlerFactory
+class SearchBarcodeHandlerFactory
 {
     public function __invoke(ContainerInterface $container) : RequestHandlerInterface
     {
@@ -24,7 +25,7 @@ class ScanBarcodeInHandlerFactory
         $stockService = $container->get(StockService::class);
         $urlHelper = $container->get(UrlHelper::class);
 
-        return new ScanBarcodeInHandler(
+        return new SearchBarcodeHandler(
             $router,
             $template,
             get_class($container),

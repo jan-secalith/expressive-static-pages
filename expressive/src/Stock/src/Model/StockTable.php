@@ -63,12 +63,33 @@ class StockTable
      */
     public function getItem($id)
     {
-        $rowset = $this->tableGateway->select(['barcode_value' => $id]);
-        $row = $rowset->current();
+        $sqlSelect = $this->tableGateway->getSql()->select();
+        $sqlSelect->where(['stock.product_uid' => $id]);
+        $sqlSelect->columns(['stock_uid','product_uid','product_qty','created','updated']);
+        $sqlSelect->join(
+            'product',
+            'product.product_uid = stock.product_uid',
+            [
+                'name',
+                'price',
+                'description_short',
+                'unit'
+            ],
+            'left'
+        );
+        $sqlSelect->limit(1);
+
+        $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
+        $resultSet = $statement->execute();
+
+
+        $row = $resultSet->current();
         if (!$row) {
             return null;
         }
 
+        $row = new StockProductModel($row);
+        
         return $row;
     }
 
@@ -80,7 +101,7 @@ class StockTable
         if (is_array($id)) {
             $rowset = $this->tableGateway->select($id);
         } else {
-            $rowset = $this->tableGateway->select(['product_id' => $id]);
+            $rowset = $this->tableGateway->select(['product_uid' => $id]);
         }
         $row = $rowset->current();
         if (!$row) {

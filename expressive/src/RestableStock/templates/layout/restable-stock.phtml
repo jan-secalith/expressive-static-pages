@@ -96,6 +96,17 @@ $this->inlineScript()
             .btn.btn-warning {
                 background: #eab92d;
             }
+            .alert ul {
+                margin:0px;
+                padding:0px;
+                list-style:none;
+            }
+            .alert-position-fixed {
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                z-index: 100;
+            }
         </style>
     </head>
 
@@ -130,7 +141,7 @@ $this->inlineScript()
                             Stock
                         </a>
                     </li>
-                    <li class="nav-item mx-0<?=($this->currentRoute('stock.scan.in'))?' active':null;?>">
+                    <li class="nav-item mx-0<?=($this->currentRoute('stock.scan.in')||$this->currentRoute('stock.scan.in.post'))?' active':null;?>">
                         <a href="<?=$this->url('stock.scan.in')?>" class="nav-link py-3 px-4">
                             Scan In
                         </a>
@@ -141,22 +152,13 @@ $this->inlineScript()
                         </a>
                     </li>
                 </ul>
-                <?php if( ! $this->currentRoute('restable.site.page.request_demo') && ! $this->currentRoute('restable.site.page.request_demo.post')):?>
-                <a href="<?=$this->url('restable.site.page.request_demo');?>" target="_self" class="btn btn-success">
-                    <span>Request <span class="d-lg-inline d-sm-none">Demonstration</span> Access</span>
-                </a>
-                <?php else: ?>
-                    <a href="<?=$this->url('restable.site.page.request_demo');?>" target="_self" class="btn btn-secondary disabled">
-                        <span>Request <span class="d-lg-inline d-sm-none">Demonstration</span> Access</span>
-                    </a>
-                <?php endif;?>
             </div>
         </div>
     </nav>
 </header>
 
 <!-- Begin page content -->
-<main role="main" class="app-content">
+<main role="main" class="app-content container">
     <?=$this->content?>
 </main>
 

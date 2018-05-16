@@ -1,8 +1,12 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Stock\Service;
 
-use Stock\Model\StockTable;
 use Stock\Model\StockBarcodeTable;
+use Stock\Model\StockTable;
+use Stock\Model\StockWriteModel;
 
 /**
  * Class CartService
@@ -41,11 +45,7 @@ class StockService
     public function getAllFull(){
         return $this->stockTable->fetchAllFull();
     }
-    /**
-     *
-     *
-     * @return \Zend\Db\ResultSet\ResultSet
-     */
+
     public function getItems()
     {
         $cartProducts = $this->stockTable->fetchAll();
@@ -57,15 +57,26 @@ class StockService
         return null;
     }
 
-    /**
-     * Returns cartProduct by cartId and productId
-     *
-     * @param $id
-     * @return \Product\Model\ProductModel
-     */
     public function getItem($productId)
     {
-        return $this->productTable->getItem($productId);
+        return $this->stockTable->getItem($productId);
     }
 
+    public function getByBarcode($barcode)
+    {
+        return $this->stockBarcodeTable->getItem($barcode);
+    }
+
+    public function addStockProduct(StockWriteModel $stockProductItem = null)
+    {
+        $productIncomingData = $stockProductItem->getFieldsetProduct();
+        $stockIncomingData = $stockProductItem->getFieldsetStock();
+
+        // determine if product already exists
+//        if() {
+//
+//        }
+
+//        var_dump($stockProductItem);
+    }
 }

@@ -6,7 +6,7 @@ namespace Stock\Model;
 
 use Common\Model\CommonModelInterface;
 
-class ProductStockModel implements CommonModelInterface
+class StockProductModel implements CommonModelInterface
 {
     public $stock_uid;
     public $product_uid;
@@ -105,7 +105,7 @@ class ProductStockModel implements CommonModelInterface
 
     /**
      * @param mixed $stock_uid
-     * @return ProductStockModel
+     * @return StockProductModel
      */
     public function setStockUid($stock_uid)
     {
@@ -123,7 +123,7 @@ class ProductStockModel implements CommonModelInterface
 
     /**
      * @param mixed $product_uid
-     * @return ProductStockModel
+     * @return StockProductModel
      */
     public function setProductUid($product_uid)
     {
@@ -141,7 +141,7 @@ class ProductStockModel implements CommonModelInterface
 
     /**
      * @param mixed $product_qty
-     * @return ProductStockModel
+     * @return StockProductModel
      */
     public function setProductQty($product_qty)
     {
@@ -159,7 +159,7 @@ class ProductStockModel implements CommonModelInterface
 
     /**
      * @param mixed $name
-     * @return ProductStockModel
+     * @return StockProductModel
      */
     public function setName($name)
     {
@@ -177,7 +177,7 @@ class ProductStockModel implements CommonModelInterface
 
     /**
      * @param mixed $price
-     * @return ProductStockModel
+     * @return StockProductModel
      */
     public function setPrice($price)
     {
@@ -195,7 +195,7 @@ class ProductStockModel implements CommonModelInterface
 
     /**
      * @param mixed $unit
-     * @return ProductStockModel
+     * @return StockProductModel
      */
     public function setUnit($unit)
     {
@@ -213,7 +213,7 @@ class ProductStockModel implements CommonModelInterface
 
     /**
      * @param mixed $barcodes
-     * @return ProductStockModel
+     * @return StockProductModel
      */
     public function setBarcodes($barcodes)
     {
@@ -231,7 +231,7 @@ class ProductStockModel implements CommonModelInterface
 
     /**
      * @param mixed $updated
-     * @return ProductStockModel
+     * @return StockProductModel
      */
     public function setUpdated($updated)
     {
@@ -249,7 +249,7 @@ class ProductStockModel implements CommonModelInterface
 
     /**
      * @param mixed $created
-     * @return ProductStockModel
+     * @return StockProductModel
      */
     public function setCreated($created)
     {

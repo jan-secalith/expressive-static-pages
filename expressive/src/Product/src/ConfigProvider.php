@@ -46,9 +46,7 @@ class ConfigProvider
         return [
             'factories'  => [
                 ProductListHandler::class => ProductListHandlerFactory::class,
-                ProductGateway::class => ProductGatewayFactory::class,
                 ProductService::class => ProductServiceFactory::class,
-                ProductTableService::class => ProductTableServiceFactory::class,
             ],
         ];
     }
@@ -68,36 +66,33 @@ class ConfigProvider
     public function getAppConfig()
     {
         return [
-            'module' => [
-                'product' => [
-                    'database' => [
-                        'table' => 'product',
-                    ],
+            'table_service' => [
+                'Product\TableService' => [
                     'gateway' => [
-                        "adapter" => "Application\\Db\\LocalAdapter",
-//                        'service' => [
-//                            "name" => "Product\\Gateway",
-//                        ],
-                        'model' => [
-                            "object" => ProductModel::class,
-                        ],
-                        'hydrator' => [
-                            "object" => ObjectProperty::class,
-                        ],
+                        'name' => 'Product\TableGateway',
                     ],
-                    'form' => [
-                        [
-                            'name' => 'cart_product_add',
-                            'class' => '',
-                            'object' => [
-                                'object' => Model\ProductModel::class
-                            ],
-                            'hydrator' => [
-                                "object" => ObjectProperty::class,
-                            ],
-                            'input_filter' => [
-                                "object" => InputFilter::class,
-                            ],
+                ],
+            ],
+            'gateway' => [
+                'Product\TableGateway' => [
+                    'name' => 'Product\TableGateway',
+                    'table' => [
+                        'name' => 'product',
+                        'object' => Model\ProductTable::class,
+                    ],
+                    'adapter' => [
+                        'name' => 'Application\Db\LocalAdapter',
+                    ],
+                    'model' => [
+                        "object" => Model\ProductModel::class,
+                    ],
+                    'hydrator' => [
+                        "object" => \Common\Hydrator\CommonMapper::class,
+                        'map' => [
+                            'product_uid' => 'product_uid',
+                            'name' => 'name',
+                            'price' => 'price',
+                            'unit' => 'unit',
                         ],
                     ],
                 ],

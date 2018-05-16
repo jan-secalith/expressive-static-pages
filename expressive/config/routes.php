@@ -43,7 +43,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->get('/stock[/{page:\d+}]', [
 //        \Zend\Expressive\Session\SessionMiddleware::class,
 //        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
-        Stock\Handler\ProductListHandler::class
+        Stock\Handler\StockListHandler::class
     ], 'stock.product.list');
     $app->post('/stock[/]', [
 //        \Zend\Expressive\Session\SessionMiddleware::class,
@@ -51,23 +51,41 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         Stock\Handler\SearchBarcodeHandler::class
     ], 'stock.product.list.post');
 
+    # DETAILS:
+    $app->get('/stock/details/{product_uid}', [
+//        \Zend\Expressive\Session\SessionMiddleware::class,
+//        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
+        Stock\Handler\StockDetailsHandler::class
+    ], 'stock.product.details');
+    # UPDATE:
+    $app->get('/stock/update/{product_uid}', [
+//        \Zend\Expressive\Session\SessionMiddleware::class,
+//        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
+        Stock\Handler\StockWriteHandler::class
+    ], 'stock.product.write');
+    $app->post('/stock/update/{product_uid}', [
+//        \Zend\Expressive\Session\SessionMiddleware::class,
+//        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
+        Stock\Handler\StockWriteHandler::class
+    ], 'stock.product.write.post');
+
     # SCAN IN
     $app->get('/stock/scan/in[/]', [
 //        \Zend\Expressive\Session\SessionMiddleware::class,
 //        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
-        Stock\Handler\ScanBarcodeInHandler::class
+        Stock\Handler\ScanInHandler::class
     ], 'stock.scan.in');
     $app->post('/stock/scan/in[/]', [
 //        \Zend\Expressive\Session\SessionMiddleware::class,
 //        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
-        Stock\Handler\ScanBarcodeInHandler::class
+        Stock\Handler\ScanInHandler::class
     ], 'stock.scan.in.post');
 
     #SCAN OUT
     $app->get('/stock/scan/out', [
 //        \Zend\Expressive\Session\SessionMiddleware::class,
 //        \Zend\Expressive\Flash\FlashMessageMiddleware::class,
-        Stock\Handler\ProductListHandler::class
+        Stock\Handler\StockListHandler::class
     ], 'stock.scan.out');
 
 ## PRODUCTS

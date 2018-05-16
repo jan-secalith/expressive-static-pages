@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace Stock\Handler;
 
-use Common\Helper\RouteHelper;
 use Product\Service\ProductService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Stock\Form\StockBarcodeForm;
 use Stock\Service\StockService;
+use Stock\Service\StockServiceAwareInterface;
+use Stock\Service\StockServiceAwareTrait;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Router;
 use Zend\Expressive\Template;
 
-class SearchBarcodeHandler implements RequestHandlerInterface
+class StockDetailsHandler implements RequestHandlerInterface, StockServiceAwareInterface
 {
+
+    use StockServiceAwareTrait;
+
     private $containerName;
 
     private $router;
@@ -25,8 +29,6 @@ class SearchBarcodeHandler implements RequestHandlerInterface
     private $template;
 
     private $productService;
-
-    private $stockService;
 
     private $urlHelper;
 
@@ -42,7 +44,7 @@ class SearchBarcodeHandler implements RequestHandlerInterface
         $this->template      = $template;
         $this->containerName = $containerName;
         $this->productService = $productService;
-        $this->stockService = $stockService;
+        $this->setStockService($stockService);
         $this->urlHelper = $urlHelper;
     }
 
@@ -50,42 +52,15 @@ class SearchBarcodeHandler implements RequestHandlerInterface
     {
         $data = null;
 
-//        $data['layout'] = 'layout::ecommerce';
+        $data['layout'] = 'restable-stock-layout::restable-stock';
 
-        $productList = $this->productService->getItems();
+        $requestedProductUid = $request->getAttribute('product_uid');
 
-        $prgData = $request->getAttribute('prg');
+        $data['product_data'] = $this->productService->getItem($requestedProductUid);
 
-        if(strtoupper($request->getMethod())==="POST") {
-            $postData = $request->getParsedBody();
-        } elseif (false !== $prgData || ! empty($prgData)) {
-//            var_dump($prgData);
-            $postData = $prgData;
-        } else {
-            $postData = [];
-        }
+        $data['stock_data'] = $this->getStockService()->getItem($requestedProductUid);
 
-        $data['list'] = $productList;
-
-        $data['forms']['stock_barcode_form'] = $this->getStockBarcodeForm();
-
-        $data['forms']['stock_barcode_form']->setData($postData);
-
-
-        if($data['forms']['stock_barcode_form']->isValid()) {
-
-            $postedData = $data['forms']['stock_barcode_form']->getData();
-//var_dump($postedData);
-            $data['stock_list'] = $this->stockService->search($postedData['stock_barcode']);
-
-        } else {
-            var_dump($data['forms']['stock_barcode_form']->getMessages());
-        }
-
-//        $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
-//        $data['messages'] = $flashMessages->getFlashes();
-
-        return new HtmlResponse($this->template->render('stock::product-list', $data));
+        return new HtmlResponse($this->template->render('stock::stock-product-details', $data));
     }
 
     /**

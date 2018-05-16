@@ -1,15 +1,18 @@
 <?php
-
 $form->prepare();
-
 ?>
 
     <?=$this->form()->openTag($form);?>
 
-        <div class="form-group p-3">
+        <div class="form-group pb-1 pt-3 pl-3 pr-3 mb-0">
             <?=$this->formLabel($form->get('stock_qty'));?>
             <?=$this->formNumber($form->get('stock_qty'));?>
             <?=$this->formElementErrors($form->get('stock_qty'));?>
+        </div>
+        <div class="form-group px-3 py-0">
+            <?=$this->formCheckbox($form->get('keep_qty'));?>
+            <?=$this->formLabel($form->get('keep_qty'));?>
+            <?=$this->formElementErrors($form->get('keep_qty'));?>
         </div>
         <div class="form-group bg-light p-3">
             <?=$this->formLabel($form->get('stock_barcode'));?>

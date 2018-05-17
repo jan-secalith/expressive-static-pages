@@ -107,6 +107,9 @@ $this->inlineScript()
                 right: 20px;
                 z-index: 100;
             }
+            .form-element-hide-first-span > span:first-child {
+                display:none;
+            }
         </style>
     </head>
 
@@ -221,5 +224,12 @@ $this->inlineScript()
         </div>
     </footer>
     <?=$this->inlineScript()?>
+    <script>
+        jQuery(".form-element-barcode-wrapper input").keypress(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>

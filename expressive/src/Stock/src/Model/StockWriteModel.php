@@ -14,6 +14,7 @@ class StockWriteModel implements CommonModelInterface
      */
     public $fieldset_product;
     public $fieldset_stock;
+    public $fieldset_barcode;
 
     /**
      * CartModel constructor.
@@ -37,6 +38,7 @@ class StockWriteModel implements CommonModelInterface
         $this->application_id = (!empty($data['application_id'])) ? $data['application_id'] : null;
         $this->fieldset_product = (!empty($data['fieldset_product'])) ? $data['fieldset_product'] : null;
         $this->fieldset_stock = (!empty($data['fieldset_stock'])) ? $data['fieldset_stock'] : null;
+        $this->fieldset_barcode = (!empty($data['fieldset_barcode'])) ? $data['fieldset_barcode'] : null;
 
         return $this;
     }
@@ -55,6 +57,9 @@ class StockWriteModel implements CommonModelInterface
         }
         if ($this->fieldset_stock !== null) {
             $data['fieldset_stock'] = $this->fieldset_stock;
+        }
+        if ($this->fieldset_barcode !== null) {
+            $data['fieldset_barcode'] = $this->fieldset_barcode;
         }
 
         return $data;
@@ -121,4 +126,23 @@ class StockWriteModel implements CommonModelInterface
         $this->fieldset_stock = $fieldset_stock;
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getfieldsetBarcode()
+    {
+        return $this->fieldset_barcode;
+    }
+
+    /**
+     * @param mixed $fieldset_barcode
+     * @return StockWriteModel
+     */
+    public function setfieldsetBarcode($fieldset_barcode)
+    {
+        $this->fieldset_barcode = $fieldset_barcode;
+        return $this;
+    }
+
 }

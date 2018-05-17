@@ -129,21 +129,44 @@ class ConfigProvider
             ],
             'route' => [
                 'stock.product.list' => [
-                    'cache_response' => [
-                        'enabled' => false,
-                    ],
-                    'module' => [
-                        'stock' => [
-                            'view_template_model' => [
-                                'layout' => 'restablesite-layout::restable-site',
-                                'template' => 'staticpages::page-homepage-2018',
+                    'get' => [
+                        'method' => 'GET',
+                        'scenario' => 'list',
+                        'cache_response' => [
+                            'enabled' => false,
+                        ],
+                        'module' => [
+                            'stock' => [
+                                'view_template_model' => [
+                                    'layout' => 'restablesite-layout::restable-site',
+                                    'template' => 'staticpages::page-homepage-2018',
+                                ],
                             ],
                         ],
                     ],
                 ],
-                'stock.product.update' => [
+                'stock.product.details' => [
                     'get' => [
                         'method' => 'GET',
+                        'scenario' => 'details',
+                        'cache_response' => [
+                            'enabled' => false,
+                        ],
+                        'module' => [
+                            'stock' => [
+                                'view_template_model' => [
+                                    'layout' => 'restable-stock-layout::restable-stock',
+                                    'template' => 'stock::stock-product-write',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                'stock.product.write.update.post' => 'stock.product.write.update',
+                'stock.product.write.update' => [
+                    'get' => [
+                        'method' => 'GET',
+                        'scenario' => 'update',
                         'cache_response' => [
                             'enabled' => false,
                         ],

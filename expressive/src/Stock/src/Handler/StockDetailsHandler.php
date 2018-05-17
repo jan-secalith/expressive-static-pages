@@ -60,6 +60,8 @@ class StockDetailsHandler implements RequestHandlerInterface, StockServiceAwareI
 
         $data['stock_data'] = $this->getStockService()->getItem($requestedProductUid);
 
+        $data['barcode_data'] = $this->getStockService()->getBarcodeItemByProductUid($requestedProductUid)->getItems();
+
         return new HtmlResponse($this->template->render('stock::stock-product-details', $data));
     }
 

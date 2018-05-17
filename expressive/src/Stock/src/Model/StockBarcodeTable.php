@@ -38,15 +38,31 @@ class StockBarcodeTable
         return $resultSet;
     }
 
-    /**
-     * @param integer $id
-     * @return array|\ArrayObject|null
-     * @throws \Exception
-     */
     public function getItem($stock_barcode)
     {
-        $rowset = $this->tableGateway->select(['barcode_value' => $stock_barcode]);
+        if( ! is_array($stock_barcode)) {
+            $rowset = $this->tableGateway->select(['barcode_value' => $stock_barcode]);
+        } else {
+            $rowset = $this->tableGateway->select($stock_barcode);
+        }
+
         $row = $rowset->current();
+
+        if (!$row) {
+            return null;
+        }
+
+        return $row;
+    }
+
+
+
+    public function getItemByProductUid($product_uid)
+    {
+        $rowset = $this->tableGateway->select(['product_uid' => $product_uid]);
+
+        $row = $rowset->buffer();
+
         if (!$row) {
             return null;
         }
@@ -72,11 +88,6 @@ class StockBarcodeTable
         return $row;
     }
 
-    /**
-     * @param string $value
-     * @param string $name
-     * @throws \Exception
-     */
     public function fetchBy($value, $name = "product_uid")
     {
         $rowset = $this->tableGateway->select([$name => $value]);
@@ -87,17 +98,16 @@ class StockBarcodeTable
         return $row;
     }
 
-    /**
-     * @param \Cart\Model\CartModel $item
-     */
     public function saveItem($item)
     {
-        $updated = new \DateTime('now');
+        $dateTime = new \DateTime('now');
 
         $data = [
-            'product_id' => $item->getProductId(),
-            'code' => strtoupper($item->getCode()),
+            'product_uid' => $item->getProductUid(),
+            'barcode_value' => strtoupper($item->getBarcodeValue()),
+            'created' => $dateTime->format('Y-m-d\TH:i:s.u'),
         ];
+
         $this->tableGateway->insert($data);
     }
 
@@ -107,10 +117,6 @@ class StockBarcodeTable
         $this->tableGateway->delete($data);
     }
 
-
-    /**
-     * @param \Cart\Model\CartModel $item
-     */
     public function updateStatus($item)
     {
 

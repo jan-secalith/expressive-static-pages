@@ -71,4 +71,22 @@ class ProductFieldset extends Fieldset
             ],
         ));
     }
+
+    public function getInputFilterSpecification()
+    {
+        return array(
+            'name' => array(
+                'required' => true,
+            ),
+            'price' => array(
+                'required' => true,
+            ),
+            'unit' => array(
+                'required' => true,
+            ),
+            'description_short' => array(
+                'required' => false,
+            ),
+        );
+    }
 }

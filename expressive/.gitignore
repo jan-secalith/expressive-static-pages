@@ -1,6 +1,6 @@
 .idea
 composer.phar
-
+expressive/public/adminer.php
 clover.xml
 coveralls-upload.json
 phpunit.xml

@@ -8,8 +8,9 @@
 
 <hr />
 
+<a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.write.update',['product_uid'=>$product_data->getProductUid()]);?>">Update</a>
 <a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.list');?>">Stock List</a>
-<a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.write',['product_uid'=>$product_data->getProductUid()]);?>">Update</a>
+<a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.write.create');?>">Create</a>
 
 <table class="table mt-3">
     <tbody>
@@ -54,13 +55,20 @@
     </tr>
     <tr>
         <th scope="row">Barcodes</th>
-        <td>-</td>
+        <td><?php
+            if( ! empty($barcode_data)) {
+                $barcodes = [];
+                foreach($barcode_data as $barcodeItem) {
+                    $barcodes[] = $barcodeItem->getBarcodeValue();
+                }
+                echo implode(', ',$barcodes);
+            } else {
+                echo '<i>unspecified</i>';
+            }
+            ?>
     </tr>
     </tbody>
 </table>
 
 <hr />
 
-<?php
-//var_dump($product_data);
-//var_dump($stock_data);

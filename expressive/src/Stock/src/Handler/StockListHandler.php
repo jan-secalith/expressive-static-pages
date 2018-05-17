@@ -66,7 +66,7 @@ class StockListHandler implements RequestHandlerInterface, PaginatorAwareInterfa
 
         $this->getPaginator()
             ->setCurrentPageNumber($request->getAttribute('page'))
-            ->setDefaultItemCountPerPage(10)
+            ->setDefaultItemCountPerPage(5)
         ;
         $data['paginator'] = $this->getPaginator();
 

@@ -3,7 +3,10 @@
         <h1 class="m-0 text-muted">Stock Write</h1>
         <?php if(isset($product_data)&&!empty($product_data)):?>
             <hr />
-            <h2 class="m-0"><?=$product_data->getName();?></h2>
+            <h2 class="m-0">
+                <strong class="text-muted">UPDATE:</strong>
+                <span><?=$this->escapeHtml($product_data->getName());?></span>
+            </h2>
         <?php endif;?>
     </div>
 </div>
@@ -45,7 +48,7 @@ echo $this->form()->openTag($form);
     </tr>
     <tr>
         <th scope="row">Product UID</th>
-        <td><small></small></td>
+        <td><small><?=(isset($product_data)&&!empty($product_data))?$this->escapeHtml($product_data->getProductUid()):'-';?></small></td>
     </tr>
     <tr>
         <th scope="row"><?=$this->formLabel($form->get('fieldset_product')->get('description_short'));?></th>
@@ -79,7 +82,7 @@ echo $this->form()->openTag($form);
     <tr>
         <th scope="row"><?=$this->formLabel($form->get('fieldset_product')->get('price'));?></th>
         <td>
-            <span>
+            <span class="form-element-barcode-wrapper">
                 <?=$this->formText($form->get('fieldset_product')->get('price'));?>
                 <?=$this->formElementErrors($form->get('fieldset_product')->get('price'));?>
             </span>
@@ -88,7 +91,11 @@ echo $this->form()->openTag($form);
     </tr>
     <tr>
         <th scope="row">Barcodes</th>
-        <td>-</td>
+        <td>
+            <span class="form-element-barcode-wrapper">
+            <?=$this->formCollection($form->get('fieldset_barcode'));?>
+            </span>
+        </td>
     </tr>
     </tbody>
 </table>

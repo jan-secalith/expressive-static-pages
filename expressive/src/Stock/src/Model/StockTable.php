@@ -108,11 +108,6 @@ class StockTable implements WriteTableInterface
         return $rowset->count();
     }
 
-    /**
-     * @param string $value
-     * @param string $name
-     * @throws \Exception
-     */
     public function fetchBy($value, $name = "product_id")
     {
         $rowset = $this->tableGateway->select([$name => $value]);
@@ -123,17 +118,18 @@ class StockTable implements WriteTableInterface
         return $row;
     }
 
-    /**
-     * @param \Cart\Model\CartModel $item
-     */
     public function saveItem($item)
     {
-        $updated = new \DateTime('now');
+        $dateTime = new \DateTime('now');
 
         $data = [
-            'product_id' => $item->getProductId(),
-            'code' => strtoupper($item->getCode()),
+            'stock_uid' => $item->getStockUid(),
+            'product_uid' => $item->getProductUid(),
+            'product_qty' => $item->getProductQty(),
+            'stock_status' => $item->getStockStatus(),
+            'created' => $dateTime->format('Y-m-d\TH:i:s.u'),
         ];
+
         $this->tableGateway->insert($data);
     }
 
@@ -148,30 +144,6 @@ class StockTable implements WriteTableInterface
         $rowsAffected = $this->tableGateway->update($data, ['product_uid' => $uid]);
 
         return $rowsAffected;
-    }
-
-    /**
-     * @param \Cart\Model\CartModel $item
-     */
-    public function updateStatus($item)
-    {
-
-        $data = [
-            'status' => $item->getStatus(),
-        ];
-
-        $cartId = $item->getCartId();
-//        $cartProductId = $item->getProductId();
-
-        if (null===$cartId || 0===$cartId) {
-            throw new \Exception('Item\'s `cartId` cannot be null');
-        } else {
-            if ($this->getItem($cartId)) {
-                $this->tableGateway->update($data, ['cart_id' => $cartId]);
-            } else {
-                throw new \Exception('Item\'s `cartId` does not exist');
-            }
-        }
     }
 
 }

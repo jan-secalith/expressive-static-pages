@@ -25,12 +25,25 @@ After some consideration I think it would be best to use ajax for form loading (
 
 ### <a id="anchor-g_notes" />General notes ###
 
+
 The application is based on zend-expressive-skeleton and `Zend-Expressive v2` and follows zend-framework module structure.
 The approach taken should make it fairly easy to tranform the Project to work with `Zend-Expressive v3` 
 
 Application is written in PHP 7.2, Mysql 5.7 This README is written for use with VM attached. The Development been done in `bento/Ubuntu` environment.
 
 Detailed information about the development stack maybe found in `./Vagrantfile`
+
+#### Glossary ####
+
+* project root        - `./`
+* application root    - `./expressive`
+* build root          - `./build`
+
+#### Requirements ####
+* php-7.2
+* memcached
+* sqlite
+* mysql
 
 ### <a id="anchor-installation" />Installation ###
 
@@ -74,19 +87,24 @@ Database defauts:
 * user: `root`
 * password: `root`
 * host: `localhost`
-* dbname: `bjss_app`
+* dbname: `restable`
 * dumpfile: `./build/data/db/schema.sql`
+* phinx migrations: `./build/db/phinx/migrations` - phinx file is present at the root of the application.
 
 There is Adminer accessible at [http://127.0.0.1:8088/adminer.php](http://127.0.0.1:8088/adminer.php)
 If the link address returns 404 then run `vagrant ssh` and `sh ./build/bin/adminer.sh` and try to access the adminer again.again
+
+Also there is local sqlite database located at `./expressive/data/da/db.sqlite`. That database is used to store the form submission results [127.0.0.1:8089/request-demo](127.0.0.1:8089/request-demo)
 
 ### <a id="anchor-currencylayer" />Currencylayer API ###
 If using the installation script then set your ApiKey in `./build/config/credentials.yml`
 
 ApiKey may be changed in `./application/`
 
-#### <a id="anchor-development_mode" />Development Mode #####
+#### <a id="anchor-development_mode" />Development Stack #####
 To enable development mode you will ned to run `composer run-script development-enable` inside the `./application/` directory.
+
+
 
 #### Testing ####
 run unit test from `./application` using `composer test` command.
@@ -96,7 +114,7 @@ TIP: If using as VM it is best to run on host-machine with SSD.
 
 To run the VM will need to install [Virtualbox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/downloads.html) installed.
 
-There is php-7.2 and mysql-server, xdebug and composer installed.
+There is php-7.2, memcached, sqlite, mysql-server, xdebug, phinx and composer installed.
 
 To access the site, after `vagrant up` open `http://127.0.0.1:8088` in your browser
 

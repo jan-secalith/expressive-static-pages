@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
 
 namespace Product\Service;
 
-use Common\Helper\RouteHelper;
+use Common\Service\CacheServiceAwareInterface;
+use Common\Service\CacheServiceAwareTrait;
 use Product\Model\ProductTable;
 use Zend\Cache\Storage\Adapter\AbstractAdapter;
-use Zend\Expressive\Helper\UrlHelper;
 
 /**
  * Class CartService
@@ -15,20 +16,20 @@ use Zend\Expressive\Helper\UrlHelper;
  *
  * @package Cart\Service
  */
-class ProductService
+class ProductService implements CacheServiceAwareInterface
 {
+    use CacheServiceAwareTrait;
 
     /**
      * @var ProductTable
      */
     protected $productTable;
 
-    protected $cacheService;
 
     public function __construct(ProductTable $productTable = null, AbstractAdapter $cacheService = null)
     {
         $this->productTable = $productTable;
-        $this->cacheService = $cacheService;
+        $this->setCacheService($cacheService);
     }
 
     /**
@@ -39,7 +40,7 @@ class ProductService
     public function getItems()
     {
 
-        $cartProductsCached = $this->cacheService->getItem('product.getItems');
+        $cartProductsCached = $this->getCacheService()->getItem('product.getItems');
 
         if( $cartProductsCached !== null) {
             return $cartProductsCached;
@@ -47,7 +48,7 @@ class ProductService
             $cartProducts = $this->productTable->fetchAll();
 
             if ( ! empty($cartProducts)) {
-                $this->cacheService->setItem('product.getItems',$cartProducts);
+                $this->getCacheService()->setItem('product.getItems',$cartProducts);
                 return $cartProducts;
             }
 

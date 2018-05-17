@@ -21,11 +21,16 @@
     <?=$this->flashMessage($messages['info'],'info');?>
 <?php endif;?>
 
+<a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.write.create');?>">Create</a>
+
+<hr />
+
 <?php if( ! empty($list)): ?>
     <table class="table table-hover" style="table-layout: fixed;">
         <thead class="thead-light">
         <tr>
             <th COLSPAN="2">Name</th>
+            <th>Qty</th>
             <th>Price</th>
         </tr>
         </thead>

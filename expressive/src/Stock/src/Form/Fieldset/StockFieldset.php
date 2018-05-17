@@ -45,12 +45,13 @@ class StockFieldset extends Fieldset
         ));
     }
 
-    private function addInputFilter()
+    public function getInputFilterSpecification()
     {
-
-        $inputFilter = new InputFilter();
-//        $this->setInputFilter($inputFilter);
-
+        return array(
+            'product_qty' => array(
+                'required' => true,
+            ),
+        );
     }
 
 }

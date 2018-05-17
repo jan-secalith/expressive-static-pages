@@ -16,6 +16,13 @@ class StockServiceFactory
         $productTable = $container->get("Product\TableService");
         $stockBarcodeTable = $container->get("Stock\Barcode\TableService");
 
-        return new StockService($stockTable,$productTable,$stockBarcodeTable);
+        $cacheService = $container->get('memcached');
+
+        return new StockService(
+            $stockTable,
+            $productTable,
+            $stockBarcodeTable,
+            $cacheService
+        );
     }
 }

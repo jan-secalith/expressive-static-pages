@@ -62,37 +62,46 @@ class StockWriteHandler implements RequestHandlerInterface, StockServiceAwareInt
 
         $requestedProductUid = $request->getAttribute('product_uid');
 
-        $this->addData('restable-stock-layout::restable-stock','layout');
-        $this->addData($this->productService->getItem($requestedProductUid),'product_data');
-        $this->addData($this->getStockService()->getItem($requestedProductUid),'stock_data');
+        if($requestedProductUid) {
+            $this->addData($this->productService->getItem($requestedProductUid),'product_data');
+            $this->addData($this->getStockService()->getItem($requestedProductUid),'stock_data');
+            $this->addData($this->getStockService()->getBarcodeItemByProductUid($requestedProductUid,'array'),'barcode_data');
+        }
+
         $this->addData($this->getWriteForm(),'form');
 
-        $data['form'] = $this->getWriteForm();
-
         if(strtoupper($request->getMethod())==="POST") {
+            // Form has been submitted
+
             $postData = $request->getParsedBody();
 
             $this->getData('form')->setData($postData);
 
             if ($this->getData('form')->isValid()) {
-
+                // Form is valid
                 $formData = $this->getData('form')->getData();
 
                 $rowsAffected = $this->getStockService()->addStockProduct($formData);
 
-                if($rowsAffected['rows_affected']['product']!==0||$rowsAffected['rows_affected']['stock']) {
+                if($rowsAffected['rows_affected']['product']!==0
+                    ||$rowsAffected['rows_affected']['stock']
+                    ||$rowsAffected['rows_affected']['barcode']) {
                     $messages['success'][] = 'Item has been updated.';
                 } else {
-                    $messages['info'][] = 'Data unchanged. Item has NOT been updated.';
+                    $messages['info'][] = 'Data unchanged.';
+                    $messages['info'][] = 'Item has NOT been updated.';
                 }
             } else {
-                $messages['error'][] = 'Form seems to be invalid. Item has NOT been updated.';
+                $messages['error'][] = 'Form seems to be invalid.';
+                $messages['error'][] = 'Item has NOT been updated.';
             }
 
-        } else {
+        } elseif($this->currentProductUid) {
+            // assume UPDATE
             $model = new \Stock\Model\StockWriteModel([
                 'fieldset_product'=>$this->getData('product_data')->toArray(),
                 'fieldset_stock'=>$this->getData('stock_data')->toArray(),
+                'fieldset_barcode'=>$this->getData('barcode_data')->toArray(),
             ]);
 
             $this->getData('form')->setData($model->toArray());
@@ -109,13 +118,23 @@ class StockWriteHandler implements RequestHandlerInterface, StockServiceAwareInt
     private function getWriteForm()
     {
         $form = new StockProductForm();
-        $form->setAttribute(
-            'action',
-            $this->urlHelper->generate(
-                'stock.product.write.post',
-                ['product_uid'=>$this->currentProductUid]
-            )
-        );
+        if($this->currentProductUid) {
+            $form->setAttribute(
+                'action',
+                $this->urlHelper->generate(
+                    'stock.product.write.update.post',
+                    ['product_uid'=>$this->currentProductUid]
+                )
+            );
+        } else {
+            $form->setAttribute(
+                'action',
+                $this->urlHelper->generate(
+                    'stock.product.write.create.post'
+                )
+            );
+        }
+
 
         return $form;
     }

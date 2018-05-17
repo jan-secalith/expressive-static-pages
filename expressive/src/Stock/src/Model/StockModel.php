@@ -8,10 +8,43 @@ use Common\Model\CommonModelInterface;
 
 class StockModel implements CommonModelInterface
 {
+
+    const STOCK_STATUS_NEW = 0;
+    const STOCK_STATUS_REMOVED = 1;
+    const STOCK_STATUS_DISABLED = 2;
+    const STOCK_STATUS_ENABLED = 3;
+    const STOCK_STATUS_ARCHIVED = 4;
+
+    const STOCK_STATUS_PATHS = [
+        self::STOCK_STATUS_NEW => [
+            self::STOCK_STATUS_DISABLED,
+            self::STOCK_STATUS_ENABLED,
+        ],
+        self::STOCK_STATUS_DISABLED => [
+            self::STOCK_STATUS_REMOVED,
+            self::STOCK_STATUS_ARCHIVED,
+            self::STOCK_STATUS_ENABLED,
+        ],
+        self::STOCK_STATUS_ENABLED => [
+            self::STOCK_STATUS_REMOVED,
+            self::STOCK_STATUS_ARCHIVED,
+            self::STOCK_STATUS_DISABLED,
+        ],
+        self::STOCK_STATUS_REMOVED => [
+            self::STOCK_STATUS_DISABLED,
+            self::STOCK_STATUS_ARCHIVED,
+        ],
+        self::STOCK_STATUS_ARCHIVED => [
+            self::STOCK_STATUS_DISABLED,
+            self::STOCK_STATUS_REMOVED,
+        ],
+    ];
+
     public $stock_uid;
     public $product_uid;
     public $barcode_uid;
     public $product_qty;
+    public $stock_status;
     public $updated;
     public $created;
 
@@ -38,6 +71,7 @@ class StockModel implements CommonModelInterface
         $this->product_uid = (!empty($data['product_uid'])) ? $data['product_uid'] : null;
         $this->barcode_uid = (!empty($data['barcode_uid'])) ? $data['barcode_uid'] : null;
         $this->product_qty = (!empty($data['product_qty'])) ? $data['product_qty'] : null;
+        $this->stock_status = (!empty($data['stock_status'])) ? $data['stock_status'] : null;
         $this->updated = (!empty($data['updated'])) ? $data['updated'] : null;
         $this->created = (!empty($data['created'])) ? $data['created'] : null;
 
@@ -61,6 +95,9 @@ class StockModel implements CommonModelInterface
         }
         if ($this->product_qty !== null) {
             $data['product_qty'] = $this->product_qty;
+        }
+        if ($this->stock_status !== null) {
+            $data['stock_status'] = $this->stock_status;
         }
         if ($this->updated !== null) {
             $data['updated'] = $this->updated;
@@ -149,6 +186,24 @@ class StockModel implements CommonModelInterface
     public function setProductQty($product_qty)
     {
         $this->product_qty = $product_qty;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStockStatus()
+    {
+        return $this->stock_status;
+    }
+
+    /**
+     * @param mixed $stock_status
+     * @return StockModel
+     */
+    public function setStockStatus($stock_status)
+    {
+        $this->stock_status = $stock_status;
         return $this;
     }
 

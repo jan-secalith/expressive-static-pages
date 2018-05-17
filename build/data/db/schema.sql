@@ -1,27 +1,11 @@
--- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
---
--- Host: localhost    Database: restable
--- ------------------------------------------------------
--- Server version	5.7.22-0ubuntu0.16.04.1
+-- Adminer 4.6.2 MySQL dump
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `cart`
---
+SET NAMES utf8;
+SET time_zone = '+00:00';
+SET foreign_key_checks = 0;
+SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 DROP TABLE IF EXISTS `cart`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cart` (
   `cart_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `currency_code` varchar(8) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'GBP',
@@ -29,24 +13,9 @@ CREATE TABLE `cart` (
   `updated` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`cart_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cart`
---
-
-LOCK TABLES `cart` WRITE;
-/*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cart` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cart_item`
---
 
 DROP TABLE IF EXISTS `cart_item`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cart_item` (
   `cart_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `product_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
@@ -58,24 +27,9 @@ CREATE TABLE `cart_item` (
   CONSTRAINT `cart_item_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`),
   CONSTRAINT `cart_item_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cart_item`
---
-
-LOCK TABLES `cart_item` WRITE;
-/*!40000 ALTER TABLE `cart_item` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cart_item` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `order`
---
 
 DROP TABLE IF EXISTS `order`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `order` (
   `order_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `cart_id` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -86,24 +40,9 @@ CREATE TABLE `order` (
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `order`
---
-
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `order_item`
---
 
 DROP TABLE IF EXISTS `order_item`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `order_item` (
   `order_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `product_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
@@ -114,101 +53,79 @@ CREATE TABLE `order_item` (
   KEY `order_id` (`order_id`),
   CONSTRAINT `order_item_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `order_item`
---
-
-LOCK TABLES `order_item` WRITE;
-/*!40000 ALTER TABLE `order_item` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order_item` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `product`
---
 
 DROP TABLE IF EXISTS `product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `product` (
   `product_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `price` decimal(10,4) NOT NULL,
   `unit` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
   `description_short` text COLLATE utf8_unicode_ci,
+  `created` datetime NOT NULL DEFAULT '2000-01-01 00:00:01',
   PRIMARY KEY (`product_uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `product`
---
-
-LOCK TABLES `product` WRITE;
-/*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES ('restable-service-basic-annual','Restable Basic Package - Annual',199.9900,'year',NULL),('restable-service-basic-month','Restable Basic Package - Month',19.9900,'month',NULL);
-/*!40000 ALTER TABLE `product` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `stock`
---
+INSERT INTO `product` (`product_uid`, `name`, `price`, `unit`, `description_short`, `created`) VALUES
+('0442d1c6-7da2-4998-8846-ae8d043208b6',	'Restable Basic Package - Annuall2',	67.0000,	'4567',	'',	'2018-05-17 12:38:11'),
+('1c503f9f-b054-4183-94f9-f11a6a448a5b',	'Restable Basic Package - Annuall2',	67.0000,	'4567',	'',	'2018-05-17 12:38:02'),
+('2478effb-db67-4408-963d-b3d6ec88ed40',	'Restable Basic Package - Annuall',	67.0000,	'4567',	'',	'2018-05-17 12:34:01'),
+('29e2581f-7526-4cb0-ab1a-db0bc7d5707b',	'Zippo Premium Lighter Fluid',	4.9900,	'can',	'125ml',	'2018-05-17 12:50:10'),
+('490ccfd8-98cf-440e-b92b-d4492d3c4950',	'Zippo Premium Lighter Fluid',	4.9900,	'can',	'125ml',	'2018-05-17 12:51:02'),
+('65975646-d93d-400c-865d-528961a303d1',	'Restable Basic Package - Annuall21',	67.0000,	'4567',	'',	'2018-05-17 12:38:06'),
+('66c126b1-b7cf-4cba-9927-5deb28484c9d',	'Zippo Premium Lighter Fluid',	4.9900,	'can',	'125ml',	'2018-05-17 13:13:20'),
+('84ed7e57-eca2-430f-82af-5d4a0c0e30a2',	'Zippo Premium Lighter Fluid',	4.9900,	'can',	'125ml',	'2018-05-17 13:11:59'),
+('a86ef3ef-d258-424f-a6e0-978274c0bef1',	'Zippo Premium Lighter Fluid',	4.9900,	'can',	'125ml',	'2018-05-17 13:13:07'),
+('d32bdb12-1919-4f06-a596-b3dd57fd5087',	'Zippo Premium Lighter Fluid',	4.9900,	'can',	'125ml',	'2018-05-17 13:12:53'),
+('df08101d-5ce4-4e5b-8ae7-add6ec61f08f',	'Zippo Premium Lighter Fluid',	4.9900,	'can',	'125ml',	'2018-05-17 13:11:18'),
+('restable-service-basic-annual',	'Restable Basic Package - Annual',	199.9900,	'year',	NULL,	'2018-05-14 02:43:06'),
+('restable-service-basic-month',	'Restable Basic Package - Month',	19.9900,	'month',	'',	'2018-05-14 02:43:06');
 
 DROP TABLE IF EXISTS `stock`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `stock` (
   `stock_uid` varchar(64) CHARACTER SET latin1 NOT NULL,
   `product_uid` varchar(64) CHARACTER SET latin1 NOT NULL,
   `product_qty` int(6) NOT NULL,
+  `stock_status` tinyint(2) NOT NULL DEFAULT '0',
   `created` datetime NOT NULL,
   `updated` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `stock`
---
-
-LOCK TABLES `stock` WRITE;
-/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES ('restable-service-basic-annual-stock','restable-service-basic-annual',99,'2018-05-14 02:42:33',NULL),('restable-service-basic-month-stock','restable-service-basic-month',99,'2018-05-14 02:43:06',NULL);
-/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `stock_barcode`
---
+INSERT INTO `stock` (`stock_uid`, `product_uid`, `product_qty`, `stock_status`, `created`, `updated`) VALUES
+('restable-service-basic-annual-stock',	'restable-service-basic-annual',	99,	0,	'2018-05-14 02:42:33',	NULL),
+('restable-service-basic-month-stock',	'restable-service-basic-month',	99,	0,	'2018-05-14 02:43:06',	NULL),
+('213a3578-6249-45bc-9d02-11bf0e882cdf',	'1c503f9f-b054-4183-94f9-f11a6a448a5b',	1,	0,	'2018-05-17 12:38:02',	NULL),
+('41cf45e1-d838-41d1-a232-87e7105913cd',	'65975646-d93d-400c-865d-528961a303d1',	1,	0,	'2018-05-17 12:38:06',	NULL),
+('e1e8e07c-6292-4bda-a5c7-3d2adcb95cbe',	'0442d1c6-7da2-4998-8846-ae8d043208b6',	1,	0,	'2018-05-17 12:38:11',	NULL),
+('896f803d-ce1f-4d1f-a544-0fa33b6795d6',	'29e2581f-7526-4cb0-ab1a-db0bc7d5707b',	100,	0,	'2018-05-17 12:50:10',	NULL),
+('f28d461d-b367-4317-9c23-9bb0f1e58560',	'490ccfd8-98cf-440e-b92b-d4492d3c4950',	100,	0,	'2018-05-17 12:51:02',	NULL),
+('5ae93d83-c119-4fcc-8e2a-793b60e1ea7e',	'df08101d-5ce4-4e5b-8ae7-add6ec61f08f',	100,	0,	'2018-05-17 13:11:18',	NULL),
+('53d33815-4f58-4500-bd66-9760738cc547',	'84ed7e57-eca2-430f-82af-5d4a0c0e30a2',	100,	0,	'2018-05-17 13:11:59',	NULL),
+('f3605dc3-c962-467e-b562-0304c391bb70',	'd32bdb12-1919-4f06-a596-b3dd57fd5087',	100,	0,	'2018-05-17 13:12:53',	NULL),
+('11ceea11-4dc9-4cdf-9854-51e5488fc1b5',	'a86ef3ef-d258-424f-a6e0-978274c0bef1',	100,	0,	'2018-05-17 13:13:07',	NULL),
+('ad75f1ec-4e7d-47d1-89c3-46a782336e19',	'66c126b1-b7cf-4cba-9927-5deb28484c9d',	100,	0,	'2018-05-17 13:13:20',	NULL);
 
 DROP TABLE IF EXISTS `stock_barcode`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `stock_barcode` (
   `product_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `barcode_value` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
   `updated` datetime DEFAULT NULL,
   `created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `stock_barcode`
---
+INSERT INTO `stock_barcode` (`product_uid`, `barcode_value`, `updated`, `created`) VALUES
+('restable-service-basic-month',	'5000435010778',	NULL,	'2018-05-14 02:44:38'),
+('66c126b1-b7cf-4cba-9927-5deb28484c9d',	'041689300494',	NULL,	'2018-05-17 13:13:20'),
+('restable-service-basic-month',	'5000435010860',	NULL,	'2018-05-17 17:50:55');
 
-LOCK TABLES `stock_barcode` WRITE;
-/*!40000 ALTER TABLE `stock_barcode` DISABLE KEYS */;
-INSERT INTO `stock_barcode` VALUES ('restable-service-basic-annual','041689300494',NULL,'2018-05-14 02:43:45'),('restable-service-basic-month','5000435010778',NULL,'2018-05-14 02:44:38');
-/*!40000 ALTER TABLE `stock_barcode` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+DROP TABLE IF EXISTS `stock_status`;
+CREATE TABLE `stock_status` (
+  `product_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `stock_uid` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `status_code` int(2) NOT NULL DEFAULT '0',
+  `updated` datetime DEFAULT NULL,
+  `created` datetime NOT NULL DEFAULT '2010-01-01 00:00:01'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+-- 2018-05-17 18:32:44

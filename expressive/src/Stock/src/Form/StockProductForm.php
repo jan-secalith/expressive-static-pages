@@ -48,11 +48,27 @@ class StockProductForm extends Form
         $this->add(array(
             'name' => 'fieldset_product',
             'type' => \Product\Form\Fieldset\ProductFieldset::class,
+            'options' => array(
+//                'use_as_base_fieldset' => true
+            )
         ));
 
         $this->add(array(
             'name' => 'fieldset_stock',
             'type' => \Stock\Form\Fieldset\StockFieldset::class,
+        ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Collection',
+            'name' => 'fieldset_barcode',
+            'options' => array(
+                'count' => 1,
+                'should_create_template' => true,
+                'allow_add' => true,
+                'target_element' => array(
+                    'type' => \Stock\Form\Fieldset\BarcodeFieldset::class,
+                ),
+            ),
         ));
 
         $this->add([

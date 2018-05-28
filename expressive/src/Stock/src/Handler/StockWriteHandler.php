@@ -60,15 +60,43 @@ class StockWriteHandler implements RequestHandlerInterface, StockServiceAwareInt
 
         $this->currentProductUid = $request->getAttribute('product_uid');
 
-        $requestedProductUid = $request->getAttribute('product_uid');
-
-        if($requestedProductUid) {
-            $this->addData($this->productService->getItem($requestedProductUid),'product_data');
-            $this->addData($this->getStockService()->getItem($requestedProductUid),'stock_data');
-            $this->addData($this->getStockService()->getBarcodeItemByProductUid($requestedProductUid,'array'),'barcode_data');
+        if($this->currentProductUid) {
+            $this->addData($this->productService->getItem($this->currentProductUid),'product_data');
+            $this->addData($this->getStockService()->getItem($this->currentProductUid),'stock_data');
+            $this->addData($this->getStockService()->getBarcodeItemByProductUid($this->currentProductUid),'barcode_data');
+            $this->addData($this->getStockService()->getStatusByProductUid($this->currentProductUid),'status_data');
         }
 
-        $this->addData($this->getWriteForm(),'form');
+
+        // form needs the available statstues to be injected
+        #TODO current implementation is too heavy.
+        if($this->keyExists('status_data')) {
+            /* @var \Stock\Model\StockStatusModel $currentStatusItem */
+            $currentStatusItem = $this->getData('status_data')->firstItem();
+
+            $currentStatusItem->getStatusCode();
+            $statusOptions['current']['label'] = "Current";
+            $statusOptions['current']['options'] = $currentStatusItem->getStatusCurrentWithLabel($currentStatusItem->getStatusCode());
+            $statusOptions['available']['label'] = "Available";
+            $statusOptions['available']['options'] = $currentStatusItem->getStatusAvailableWithLabels($currentStatusItem->getStatusCode());
+//            var_dumP($statusOptions);
+
+            $formOptions['fieldset_status']['status_code'] = $statusOptions;
+
+            $form = $this->getWriteForm();
+            $form->get('fieldset_status')->get('status_code')->setValueOptions($statusOptions);
+
+            $this->addData($form,'form');
+
+        } else {
+            // form status does not exists yet
+
+            $form = $this->getWriteForm();
+
+            $this->addData($form,'form');
+        }
+
+
 
         if(strtoupper($request->getMethod())==="POST") {
             // Form has been submitted
@@ -85,7 +113,9 @@ class StockWriteHandler implements RequestHandlerInterface, StockServiceAwareInt
 
                 if($rowsAffected['rows_affected']['product']!==0
                     ||$rowsAffected['rows_affected']['stock']
-                    ||$rowsAffected['rows_affected']['barcode']) {
+                    ||$rowsAffected['rows_affected']['barcode']
+                    ||$rowsAffected['rows_affected']['status']
+                ) {
                     $messages['success'][] = 'Item has been updated.';
                 } else {
                     $messages['info'][] = 'Data unchanged.';
@@ -102,9 +132,11 @@ class StockWriteHandler implements RequestHandlerInterface, StockServiceAwareInt
                 'fieldset_product'=>$this->getData('product_data')->toArray(),
                 'fieldset_stock'=>$this->getData('stock_data')->toArray(),
                 'fieldset_barcode'=>$this->getData('barcode_data')->toArray(),
+                'fieldset_status'=>$this->getData('status_data')->firstItem(),
             ]);
 
             $this->getData('form')->setData($model->toArray());
+
         }
 
         $this->addData($messages,'messages');

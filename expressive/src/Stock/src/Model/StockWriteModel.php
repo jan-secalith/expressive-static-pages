@@ -15,6 +15,7 @@ class StockWriteModel implements CommonModelInterface
     public $fieldset_product;
     public $fieldset_stock;
     public $fieldset_barcode;
+    public $fieldset_status;
 
     /**
      * CartModel constructor.
@@ -39,6 +40,7 @@ class StockWriteModel implements CommonModelInterface
         $this->fieldset_product = (!empty($data['fieldset_product'])) ? $data['fieldset_product'] : null;
         $this->fieldset_stock = (!empty($data['fieldset_stock'])) ? $data['fieldset_stock'] : null;
         $this->fieldset_barcode = (!empty($data['fieldset_barcode'])) ? $data['fieldset_barcode'] : null;
+        $this->fieldset_status = (!empty($data['fieldset_status'])) ? $data['fieldset_status'] : null;
 
         return $this;
     }
@@ -60,6 +62,9 @@ class StockWriteModel implements CommonModelInterface
         }
         if ($this->fieldset_barcode !== null) {
             $data['fieldset_barcode'] = $this->fieldset_barcode;
+        }
+        if ($this->fieldset_status !== null) {
+            $data['fieldset_status'] = $this->fieldset_status;
         }
 
         return $data;
@@ -130,7 +135,7 @@ class StockWriteModel implements CommonModelInterface
     /**
      * @return mixed
      */
-    public function getfieldsetBarcode()
+    public function getFieldsetBarcode()
     {
         return $this->fieldset_barcode;
     }
@@ -139,9 +144,27 @@ class StockWriteModel implements CommonModelInterface
      * @param mixed $fieldset_barcode
      * @return StockWriteModel
      */
-    public function setfieldsetBarcode($fieldset_barcode)
+    public function setFieldsetBarcode($fieldset_barcode)
     {
         $this->fieldset_barcode = $fieldset_barcode;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFieldsetStatus()
+    {
+        return $this->fieldset_status;
+    }
+
+    /**
+     * @param mixed $fieldset_status
+     * @return StockWriteModel
+     */
+    public function setFieldsetStatus($fieldset_status)
+    {
+        $this->fieldset_status = $fieldset_status;
         return $this;
     }
 

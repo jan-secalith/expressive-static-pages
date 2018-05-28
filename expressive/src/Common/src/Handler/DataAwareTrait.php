@@ -8,6 +8,11 @@ trait DataAwareTrait
 {
     protected $data = [];
 
+    /**
+     * @param array $data
+     * @param string|null $index
+     * @return DataAwareInterface
+     */
     public function setData($data = [], string $index=null) : DataAwareInterface
     {
         if($index!==null) {
@@ -18,6 +23,11 @@ trait DataAwareTrait
 
         return $this;
     }
+
+    /**
+     * @param string|null $index
+     * @return array|string|null
+     */
     public function getData( string $index=null)
     {
         if($index !== null) {
@@ -28,10 +38,25 @@ trait DataAwareTrait
 
         return $this->data;
     }
+
+    /**
+     * @param $data
+     * @param string $index
+     * @return DataAwareInterface
+     */
     public function addData($data,string $index) : DataAwareInterface
     {
         $this->data[$index] = $data;
 
         return $this;
+    }
+
+    /**
+     * @param $key
+     * @return bool
+     */
+    public function keyExists($key)
+    {
+        return (array_key_exists($key,$this->data))?true:false;
     }
 }

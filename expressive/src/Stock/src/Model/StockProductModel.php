@@ -14,6 +14,9 @@ class StockProductModel implements CommonModelInterface
     public $name;
     public $price;
     public $unit;
+    public $stock_status;
+    public $status_code;
+    public $status;
     public $barcodes;
     public $updated;
     public $created;
@@ -43,6 +46,9 @@ class StockProductModel implements CommonModelInterface
         $this->name = (!empty($data['name'])) ? $data['name'] : null;
         $this->price = (!empty($data['price'])) ? $data['price'] : null;
         $this->unit = (!empty($data['unit'])) ? $data['unit'] : null;
+        $this->stock_status = (!empty($data['stock_status'])||is_numeric($data['stock_status'])) ? $data['stock_status'] : null;
+        $this->status_code = (!empty($data['status_code'])||is_numeric($data['status_code'])) ? $data['status_code'] : null;
+        $this->status = (!empty($data['status'])) ? $data['status'] : null;
         $this->barcodes = (!empty($data['barcodes'])) ? $data['barcodes'] : null;
         $this->updated = (!empty($data['updated'])) ? $data['updated'] : null;
         $this->created = (!empty($data['created'])) ? $data['created'] : null;
@@ -73,6 +79,15 @@ class StockProductModel implements CommonModelInterface
         }
         if ($this->unit !== null) {
             $data['unit'] = $this->unit;
+        }
+        if ($this->stock_status !== null) {
+            $data['stock_status'] = $this->stock_status;
+        }
+        if ($this->status_code !== null) {
+            $data['status_code'] = $this->stock_status;
+        }
+        if ($this->status !== null) {
+            $data['status'] = $this->status;
         }
         if ($this->barcodes !== null) {
             $data['barcodes'] = $this->barcodes;
@@ -200,6 +215,60 @@ class StockProductModel implements CommonModelInterface
     public function setUnit($unit)
     {
         $this->unit = $unit;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStockStatus()
+    {
+        return $this->stock_status;
+    }
+
+    /**
+     * @param mixed $stock_status
+     * @return StockProductModel
+     */
+    public function setStockStatus($stock_status)
+    {
+        $this->stock_status = $stock_status;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatusCode()
+    {
+        return $this->status_code;
+    }
+
+    /**
+     * @param mixed $status_code
+     * @return StockProductModel
+     */
+    public function setStatusCode($status_code)
+    {
+        $this->status_code = $status_code;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     * @return StockProductModel
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
         return $this;
     }
 

@@ -8,7 +8,15 @@
         .container-features h1,
         .container-features h2,
         .container-features h3 {
-            color: #CD6E22;
+            color: #333;
+        }
+        .container-features span {
+            text-shadow: 1px 1px #eee;
+        }
+        .row-features i {
+            font-size:1.6rem;
+            margin-right:5px;
+            /*color: #CD6E22;*/
         }
     </style>
 
@@ -60,70 +68,139 @@
         <span class="carousel-control-next-icon"></span>
     </a>
 </div>
-</html>
 
 <div class="container container-features">
+
     <div class="row">
         <div class="col-12">
             <h3 class="display-4 text-center mb-5 text-dark">Features</h3>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row row-features">
         <div class="col-4">
-            <h2>Online Booking</h2>
-            <p>Deadlights jack lad schooner scallywag dance the hempen jig carouser broadside cable strike colors. Bring a spring upon her cable holystone blow the man down spanker Shiver me timbers to go on account lookout wherry doubloon chase. </p>
-        </div>
-        <div class="col-4">
-            <h2>Point of Sale</h2>
-            <p>Trysail Sail ho Corsair red ensign hulk smartly boom jib rum gangway. Case shot Shiver me timbers gangplank crack Jennys tea cup ballast Blimey lee snow crow's nest rutters. </p>
-        </div>
-        <div class="col-4">
-            <h2>Business Website</h2>
-            <p>Booty rutters Cat o'nine tails cutlass Plate Fleet ballast Nelsons folly mizzen bilge water strike colors. Belaying pin grog blossom deadlights lanyard jury mast rutters sheet Chain Shot knave coffer. </p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4">
-            <h2>Email Templates</h2>
-            <p>Hands league handsomely Chain Shot scallywag brigantine piracy hang the jib overhaul scuppers. Rutters yardarm Jack Tar booty pinnace Letter of Marque long boat matey Blimey no prey, no pay. </p>
-        </div>
-        <div class="col-4">
-            <h2>Stock Monitoring</h2>
+            <h2>
+                <a href="<?=$this->url('restable.site.page.features.stock');?>">
+                    <i class="fas fa-eye align-middle"></i>
+                    <span class="d-inline-block align-middle">Stock Monitoring</span>
+                </a>
+            </h2>
             <p>Prow scuttle parrel provost Sail ho shrouds spirits boom mizzenmast yardarm. Pinnace holystone mizzenmast quarter crow's nest nipperkin grog yardarm hempen halter furl. </p>
         </div>
         <div class="col-4">
-            <h2>Integrated Admin Panel</h2>
+            <h2>
+                <a href="<?=$this->url('restable.site.page.features.pos');?>">
+                    <i class="fas fa-barcode align-middle"></i>
+                    <span class="d-inline-block align-middle">Point of Sale</span>
+                </a>
+            </h2>
+            <p>Trysail Sail ho Corsair red ensign hulk smartly boom jib rum gangway. Case shot Shiver me timbers gangplank crack Jennys tea cup ballast Blimey lee snow crow's nest rutters. </p>
+        </div>
+        <div class="col-4">
+            <h2>
+                <i class="fas fa-shield-alt align-middle"></i>
+                <span class="d-inline-block align-middle">Integrated Admin</span>
+            </h2>
             <p>Bucko scourge of the seven seas rutters yardarm draught barkadeer sutler gangway crimp booty. Tender swing the lead scallywag crow's nest keel ahoy black jack lee nipper lanyard.</p>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row row-features">
         <div class="col-4">
-            <h2>Online Pre-Orders</h2>
+            <h2>
+                <i class="fas fa-utensils align-middle"></i>
+                <span class="d-inline-block align-middle">Online Pre-Orders</span>
+            </h2>
             <p>Hands league handsomely Chain Shot scallywag brigantine piracy hang the jib overhaul scuppers. Rutters yardarm Jack Tar booty pinnace Letter of Marque long boat matey Blimey no prey, no pay. </p>
         </div>
         <div class="col-4">
-            <h2>Financial Reports</h2>
+            <h2>
+                <i class="fas fa-at align-middle"></i>
+                <span class="d-inline-block align-middle">Email Templates</span>
+            </h2>
             <p>Hands league handsomely Chain Shot scallywag brigantine piracy hang the jib overhaul scuppers. Rutters yardarm Jack Tar booty pinnace Letter of Marque long boat matey Blimey no prey, no pay. </p>
         </div>
         <div class="col-4">
-            <h2>Mobile Application</h2>
-            <p>Bucko scourge of the seven seas rutters yardarm draught barkadeer sutler gangway crimp booty. Tender swing the lead scallywag crow's nest keel ahoy black jack lee nipper lanyard.</p>
+            <h2>
+                <i class="far fa-calendar-alt align-middle"></i>
+                <span class="d-inline-block align-middle">Online Booking</span>
+            </h2>
+            <p>Deadlights jack lad schooner scallywag dance the hempen jig carouser broadside cable strike colors. Bring a spring upon her cable holystone blow the man down spanker Shiver me timbers to go on account lookout wherry doubloon chase. </p>
         </div>
     </div>
-    <div class="row">
+
+    <div class="row row-features">
         <div class="col-4">
-            <h2>Offline data</h2>
+            <h2>
+                <i class="fas fa-briefcase align-middle"></i>
+                <span class="d-inline-block align-middle">Business Website</span>
+            </h2>
             <p>Booty rutters Cat o'nine tails cutlass Plate Fleet ballast Nelsons folly mizzen bilge water strike colors. Belaying pin grog blossom deadlights lanyard jury mast rutters sheet Chain Shot knave coffer. </p>
         </div>
         <div class="col-4">
-            <h2>Guest Notes</h2>
-            <p>Booty rutters Cat o'nine tails cutlass Plate Fleet ballast Nelsons folly mizzen bilge water strike colors. Belaying pin grog blossom deadlights lanyard jury mast rutters sheet Chain Shot knave coffer. </p>
+            <h2>
+                <i class="fas fa-pound-sign align-middle"></i>
+                <span class="d-inline-block align-middle">Financial Reports</span>
+            </h2>
+            <p>Hands league handsomely Chain Shot scallywag brigantine piracy hang the jib overhaul scuppers. Rutters yardarm Jack Tar booty pinnace Letter of Marque long boat matey Blimey no prey, no pay. </p>
         </div>
         <div class="col-4">
-            <h2>Wordpress Integration</h2>
+            <h2>
+                <i class="fas fa-mobile-alt align-middle"></i>
+                <span class="d-inline-block align-middle">Mobile Application</span>
+            </h2>
             <p>Bucko scourge of the seven seas rutters yardarm draught barkadeer sutler gangway crimp booty. Tender swing the lead scallywag crow's nest keel ahoy black jack lee nipper lanyard.</p>
         </div>
     </div>
+
+    <div class="row row-features">
+        <div class="col-4">
+            <h2>
+                <i class="fas fa-download align-middle"></i>
+                <span class="d-inline-block align-middle">Offline data</span>
+            </h2>
+            <p>Booty rutters Cat o'nine tails cutlass Plate Fleet ballast Nelsons folly mizzen bilge water strike colors. Belaying pin grog blossom deadlights lanyard jury mast rutters sheet Chain Shot knave coffer. </p>
+        </div>
+        <div class="col-4">
+            <h2>
+                <i class="far fa-comments align-middle"></i>
+                <span class="d-inline-block align-middle">Guest Notes</span>
+            </h2>
+            <p>Booty rutters Cat o'nine tails cutlass Plate Fleet ballast Nelsons folly mizzen bilge water strike colors. Belaying pin grog blossom deadlights lanyard jury mast rutters sheet Chain Shot knave coffer. </p>
+        </div>
+        <div class="col-4">
+            <h2>
+                <i class="fab fa-wordpress align-middle"></i>
+                <span class="d-inline-block align-middle">Wordpress Integration</span>
+            </h2>
+            <p>Bucko scourge of the seven seas rutters yardarm draught barkadeer sutler gangway crimp booty. Tender swing the lead scallywag crow's nest keel ahoy black jack lee nipper lanyard.</p>
+        </div>
+    </div>
+
+    <div class="row row-features">
+        <div class="col-4">
+            <h2>
+                <i class="fas fa-download align-middle"></i>
+                <span class="d-inline-block align-middle">Waiting list</span>
+            </h2>
+            <p>Booty rutters Cat o'nine tails cutlass Plate Fleet ballast Nelsons folly mizzen bilge water strike colors. Belaying pin grog blossom deadlights lanyard jury mast rutters sheet Chain Shot knave coffer. </p>
+        </div>
+        <div class="col-4">
+            <h2>
+                <i class="far fa-comments align-middle"></i>
+                <span class="d-inline-block align-middle">External Devices</span>
+            </h2>
+            <p>Scanners, printers. Booty rutters Cat o'nine tails cutlass Plate Fleet ballast Nelsons folly mizzen bilge water strike colors. Belaying pin grog blossom deadlights lanyard jury mast rutters sheet Chain Shot knave coffer. </p>
+        </div>
+        <div class="col-4">
+            <h2>
+                <i class="fab fa-wordpress align-middle"></i>
+                <span class="d-inline-block align-middle">Floor planner</span>
+            </h2>
+            <p>Bucko scourge of the seven seas rutters yardarm draught barkadeer sutler gangway crimp booty. Tender swing the lead scallywag crow's nest keel ahoy black jack lee nipper lanyard.</p>
+        </div>
+    </div>
+
 </div>
 
 <!--            <svg xmlns="http://www.w3.org/2000/svg" width="250" height="250" viewBox="0 0 250 25s0" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" class="d-inline mx-auto">-->

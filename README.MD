@@ -88,7 +88,7 @@ Database defauts:
 * password: `root`
 * host: `localhost`
 * dbname: `restable`
-* dumpfile: `./build/data/db/schema.sql`
+* dumpfile: `./build/data/db/restable.sql`
 * phinx migrations: `./build/db/phinx/migrations` - phinx file is present at the root of the application.
 
 There is Adminer accessible at [http://127.0.0.1:8088/adminer.php](http://127.0.0.1:8088/adminer.php)
@@ -125,11 +125,9 @@ To access the site, after `vagrant up` open `http://127.0.0.1:8088` in your brow
 * Build-front compilation
 * write the application installer to generate application from fresh config
 * documentation
-* Form Validators
-* fix xdebug, ppbly installs to the wrong php.ini
 * cronjob to clean abandoned carts
 * when creating new cart, check if id has not been used already
-* export APP_ENV=development, actually not used
+* export APP_ENV=development, actually not used (VM)
 * POSTMAN and NEWMAN tests
 * Custom error middleware
 * event logging

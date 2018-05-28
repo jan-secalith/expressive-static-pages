@@ -22,13 +22,13 @@ class StockProductForm extends Form
 //            ->setInputFilter($this->addInputFilter())
         ;
 
-        $this->addElements();
+        $this->addElements($options);
 
         $this->addInputFilter();
 
     }
 
-    protected function addElements()
+    protected function addElements($options=null)
     {
 
         $this->add([
@@ -56,6 +56,11 @@ class StockProductForm extends Form
         $this->add(array(
             'name' => 'fieldset_stock',
             'type' => \Stock\Form\Fieldset\StockFieldset::class,
+        ));
+
+        $this->add(array(
+            'name' => 'fieldset_status',
+            'type' => \Stock\Form\Fieldset\StatusFieldset::class,
         ));
 
         $this->add(array(

@@ -63,6 +63,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     $app->pipe(UrlHelperMiddleware::class);
     $app->pipe(CurrentRouteNameMiddleware::class);
     $app->pipe(CurrentUrlMiddleware::class);
+//    $app->pipe(\Zend\Navigation\Middleware\NavigationMiddleware::class);
 
 //    $app->pipe(\Zend\Expressive\Session\SessionMiddleware::class);
 //    $app->pipe(\Zend\Expressive\Csrf\CsrfMiddleware::class);

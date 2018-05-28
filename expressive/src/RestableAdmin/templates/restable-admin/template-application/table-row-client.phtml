@@ -1,0 +1,9 @@
+<tr>
+    <td COLSPAN="1"><?=$this->escapeHtml($item->getApplicationUid());?></td>
+    <td COLSPAN="1">
+        <a href="<?=$this->url('restable.admin.application.list');?>"><?=$this->escapeHtml($item->getClientUid());?></a>
+    </td>
+    <td COLSPAN="1"><?=$this->escapeHtml($item->getStatus());?></td>
+    <td COLSPAN="1"><?=$this->escapeHtml($item->getUpdated());?></td>
+    <td COLSPAN="1"><?=$this->escapeHtml($item->getCreated());?></td>
+</tr>

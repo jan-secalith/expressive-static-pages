@@ -107,4 +107,10 @@ class ProductTable implements WriteTableInterface
 
         $this->tableGateway->insert($data);
     }
+
+    public function deleteItem($item)
+    {
+        $data = ['product_uid' => $item->getProductUid()];
+        return $this->tableGateway->delete($data);
+    }
 }

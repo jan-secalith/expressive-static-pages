@@ -36,7 +36,7 @@ class StockTable implements WriteTableInterface
     {
         $sqlSelect = $this->tableGateway->getSql()->select();
 
-        $sqlSelect->columns(array('stock_uid','product_qty'));
+        $sqlSelect->columns(array('stock_uid','product_qty','stock_status'));
         $sqlSelect->join('product', 'product.product_uid = stock.product_uid', array('name','price','description_short','unit'), 'left');
 
         $statement = $this->tableGateway->getSql()->prepareStatementForSqlObject($sqlSelect);
@@ -59,14 +59,14 @@ class StockTable implements WriteTableInterface
 
     /**
      * @param integer $id
-     * @return array|\ArrayObject|null
+     * @return StockProductModel|null
      * @throws \Exception
      */
     public function getItem($id)
     {
         $sqlSelect = $this->tableGateway->getSql()->select();
         $sqlSelect->where(['stock.product_uid' => $id]);
-        $sqlSelect->columns(['stock_uid','product_uid','product_qty','created','updated']);
+        $sqlSelect->columns(['stock_uid','product_uid','product_qty','stock_status','created','updated']);
         $sqlSelect->join(
             'product',
             'product.product_uid = stock.product_uid',
@@ -75,6 +75,14 @@ class StockTable implements WriteTableInterface
                 'price',
                 'description_short',
                 'unit'
+            ],
+            'left'
+        );
+        $sqlSelect->join(
+            'stock_status',
+            'stock_status.stock_uid = stock.stock_uid',
+            [
+                'status_code',
             ],
             'left'
         );
@@ -135,8 +143,8 @@ class StockTable implements WriteTableInterface
 
     public function deleteItem($item)
     {
-        $data = ['product_id' => $item->getProductId(),'code' => $item->getProductId()];
-        $this->tableGateway->delete($data);
+        $data = ['product_uid' => $item->getProductUid(),'stock_uid' => $item->getStockUid()];
+        return $this->tableGateway->delete($data);
     }
 
     public function updateItem($uid,$data)

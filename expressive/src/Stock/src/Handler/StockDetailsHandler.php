@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Stock\Handler;
 
+use Common\Handler\DataAwareInterface;
+use Common\Handler\DataAwareTrait;
 use Product\Service\ProductService;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,10 +19,11 @@ use Zend\Expressive\Helper\UrlHelper;
 use Zend\Expressive\Router;
 use Zend\Expressive\Template;
 
-class StockDetailsHandler implements RequestHandlerInterface, StockServiceAwareInterface
+class StockDetailsHandler implements RequestHandlerInterface, StockServiceAwareInterface, DataAwareInterface
 {
 
     use StockServiceAwareTrait;
+    use DataAwareTrait;
 
     private $containerName;
 
@@ -31,6 +34,8 @@ class StockDetailsHandler implements RequestHandlerInterface, StockServiceAwareI
     private $productService;
 
     private $urlHelper;
+
+    private $currentProductUid;
 
     public function __construct(
         Router\RouterInterface $router,
@@ -52,17 +57,18 @@ class StockDetailsHandler implements RequestHandlerInterface, StockServiceAwareI
     {
         $data = null;
 
-        $data['layout'] = 'restable-stock-layout::restable-stock';
+        $this->currentProductUid = $request->getAttribute('product_uid');
 
-        $requestedProductUid = $request->getAttribute('product_uid');
+        $this->addData('restable-stock-layout::restable-stock','layout');
 
-        $data['product_data'] = $this->productService->getItem($requestedProductUid);
 
-        $data['stock_data'] = $this->getStockService()->getItem($requestedProductUid);
+        $this->addData($this->productService->getItem($this->currentProductUid),'product_data');
+        $this->addData($this->getStockService()->getItem($this->currentProductUid),'stock_data');
+        $this->addData($this->getStockService()->getBarcodeItemByProductUid($this->currentProductUid),'barcode_data');
+        $this->addData($this->getStockService()->getStatusByProductUid($this->currentProductUid)->firstItem(),'status_data');
 
-        $data['barcode_data'] = $this->getStockService()->getBarcodeItemByProductUid($requestedProductUid)->getItems();
 
-        return new HtmlResponse($this->template->render('stock::stock-product-details', $data));
+        return new HtmlResponse($this->template->render('stock::stock-product-details', $this->getData()));
     }
 
     /**

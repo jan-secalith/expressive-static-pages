@@ -117,6 +117,32 @@ class ConfigProvider
                         ],
                     ],
                 ],
+                'restable.site.page.features.pos' => [
+                    'cache_response' => [
+                        'enabled' => true,
+                    ],
+                    'module' => [
+                        'static_pages' => [
+                            'view_template_model' => [
+                                'layout' => 'restablesite-layout::restable-site',
+                                'template' => 'staticpages::page-features-pos',
+                            ],
+                        ],
+                    ],
+                ],
+                'restable.site.page.features.stock' => [
+                    'cache_response' => [
+                        'enabled' => true,
+                    ],
+                    'module' => [
+                        'static_pages' => [
+                            'view_template_model' => [
+                                'layout' => 'restablesite-layout::restable-site',
+                                'template' => 'staticpages::page-features-stock',
+                            ],
+                        ],
+                    ],
+                ],
                 'restable.site.page.pricing' => [
                     'cache_response' => [
                         'enabled' => true,

@@ -41,9 +41,6 @@ echo $this->form()->openTag($form);
                 <?=$this->formText($form->get('fieldset_product')->get('name'));?>
                 <?=$this->formElementErrors($form->get('fieldset_product')->get('name'));?>
             </span>
-            <span class="float-right">Edit</span>
-            <span class="float-right">Save</span>
-            <span class="float-right">Dismiss</span>
         </td>
     </tr>
     <tr>
@@ -66,7 +63,6 @@ echo $this->form()->openTag($form);
                 <?=$this->formNumber($form->get('fieldset_stock')->get('product_qty'));?>
                 <?=$this->formElementErrors($form->get('fieldset_stock')->get('product_qty'));?>
             </span>
-            <span class="float-right">Save</span>
         </td>
     </tr>
     <tr>
@@ -76,7 +72,6 @@ echo $this->form()->openTag($form);
                 <?=$this->formText($form->get('fieldset_product')->get('unit'));?>
                 <?=$this->formElementErrors($form->get('fieldset_product')->get('unit'));?>
             </span>
-            <span class="float-right">Save</span>
         </td>
     </tr>
     <tr>
@@ -86,7 +81,15 @@ echo $this->form()->openTag($form);
                 <?=$this->formText($form->get('fieldset_product')->get('price'));?>
                 <?=$this->formElementErrors($form->get('fieldset_product')->get('price'));?>
             </span>
-            <span class="float-right">Save</span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Status</th>
+        <td>
+            <span class="">
+                <?=$this->formSelect($form->get('fieldset_status')->get('status_code'));?>
+                <?=$this->formElementErrors($form->get('fieldset_status')->get('status_code'));?>
+            </span>
         </td>
     </tr>
     <tr>

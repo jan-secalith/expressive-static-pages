@@ -8,6 +8,9 @@ use Common\Model\CommonModelInterface;
 
 class RequestDemoModel implements CommonModelInterface
 {
+
+    const STATUS_NEW = 0;
+
     public $id;
     public $application_id;
     public $name_first;
@@ -19,6 +22,7 @@ class RequestDemoModel implements CommonModelInterface
     public $country;
     public $ip;
     public $created;
+    public $status;
 
     /**
      * CartModel constructor.
@@ -50,6 +54,7 @@ class RequestDemoModel implements CommonModelInterface
         $this->country = (!empty($data['country'])) ? $data['country'] : null;
         $this->ip = (!empty($data['ip'])) ? $data['ip'] : null;
         $this->created = (!empty($data['created'])) ? $data['created'] : null;
+        $this->status = (!empty($data['status'])) ? $data['status'] : null;
 
         return $this;
     }
@@ -92,6 +97,9 @@ class RequestDemoModel implements CommonModelInterface
         }
         if ($this->created !== null) {
             $data['created'] = $this->created;
+        }
+        if ($this->status !== null) {
+            $data['status'] = $this->status;
         }
 
         return $data;
@@ -303,6 +311,22 @@ class RequestDemoModel implements CommonModelInterface
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 
+    /**
+     * @param mixed $status
+     * @return RequestDemoModel
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+        return $this;
+    }
 
 }

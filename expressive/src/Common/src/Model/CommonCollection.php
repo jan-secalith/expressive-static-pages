@@ -70,4 +70,13 @@ class CommonCollection
 
         return $r;
     }
+
+    public function firstItem()
+    {
+        if( ! is_array($this->items)) {
+            return null;
+        }
+        $itemsAll = array_values($this->items);
+        return $itemsAll[0];
+    }
 }

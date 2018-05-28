@@ -8,38 +8,6 @@ use Common\Model\CommonModelInterface;
 
 class StockModel implements CommonModelInterface
 {
-
-    const STOCK_STATUS_NEW = 0;
-    const STOCK_STATUS_REMOVED = 1;
-    const STOCK_STATUS_DISABLED = 2;
-    const STOCK_STATUS_ENABLED = 3;
-    const STOCK_STATUS_ARCHIVED = 4;
-
-    const STOCK_STATUS_PATHS = [
-        self::STOCK_STATUS_NEW => [
-            self::STOCK_STATUS_DISABLED,
-            self::STOCK_STATUS_ENABLED,
-        ],
-        self::STOCK_STATUS_DISABLED => [
-            self::STOCK_STATUS_REMOVED,
-            self::STOCK_STATUS_ARCHIVED,
-            self::STOCK_STATUS_ENABLED,
-        ],
-        self::STOCK_STATUS_ENABLED => [
-            self::STOCK_STATUS_REMOVED,
-            self::STOCK_STATUS_ARCHIVED,
-            self::STOCK_STATUS_DISABLED,
-        ],
-        self::STOCK_STATUS_REMOVED => [
-            self::STOCK_STATUS_DISABLED,
-            self::STOCK_STATUS_ARCHIVED,
-        ],
-        self::STOCK_STATUS_ARCHIVED => [
-            self::STOCK_STATUS_DISABLED,
-            self::STOCK_STATUS_REMOVED,
-        ],
-    ];
-
     public $stock_uid;
     public $product_uid;
     public $barcode_uid;

@@ -28,6 +28,14 @@ class ConfigProvider
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
             'app'    => $this->getApplicationConfig(),
+            'view_helpers'  => [
+                'invokables' => [
+                    'displayStockStatus' => View\Helper\StockStatusLabelHelper::class,
+                ],
+            ],
+            'session_containers' => [
+                'StockProductDelete'
+            ],
         ];
     }
 
@@ -42,8 +50,10 @@ class ConfigProvider
                 \Stock\Handler\SearchBarcodeHandler::class => \Stock\Handler\Factory\SearchBarcodeHandlerFactory::class,
                 \Stock\Handler\StockDetailsHandler::class => \Stock\Handler\Factory\StockDetailsHandlerFactory::class,
                 \Stock\Handler\StockListHandler::class => \Stock\Handler\Factory\StockListHandlerFactory::class,
+                \Stock\Handler\StockSearchHandler::class => \Stock\Handler\Factory\StockSearchHandlerFactory::class,
                 \Stock\Handler\StockWriteHandler::class => \Stock\Handler\Factory\StockWriteHandlerFactory::class,
-                \Stock\Service\StockService::class => \Stock\Service\StockServiceFactory::class,
+                \Stock\Handler\StockRemoveHandler::class => \Stock\Handler\Factory\StockRemoveHandlerFactory::class,
+                \Stock\Service\StockService::class => \Stock\Service\Factory\StockServiceFactory::class,
             ],
         ];
     }
@@ -80,6 +90,31 @@ class ConfigProvider
                     'gateway' => [
                         'name' => 'Stock\Barcode\TableGateway',
                     ],
+                ],
+                'Stock\Status\TableService' => [
+                    'gateway' => [
+                        'name' => 'Stock\Status\TableGateway',
+                    ],
+                ],
+            ],
+            'module' => [
+                'stock' => [
+                    'service' => [
+                        'Stock\Service\StockService' => [
+                            'remove_purge' => false,
+                        ],
+                    ],
+                    'scenario' => [
+                        #TODO implement
+                        'create' => [],
+                        'remove' => [],
+                        'update' => [],
+                        'delete' => [],
+                        'export' => [],
+                        'list' => [],
+                        'import' => [],
+                    ],
+
                 ],
             ],
             'gateway' => [
@@ -121,6 +156,22 @@ class ConfigProvider
                     ],
                     'model' => [
                         "object" => Model\StockBarcodeModel::class,
+                    ],
+                    'hydrator' => [
+                        "object" => ObjectProperty::class,
+                    ],
+                ],
+                'Stock\Status\TableGateway' => [
+                    'name' => 'Stock\StatusTableGateway',
+                    'table' => [
+                        'name' => 'stock_status',
+                        'object' => Model\StockStatusTable::class,
+                    ],
+                    'adapter' => [
+                        'name' => 'Application\Db\LocalAdapter',
+                    ],
+                    'model' => [
+                        "object" => Model\StockStatusModel::class,
                     ],
                     'hydrator' => [
                         "object" => ObjectProperty::class,

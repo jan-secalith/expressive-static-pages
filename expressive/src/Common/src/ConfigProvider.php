@@ -8,6 +8,7 @@ use Common\Handler\StaticPageHandler;
 use Common\Handler\StaticPageHandlerFactory;
 use Common\Helper\CurrentRouteNameHelper;
 use Common\Helper\Factory\CurrentRouteNameHelperFactory;
+use Common\View\Helper\Factory\DisplayLinkGroupHelperFactory;
 use Common\Middleware\CurrentRouteNameMiddleware;
 use Common\Middleware\CurrentUrlMiddleware;
 use Common\Middleware\Factory\CurrentRouteNameMiddlewareFactory;
@@ -54,10 +55,11 @@ class ConfigProvider
                 ],
                 'factories' => [
                     'currentRoute' => CurrentUrlHelperFactory::class,
+                    'displayLinkGroup' => DisplayLinkGroupHelperFactory::class,
                 ],
             ],
             'session_config' => [
-                'cookie_lifetime' => 60*60*1,
+                'cookie_lifetime' => 60*60*10,
                 'gc_maxlifetime' => 60*60*24*30,
             ],
             'session_manager' => [
@@ -70,7 +72,7 @@ class ConfigProvider
                 'type' => SessionArrayStorage::class
             ],
             'cache' => [
-                'enabled' => false,
+                'enabled' => true,
                 'path' => 'data/cache/',
                 'lifetime' => 3600
             ],
@@ -95,10 +97,14 @@ class ConfigProvider
                 StaticPageHandlerCacheMiddleware::class => StaticPageHandlerCacheMiddlewareFactory::class,
             ],
             'abstract_factories' => [
+                \Common\Handler\Factory\ListHandlerAbstractFactory::class,
+                \Common\Handler\Factory\CreateHandlerAbstractFactory::class,
+                \Common\Handler\Factory\ReadHandlerAbstractFactory::class,
                 Service\GatewayAbstractFactory::class,
                 Service\TableServiceAbstractFactory::class,
                 \Zend\Cache\Service\StorageCacheAbstractServiceFactory::class,
             ],
+            'delegators' => [],
         ];
     }
 

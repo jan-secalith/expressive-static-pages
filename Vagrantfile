@@ -104,7 +104,10 @@ apt-get update
 apt-get install -y mysql-server
 
 mysql -u root -proot -e "CREATE DATABASE restable;"
-mysql -u root -proot restable < /var/www/build/data/db/schema.sql
+mysql -u root -proot restable < /var/www/build/data/db/restable.sql
+
+mysql -u root -proot -e "CREATE DATABASE credentials;"
+mysql -u root -proot credentials < /var/www/build/data/db/credentials.sql
 
 # Install Adminer.php
 cd /var/www/build/bin

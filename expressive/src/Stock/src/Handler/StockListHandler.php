@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Stock\Handler;
 
+use Common\Handler\DataAwareInterface;
+use Common\Handler\DataAwareTrait;
 use Common\Paginator\PaginatorAwareInterface;
 use Common\Paginator\PaginatorAwareTrait;
 use Stock\Service\StockServiceAwareTrait;
@@ -20,9 +22,10 @@ use Zend\Expressive\Template;
 use Zend\Paginator\Paginator;
 use Zend\Paginator\ScrollingStyle\Sliding;
 
-class StockListHandler implements RequestHandlerInterface, PaginatorAwareInterface
+class StockListHandler implements RequestHandlerInterface, PaginatorAwareInterface, DataAwareInterface
 {
     use PaginatorAwareTrait;
+    use DataAwareTrait;
 
     private $containerName;
 
@@ -89,7 +92,7 @@ class StockListHandler implements RequestHandlerInterface, PaginatorAwareInterfa
     private function getStockBarcodeForm()
     {
         $form = new StockBarcodeForm();
-        $form->setAttribute('action', $this->urlHelper->generate('stock.product.list'));
+        $form->setAttribute('action', $this->urlHelper->generate('stock.search.post'));
 
         return $form;
     }

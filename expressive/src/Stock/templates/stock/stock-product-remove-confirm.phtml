@@ -1,0 +1,117 @@
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h1 class="m-0 text-muted">Stock Write</h1>
+        <?php if(isset($product_data)&&!empty($product_data)):?>
+            <hr />
+            <h2 class="m-0">
+                <strong class="text-muted">UPDATE:</strong>
+                <span><?=$this->escapeHtml($product_data->getName());?></span>
+            </h2>
+        <?php endif;?>
+    </div>
+</div>
+
+<hr />
+
+<?php if(isset($messages)&&array_key_exists('error',$messages)):?>
+    <?=$this->flashMessage($messages['error'],'error',true,true);?>
+<?php endif;?>
+<?php if(isset($messages)&&array_key_exists('success',$messages)):?>
+    <?=$this->flashMessage($messages['success'],'success',true,true);?>
+<?php endif;?>
+<?php if(isset($messages)&&array_key_exists('info',$messages)):?>
+    <?=$this->flashMessage($messages['info'],'info',true,true);?>
+<?php endif;?>
+
+<?php
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+<a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.list');?>">Stock List</a>
+<?php if(isset($product_data)&&!empty($product_data)):?>
+    <a class="btn btn-sm btn-info" href="<?=$this->url('stock.product.details',['product_uid'=>$product_data->getProductUid()]);?>">View Details</a>
+<?php endif;?>
+<span class="float-right"><?=$this->formSubmit($form->get('submit_top'));?></span>
+<table class="table mt-3">
+    <tbody>
+    <tr>
+        <th scope="row"><?=$this->formLabel($form->get('fieldset_product')->get('name'));?></th>
+        <td>
+            <span>
+                <?=$this->formText($form->get('fieldset_product')->get('name'));?>
+                <?=$this->formElementErrors($form->get('fieldset_product')->get('name'));?>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Product UID</th>
+        <td><small><?=(isset($product_data)&&!empty($product_data))?$this->escapeHtml($product_data->getProductUid()):'-';?></small></td>
+    </tr>
+    <tr>
+        <th scope="row"><?=$this->formLabel($form->get('fieldset_product')->get('description_short'));?></th>
+        <td>
+            <span>
+                <?=$this->formTextarea($form->get('fieldset_product')->get('description_short'));?>
+                <?=$this->formElementErrors($form->get('fieldset_product')->get('description_short'));?>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><?=$this->formLabel($form->get('fieldset_stock')->get('product_qty'));?></th>
+        <td>
+            <span>
+                <?=$this->formNumber($form->get('fieldset_stock')->get('product_qty'));?>
+                <?=$this->formElementErrors($form->get('fieldset_stock')->get('product_qty'));?>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><?=$this->formLabel($form->get('fieldset_product')->get('unit'));?></th>
+        <td>
+            <span>
+                <?=$this->formText($form->get('fieldset_product')->get('unit'));?>
+                <?=$this->formElementErrors($form->get('fieldset_product')->get('unit'));?>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><?=$this->formLabel($form->get('fieldset_product')->get('price'));?></th>
+        <td>
+            <span class="form-element-barcode-wrapper">
+                <?=$this->formText($form->get('fieldset_product')->get('price'));?>
+                <?=$this->formElementErrors($form->get('fieldset_product')->get('price'));?>
+            </span>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row">Barcodes</th>
+        <td>
+            <span class="form-element-barcode-wrapper">
+            <?=$this->formCollection($form->get('fieldset_barcode'));?>
+            </span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="-d-flex flex-row-reverse">
+    <?=$this->formSubmit($form->get('submit'));?>
+</div>
+
+<div class="hidden">
+    <?=$this->formElement($form->get('application_id'));?>
+    <?=$this->formElement($form->get('csrf'));?>
+    <?=$this->formElement($form->get('fieldset_product')->get('product_uid'));?>
+    <?=$this->formElement($form->get('fieldset_stock')->get('stock_uid'));?>
+    <?=$this->formElement($form->get('fieldset_stock')->get('product_uid'));?>
+</div>
+
+<?=$this->formElementErrors($form->get('application_id'));?>
+<?=$this->formElementErrors($form->get('csrf'));?>
+<?=$this->formElement($form->get('fieldset_product')->get('product_uid'));?>
+<?=$this->formElement($form->get('fieldset_stock')->get('product_uid'));?>
+<?=$this->formElement($form->get('fieldset_stock')->get('stock_uid'));?>
+<?php
+echo $this->form()->closeTag();
+?>
+<hr />

@@ -117,6 +117,12 @@ class StockBarcodeTable
         $this->tableGateway->delete($data);
     }
 
+    public function deleteAllByProduct($item)
+    {
+        $data = ['product_uid' => $item->getProductUid()];
+        return $this->tableGateway->delete($data);
+    }
+
     public function updateStatus($item)
     {
 

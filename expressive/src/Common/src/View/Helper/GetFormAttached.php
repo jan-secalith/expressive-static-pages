@@ -37,6 +37,8 @@ class GetFormAttached extends AbstractHelper
 
             $output .= $this->getView()->plugin('partial')($template,['form'=>$form]);
 
+        } else {
+            echo '<i>Form has not been found</i>';
         }
 
         return $output;

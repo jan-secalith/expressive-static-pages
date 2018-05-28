@@ -31,14 +31,6 @@ class RequestDemoFormTable
         return $resultSet->count();
     }
 
-    public function fetchAll()
-    {
-        $resultSet = $this->tableGateway->select();
-        $resultSet->buffer();
-
-        return $resultSet;
-    }
-
     /**
      * @param \RestableSite\StaticPages\Model\RequestDemoModel $item
      */
@@ -47,17 +39,17 @@ class RequestDemoFormTable
         $dateTime = new \DateTime('now');
 
         $data = [
-            'id' => $item->getId(),
             'application_id' => $item->getApplicationId(),
+            'contact_email' => $item->getContactEmail(),
+            'contact_phone' => $item->getContactPhone(),
+            'created' => $dateTime->format('Y-m-d\TH:i:s.u'),
+            'id' => $item->getId(),
+            'ip' => $item->getIp(),
             'name_first' => $item->getNameFirst(),
             'name_last' => $item->getNameLast(),
-            'contact_phone' => $item->getContactPhone(),
-            'contact_email' => $item->getContactEmail(),
+            'status' => RequestDemoModel::STATUS_NEW,
             'venue_name' => $item->getVenueName(),
             'work_title' => $item->getWorkTitle(),
-            'country' => $item->getCountry(),
-            'ip' => $item->getIp(),
-            'created' => $dateTime->format('Y-m-d\TH:i:s.u'),
         ];
         $this->tableGateway->insert($data);
     }

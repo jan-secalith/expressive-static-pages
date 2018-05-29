@@ -8,9 +8,8 @@ use Zend\InputFilter\InputFilterProviderInterface;
 use RestableAdmin\Client\Model\Model;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ClassMethods;
-use Zend\InputFilter\InputFilter;
 
-class ClientFieldset extends Fieldset implements InputFilterProviderInterface
+class SelectFieldset extends Fieldset implements InputFilterProviderInterface
 {
     public function __construct($name = null, $options = array())
     {
@@ -18,7 +17,6 @@ class ClientFieldset extends Fieldset implements InputFilterProviderInterface
 
         $this->setHydrator(new ClassMethods(true));
         $this->setObject(new Model());
-//        $this->setInputFilter($this->addInputFilter())
 
         $this->addElements();
     }

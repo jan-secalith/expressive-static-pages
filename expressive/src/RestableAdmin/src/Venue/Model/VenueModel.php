@@ -93,7 +93,7 @@ class VenueModel implements CommonModelInterface
 
     /**
      * @param mixed $client_uid
-     * @return VenueModel
+     * @return Model
      */
     public function setClientUid($client_uid)
     {
@@ -111,7 +111,7 @@ class VenueModel implements CommonModelInterface
 
     /**
      * @param mixed $venue_uid
-     * @return VenueModel
+     * @return Model
      */
     public function setVenueUid($venue_uid)
     {
@@ -129,7 +129,7 @@ class VenueModel implements CommonModelInterface
 
     /**
      * @param mixed $status
-     * @return VenueModel
+     * @return Model
      */
     public function setStatus($status)
     {
@@ -147,7 +147,7 @@ class VenueModel implements CommonModelInterface
 
     /**
      * @param mixed $updated
-     * @return VenueModel
+     * @return Model
      */
     public function setUpdated($updated)
     {
@@ -165,7 +165,7 @@ class VenueModel implements CommonModelInterface
 
     /**
      * @param mixed $created
-     * @return VenueModel
+     * @return Model
      */
     public function setCreated($created)
     {

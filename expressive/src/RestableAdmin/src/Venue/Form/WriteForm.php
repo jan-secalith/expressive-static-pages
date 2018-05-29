@@ -2,21 +2,26 @@
 
 declare(strict_types=1);
 
-namespace RestableAdmin\Client\Form;
+namespace RestableAdmin\Venue\Form;
 
 use Zend\Form\Form as Form;
 use Zend\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilter;
 
-class ClientWriteForm extends Form
+class WriteForm extends Form
 {
-    public function __construct($name = 'form_create', $options = array())
+    private $clients;
+
+    public function __construct($name = 'form_create', $options = array(),$clients=null)
     {
         parent::__construct($name,$options);
+
+        $this->clients = $clients;
 
         $this
             ->setAttribute('method', 'post')
             ->setHydrator(new ClassMethods(true))
+//            ->setObject(new WriteModel())
             ->setInputFilter($this->addInputFilter())
         ;
 
@@ -36,11 +41,18 @@ class ClientWriteForm extends Form
 
         $this->add(array(
             'name' => 'form_create',
-            'type' => \RestableAdmin\Client\Form\Fieldset\WriteFieldset::class,
+            'type' => \RestableAdmin\Venue\Form\Fieldset\WriteFieldset::class,
             'options' => array(
                 'use_as_base_fieldset' => true
             )
         ));
+
+        $this->get('form_create')
+            ->get('fieldset_venue')
+            ->get('client_uid')
+            ->setValueOptions($this->clients)
+        ;
+
 
         $this->add([
             'type' => 'Zend\Form\Element\Csrf',

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace RestableAdmin\Client\Form\Fieldset;
 
 use Zend\InputFilter\InputFilterProviderInterface;
-use RestableAdmin\Client\Model\ClientModel;
+use RestableAdmin\Client\Model\Model;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilter;
@@ -17,7 +17,7 @@ class ClientSelectFieldset extends Fieldset implements InputFilterProviderInterf
         parent::__construct($name,$options);
 
         $this->setHydrator(new ClassMethods(true));
-        $this->setObject(new ClientModel());
+        $this->setObject(new Model());
 //        $this->setInputFilter($this->addInputFilter())
 
         $this->addElements();

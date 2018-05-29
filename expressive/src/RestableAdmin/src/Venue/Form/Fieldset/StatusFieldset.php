@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace RestableAdmin\Client\Form\Fieldset;
+namespace RestableAdmin\Venue\Form\Fieldset;
 
-use RestableAdmin\Client\Model\StatusModel;
+use RestableAdmin\Venue\Model\StatusModel;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilterProviderInterface;
@@ -29,7 +29,6 @@ class StatusFieldset extends Fieldset implements InputFilterProviderInterface
         {
             $curr = $this->getObject()->getStatusCurrentWithLabel(StatusModel::STOCK_STATUS_DEFAULT);
             $status_code_options = $this->getObject()->getStatusAvailableWithLabels();
-
         }
 
         $this->add(array(

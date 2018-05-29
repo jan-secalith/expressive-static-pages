@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace RestableAdmin\Client\Form\Fieldset;
+namespace RestableAdmin\Venue\Form\Fieldset;
 
 use Zend\InputFilter\InputFilterProviderInterface;
-use RestableAdmin\Client\Model\ClientWriteModel;
+use RestableAdmin\Venue\Model\WriteModel;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilter;
 
-class ClientWriteFieldset extends Fieldset implements InputFilterProviderInterface
+class WriteFieldset extends Fieldset implements InputFilterProviderInterface
 {
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name,$options);
 
         $this->setHydrator(new ClassMethods(true));
-        $this->setObject(new ClientWriteModel());
+        $this->setObject(new WriteModel());
 //        $this->setInputFilter($this->addInputFilter())
 
         $this->addElements();
@@ -26,8 +26,8 @@ class ClientWriteFieldset extends Fieldset implements InputFilterProviderInterfa
     protected function addElements()
     {
         $this->add(array(
-            'name' => 'fieldset_client',
-            'type' => \RestableAdmin\Client\Form\Fieldset\ClientFieldset::class,
+            'name' => 'fieldset_venue',
+            'type' => \RestableAdmin\Venue\Form\Fieldset\VenueFieldset::class,
             'options' => array(
                 'use_as_base_fieldset' => false
             )
@@ -35,14 +35,14 @@ class ClientWriteFieldset extends Fieldset implements InputFilterProviderInterfa
 
         $this->add(array(
             'name' => 'fieldset_status',
-            'type' => \RestableAdmin\Client\Form\Fieldset\StatusFieldset::class,
+            'type' => \RestableAdmin\Venue\Form\Fieldset\StatusFieldset::class,
         ));
 
         $this->add(array(
             'type' => 'Zend\Form\Element\Collection',
             'name' => 'collection_contact',
             'options' => array(
-                'count' => 1,
+                'count' => 0,
                 'label' => 'Contacts',
                 'should_create_template' => true,
                 'allow_add' => true,
@@ -61,7 +61,7 @@ class ClientWriteFieldset extends Fieldset implements InputFilterProviderInterfa
             'type' => 'button',
             'name' => 'collection_contact_add',
             'options' => array(
-                'label' => 'Add Another Contact'
+                'label' => 'Add Contact'
             ),
             'attributes' => [
                 'class' => 'btn btn-sm btn-info btn-form',
@@ -75,7 +75,7 @@ class ClientWriteFieldset extends Fieldset implements InputFilterProviderInterfa
             'type' => 'Zend\Form\Element\Collection',
             'name' => 'collection_address',
             'options' => array(
-                'count' => 1,
+                'count' => 0    ,
                 'label' => 'Addresses',
                 'should_create_template' => true,
                 'allow_add' => true,
@@ -94,7 +94,7 @@ class ClientWriteFieldset extends Fieldset implements InputFilterProviderInterfa
             'type' => 'button',
             'name' => 'collection_address_add',
             'options' => array(
-                'label' => 'Add Another Address'
+                'label' => 'Add Address'
             ),
             'attributes' => [
                 'class' => 'btn btn-sm btn-info btn-form',

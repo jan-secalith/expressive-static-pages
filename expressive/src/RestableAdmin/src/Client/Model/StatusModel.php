@@ -12,7 +12,7 @@ use Common\Model\CommonModelInterface;
  * Class StockStatusModel
  * @package Stock\Model
  */
-class ClientStatusModel implements CommonModelInterface
+class StatusModel implements CommonModelInterface
 {
 
     public $client_uid;
@@ -175,7 +175,7 @@ class ClientStatusModel implements CommonModelInterface
 
     /**
      * @param mixed $client_uid
-     * @return ClientStatusModel
+     * @return StatusModel
      */
     public function setClientUid($client_uid)
     {

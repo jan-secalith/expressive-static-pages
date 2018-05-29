@@ -89,7 +89,7 @@ class ContactTable
     }
 
     /**
-     * @param \RestableAdmin\Client\Model\ClientModel $item
+     * @param \RestableAdmin\Client\Model\Model $item
      */
     public function saveItem(ContactModel $item)
     {

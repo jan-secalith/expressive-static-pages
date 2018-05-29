@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace RestableAdmin\Client\Model;
+namespace RestableAdmin\Venue\Model;
 
-class ClientWriteModel
+class WriteModel
 {
     public $fieldset_client;
     public $collection_contact;
@@ -21,10 +21,12 @@ class ClientWriteModel
 
     public function exchangeArray(array $data = [])
     {
+        $this->fieldset_client = (!empty($data['fieldset_venue'])) ? $data['fieldset_venue'] : null;
         $this->fieldset_client = (!empty($data['fieldset_client'])) ? $data['fieldset_client'] : null;
+
+        $this->fieldset_status = (!empty($data['fieldset_status'])) ? $data['fieldset_status'] : null;
         $this->collection_contact = (!empty($data['collection_contact'])) ? $data['collection_contact'] : null;
         $this->collection_address = (!empty($data['collection_address'])) ? $data['collection_address'] : null;
-        $this->fieldset_status = (!empty($data['fieldset_status'])) ? $data['fieldset_status'] : null;
 
         return $this;
     }
@@ -74,7 +76,7 @@ class ClientWriteModel
         return $this->fieldset_client;
     }
 
-    public function setFieldsetClient( $fieldset_client): ClientWriteModel
+    public function setFieldsetClient( $fieldset_client): WriteModel
     {
         $this->fieldset_client = $fieldset_client;
         return $this;
@@ -90,7 +92,7 @@ class ClientWriteModel
 
     /**
      * @param mixed $collection_contact
-     * @return ClientWriteModel
+     * @return WriteModel
      */
     public function setCollectionContact($collection_contact)
     {
@@ -108,7 +110,7 @@ class ClientWriteModel
 
     /**
      * @param mixed $collection_address
-     * @return ClientWriteModel
+     * @return WriteModel
      */
     public function setCollectionAddress($collection_address)
     {
@@ -126,7 +128,7 @@ class ClientWriteModel
 
     /**
      * @param mixed $fieldset_status
-     * @return ClientWriteModel
+     * @return WriteModel
      */
     public function setFieldsetStatus($fieldset_status)
     {

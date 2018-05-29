@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace RestableAdmin\Category\Service\Factory;
+namespace RestableAdmin\Category\Form\Factory;
 
 use RestableAdmin\Category\Form\CategoryForm;
 use Psr\Container\ContainerInterface;

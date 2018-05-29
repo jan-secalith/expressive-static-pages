@@ -40,7 +40,9 @@ class ConfigProvider
                 Handler\AuthLoginHandler::class => Handler\Factory\AuthLoginHandlerFactory::class,
                 Handler\AuthLogoutHandler::class => Handler\Factory\AuthLogoutHandlerFactory::class,
                 Category\Form\CategoryForm::class =>
-                    \RestableAdmin\Category\Service\Factory\CategoryFormServiceFactory::class,
+                    Category\Form\Factory\CategoryFormServiceFactory::class,
+                Venue\Form\WriteForm::class =>
+                    Venue\Form\Factory\VenueFormServiceFactory::class,
             ],
             'delegators' => [
                 // It is worth to remind that Delegators are loaded using FIFO method.
@@ -117,6 +119,11 @@ class ConfigProvider
                         'name' => 'RestableAdmin\Instance\TableGateway',
                     ],
                 ],
+                'RestableAdmin\Venue\TableService' => [
+                    'gateway' => [
+                        'name' => 'RestableAdmin\Venue\TableGateway',
+                    ],
+                ],
             ],
             'gateway' => [
                 'RestableAdmin\StaticPages\RequestDemo\TableGateway' => [
@@ -139,7 +146,7 @@ class ConfigProvider
                     'name' => 'RestableAdmin\Order\TableGateway',
                     'table' => [
                         'name' => 'order',
-                        'object' => \RestableAdmin\Order\Model\OrderTable::class,
+                        'object' => Order\Model\OrderTable::class,
                     ],
                     'adapter' => [
                         'name' => 'Application\Db\LocalAdapter',
@@ -155,7 +162,7 @@ class ConfigProvider
                     'name' => 'RestableAdmin\Product\TableGateway',
                     'table' => [
                         'name' => 'product',
-                        'object' => \RestableAdmin\Product\Model\ProductTable::class,
+                        'object' => Product\Model\ProductTable::class,
                     ],
                     'adapter' => [
                         'name' => 'Application\Db\LocalAdapter',
@@ -171,7 +178,7 @@ class ConfigProvider
                     'name' => 'RestableAdmin\Stock\TableGateway',
                     'table' => [
                         'name' => 'stock',
-                        'object' => \RestableAdmin\Stock\Model\StockTable::class,
+                        'object' => Stock\Model\StockTable::class,
                     ],
                     'adapter' => [
                         'name' => 'Application\Db\LocalAdapter',
@@ -235,13 +242,13 @@ class ConfigProvider
                     'name' => 'RestableAdmin\Client\TableGateway',
                     'table' => [
                         'name' => 'client',
-                        'object' => Client\Model\ClientTable::class,
+                        'object' => Client\Model\Table::class,
                     ],
                     'adapter' => [
                         'name' => 'Application\Db\LocalAdapter',
                     ],
                     'model' => [
-                        "object" => Client\Model\ClientModel::class,
+                        "object" => Client\Model\Model::class,
                     ],
                     'hydrator' => [
                         "object" => ObjectProperty::class,
@@ -445,9 +452,10 @@ class ConfigProvider
                                         'action' => [
                                             'route' => 'restable.admin.client.create.post',
                                         ],
-                                        'object' => \RestableAdmin\Client\Form\ClientWriteForm::class,
+                                        'form_factory' => \RestableAdmin\Client\Form\ClientWriteForm::class,
                                         'save' => [
                                             'fieldset_client' => [
+                                                'priority' => 100,
                                                 'fieldset_name' => 'fieldset_client',
                                                 'service' => [
                                                     [
@@ -456,8 +464,23 @@ class ConfigProvider
                                                     ],
 
                                                 ],
+                                                'entity_change' => [
+                                                    [
+                                                        'field_name' => 'status',
+                                                        'source' => [
+                                                            'type' => 'result-incoming',
+                                                            'source_name' => 'fieldset_status',
+                                                            'source_field_name' => 'status_code',
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                            'fieldset_status' => [
+                                                'priority' => 110,
+                                                'fieldset_name' => 'fieldset_status',
                                             ],
                                             'collection_contact' => [
+                                                'priority' => 120,
                                                 'fieldset_name' => 'collection_contact',
                                                 'service' => [
                                                     [
@@ -477,6 +500,7 @@ class ConfigProvider
                                                 ],
                                             ],
                                             'collection_address' => [
+                                                'priority' => 130,
                                                 'fieldset_name' => 'collection_address',
                                                 'service' => [
                                                     [
@@ -501,6 +525,161 @@ class ConfigProvider
                                 ],
                             ],
                         ], // restable.admin.client.create.post
+                        'restable.admin.venue.create' => [
+                            'get' => [
+                                'method' => 'GET',
+                                'scenario' => 'create',
+                                'acl' => true,
+                                'rbac' => true,
+                                'data_template_model' => [
+                                    'route_name' => 'restable.admin.venue.create',
+                                    'heading' => [
+                                        [
+                                            'html_tag' => 'h1',
+                                            'text' => 'Create Venue',
+                                            'buttons' => [
+                                                [
+                                                    'html_tag' => 'a',
+                                                    'text' => 'List Venues',
+                                                    'attributes' => [
+                                                        'class' => 'btn btn-sm btn-info ml-5',
+                                                        'href' => 'helper::url:restable.admin.venue.list'
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                'view_template_model' => [
+                                    'layout' => 'restable-admin-layout::restable-admin',
+                                    'template' => 'restable-admin::template-create',
+                                    'forms' => [
+                                        'form_create' => 'restable-admin-venue::form-create',
+                                    ],
+                                ],
+                                'forms' => [
+                                    [
+                                        'action' => [
+                                            'route' => 'restable.admin.venue.create.post',
+                                        ],
+                                        'name' => 'form_create',
+                                        'form_factory' => \RestableAdmin\Venue\Form\WriteForm::class,
+                                        'template' => 'restable-admin-venue::form-create',
+                                    ]
+                                ],
+                            ],
+                        ], // restable.admin.venue.create
+                        'restable.admin.venue.create.post' => [
+                            'post' => [
+                                'method' => 'POST',
+                                'scenario' => 'process',
+                                'acl' => true,
+                                'rbac' => true,
+                                'data_template_model' => [
+                                    'route_name' => 'restable.venue.create.create',
+                                    'heading' => [
+                                        [
+                                            'html_tag' => 'h1',
+                                            'text' => 'Create Venue',
+                                            'buttons' => [
+                                                [
+                                                    'html_tag' => 'a',
+                                                    'text' => 'List Venues',
+                                                    'attributes' => [
+                                                        'class' => 'btn btn-sm btn-info ml-5',
+                                                        'href' => 'helper::url:restable.admin.venue.list'
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                                'view_template_model' => [
+                                    'layout' => 'restable-admin-layout::restable-admin',
+                                    'template' => 'restable-admin::template-create',
+                                    'forms' => [
+                                        'form_create' => 'restable-admin-venue::form-create',
+                                    ],
+                                ],
+                                'forms' => [
+                                    [
+                                        'name' => 'form_create',
+                                        'action' => [
+                                            'route' => 'restable.admin.venue.create.post',
+                                        ],
+                                        'form_factory' => \RestableAdmin\Venue\Form\WriteForm::class,
+                                        'save' => [
+                                            'fieldset_venue' => [
+                                                'priority' => 100,
+                                                'fieldset_name' => 'fieldset_venue',
+                                                'service' => [
+                                                    [
+                                                        'name'=>'RestableAdmin\Venue\TableService',
+                                                        'method' => 'saveItem'
+                                                    ],
+
+                                                ],
+                                                'entity_change' => [
+                                                    [
+                                                        'field_name' => 'status',
+                                                        'source' => [
+                                                            'type' => 'result-incoming',
+                                                            'source_name' => 'fieldset_status',
+                                                            'source_field_name' => 'status_code',
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                            'fieldset_status' => [
+                                                'priority' => 110,
+                                                'fieldset_name' => 'fieldset_status',
+                                            ],
+                                            'collection_contact' => [
+                                                'priority' => 120,
+                                                'fieldset_name' => 'collection_contact',
+                                                'service' => [
+                                                    [
+                                                        'name'=>'RestableAdmin\Contact\TableService',
+                                                        'method' => 'saveItem'
+                                                    ],
+                                                ],
+                                                'entity_change' => [
+                                                    [
+                                                        'field_name' => 'client_uid',
+                                                        'source' => [
+                                                            'type' => 'result-insert',
+                                                            'source_name' => 'fieldset_client',
+                                                            'source_field_name' => 'client_uid',
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                            'collection_address' => [
+                                                'priority' => 130,
+                                                'fieldset_name' => 'collection_address',
+                                                'service' => [
+                                                    [
+                                                        'name'=>'RestableAdmin\Contact\Address\TableService',
+                                                        'method' => 'saveItem'
+                                                    ],
+
+                                                ],
+                                                'entity_change' => [
+                                                    [
+                                                        'field_name' => 'client_uid',
+                                                        'source' => [
+                                                            'type' => 'result-insert',
+                                                            'source_name' => 'fieldset_client',
+                                                            'source_field_name' => 'client_uid',
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ], // restable.admin.venue.create.post
                         'restable.admin.category.create' => [
                             'get' => [
                                 'method' => 'GET',
@@ -532,12 +711,12 @@ class ConfigProvider
                                     ],
                                 ],
                                 'forms' => [
-                                    [
+                                    'form_create'=>[
                                         'action' => [
                                             'route' => 'restable.admin.category.create.post',
                                         ],
                                         'name' => 'form_create',
-                                        'form_factory' => RestableAdmin\Category\Form\CategoryForm::class,
+                                        'form_factory' => Category\Form\CategoryForm::class,
                                         'template' => 'restable-admin-category::form-create',
                                     ]
                                 ],
@@ -579,7 +758,7 @@ class ConfigProvider
                                         'action' => [
                                             'route' => 'restable.admin.category.create.post',
                                         ],
-                                        'form_factory' => RestableAdmin\Category\Form\CategoryForm::class,
+                                        'form_factory' => Category\Form\CategoryForm::class,
                                         'save' => [
                                             'fieldset_category' => [
                                                 'fieldset_name' => 'fieldset_category',
@@ -829,7 +1008,7 @@ class ConfigProvider
                             ],
                         ], // restable.admin.application.create
                     ],
-                ],
+                ], // RestableAdmin\Handler\CRUD\CreateHandler
                 'RestableAdmin\Handler\CRUD\ReadHandler' => [
                     'route' => [
                         'restable.admin.contact.read' => [
@@ -984,7 +1163,7 @@ class ConfigProvider
                             ],
                         ], // restable.admin.contact.read
                     ],
-                ],
+                ], // RestableAdmin\Handler\CRUD\ReadHandler
                 'RestableAdmin\Handler\CRUD\ListHandler'=> [
                     'route' => [
                         // Configuration by RouteName
@@ -1032,7 +1211,7 @@ class ConfigProvider
                                                 'db_select' => [
                                                     'columns' => ['name_first','name_last','contact_phone','status','contact_email','venue_name','created'],
                                                     'where' => [
-                                                        'status' => \RestableAdmin\StaticPages\Model\RequestDemoModel::STATUS_NEW,
+                                                        'status' => StaticPages\Model\RequestDemoModel::STATUS_NEW,
                                                     ],
                                                 ],
                                             ],
@@ -1481,7 +1660,7 @@ class ConfigProvider
                                                     'text' => 'Create Venue',
                                                     'attributes' => [
                                                         'class' => 'btn btn-sm btn-info ml-5',
-                                                        'href' => 'helper::url:restable.admin.client.create'
+                                                        'href' => 'helper::url:restable.admin.venue.create'
                                                     ],
                                                 ],
                                             ],
@@ -1781,7 +1960,7 @@ class ConfigProvider
                             ],
                         ], // restable.admin.contact.list
                     ],
-                ],
+                ], // RestableAdmin\Handler\CRUD\ListHandler
             ],
         ];
     }

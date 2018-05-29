@@ -29,7 +29,7 @@ class AddressWriteFieldset extends Fieldset implements InputFilterProviderInterf
             'type' => 'button',
             'name' => 'collection_address_add',
             'options' => array(
-                'label' => 'Add Another Address'
+                'label' => 'Add Address'
             ),
             'attributes' => [
                 'class' => 'btn btn-sm btn-info btn-form',

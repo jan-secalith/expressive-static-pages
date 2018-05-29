@@ -2,23 +2,21 @@
 
 declare(strict_types=1);
 
-namespace RestableAdmin\Client\Form\Fieldset;
+namespace RestableAdmin\Venue\Form\Fieldset;
 
 use Zend\InputFilter\InputFilterProviderInterface;
-use RestableAdmin\Client\Model\Model;
+use RestableAdmin\Venue\Model\VenueModel;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ClassMethods;
-use Zend\InputFilter\InputFilter;
 
-class ClientFieldset extends Fieldset implements InputFilterProviderInterface
+class VenueFieldset extends Fieldset implements InputFilterProviderInterface
 {
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name,$options);
 
         $this->setHydrator(new ClassMethods(true));
-        $this->setObject(new Model());
-//        $this->setInputFilter($this->addInputFilter())
+        $this->setObject(new VenueModel());
 
         $this->addElements();
     }
@@ -27,25 +25,40 @@ class ClientFieldset extends Fieldset implements InputFilterProviderInterface
     {
         $this->add(array(
             'type' => 'hidden',
-            'name' => 'client_uid'
+            'name' => 'venue_uid'
         ));
 
         $this->add(array(
             'type' => 'text',
-            'name' => 'client_name',
+            'name' => 'venue_name',
             'options' => array(
-                'label' => 'Client Name'
+                'label' => 'Venue Name'
             ),
             'attributes' => [
                 'class' => 'form-control d-inline-flex w-auto',
             ],
         ));
+
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Select',
+            'name' => 'client_uid',
+            'options' => array(
+                'label' => 'Client',
+                'value_options' => [
+                    '0' => 'None',
+                ],
+            ),
+            'attributes' => [
+                'class' => 'form-control d-inline-flex w-auto',
+            ],
+        ));
+
     }
 
     public function getInputFilterSpecification()
     {
         return array(
-            'client_name' => array(
+            'venue_name' => array(
                 'required' => true,
             ),
         );

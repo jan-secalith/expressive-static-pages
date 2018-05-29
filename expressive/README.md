@@ -84,3 +84,10 @@ To access the site, after `vagrant up` open `http://127.0.0.1:8089` in your brow
 * Flash Messages
 * Memcache
 * Twig
+
+# RESTABLE ADMIN #
+To create new submodule follow these steps 
+
+*LIST*
+* Create entry in the config/routes.php
+* in modules configProvider add entry to app/handler/{RestableAdmin\Handler\CRUD\CreateHandler}/route/<routeName>/get

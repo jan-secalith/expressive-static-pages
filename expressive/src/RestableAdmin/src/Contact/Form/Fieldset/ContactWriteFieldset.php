@@ -29,7 +29,7 @@ class ContactWriteFieldset extends Fieldset implements InputFilterProviderInterf
             'type' => 'button',
             'name' => 'collection_contact_add',
             'options' => array(
-                'label' => 'Add Another Contact'
+                'label' => 'Add Contact'
             ),
             'attributes' => [
                 'class' => 'btn btn-sm btn-info btn-form',

@@ -6,7 +6,7 @@ namespace RestableAdmin\Client\Model;
 
 use Common\Model\CommonModelInterface;
 
-class ClientModel implements CommonModelInterface
+class Model implements CommonModelInterface
 {
     public $client_name;
     public $client_uid;
@@ -35,7 +35,7 @@ class ClientModel implements CommonModelInterface
      * Populates the Object with data from the provided Array
      *
      * @param array $data
-     * @return OrderModel
+     * @return Model
      */
     public function exchangeArray(array $data = [])
     {
@@ -54,6 +54,7 @@ class ClientModel implements CommonModelInterface
     public function toArray()
     {
         $data = [];
+
         if ($this->client_name !== null) {
             $data['client_name'] = $this->client_name;
         }
@@ -91,11 +92,12 @@ class ClientModel implements CommonModelInterface
 
     /**
      * @param mixed $client_name
-     * @return ClientModel
+     * @return Model
      */
     public function setClientName($client_name)
     {
         $this->client_name = $client_name;
+
         return $this;
     }
 
@@ -109,11 +111,12 @@ class ClientModel implements CommonModelInterface
 
     /**
      * @param mixed $client_uid
-     * @return VenueModel
+     * @return Model
      */
     public function setClientUid($client_uid)
     {
         $this->client_uid = $client_uid;
+
         return $this;
     }
 
@@ -127,11 +130,12 @@ class ClientModel implements CommonModelInterface
 
     /**
      * @param mixed $status
-     * @return VenueModel
+     * @return Model
      */
     public function setStatus($status)
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -145,11 +149,12 @@ class ClientModel implements CommonModelInterface
 
     /**
      * @param mixed $updated
-     * @return VenueModel
+     * @return Model
      */
     public function setUpdated($updated)
     {
         $this->updated = $updated;
+
         return $this;
     }
 
@@ -163,11 +168,12 @@ class ClientModel implements CommonModelInterface
 
     /**
      * @param mixed $created
-     * @return VenueModel
+     * @return Model
      */
     public function setCreated($created)
     {
         $this->created = $created;
+
         return $this;
     }
 

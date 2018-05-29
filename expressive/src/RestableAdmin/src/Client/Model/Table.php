@@ -6,12 +6,12 @@
  */
 namespace RestableAdmin\Client\Model;
 
-use RestableAdmin\Client\Model\ClientModel;
+use RestableAdmin\Client\Model\Model;
 use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 use Ramsey\Uuid\Uuid;
 use Zend\Db\TableGateway\TableGateway;
 
-class ClientTable
+class Table
 {
     /**
      * @var TableGateway
@@ -89,9 +89,9 @@ class ClientTable
     }
 
     /**
-     * @param \RestableAdmin\Client\Model\ClientModel $item
+     * @param \RestableAdmin\Client\Model\Model $item
      */
-    public function saveItem(ClientModel $item)
+    public function saveItem(Model $item)
     {
         $timeNow = new \DateTime('now');
 
@@ -99,7 +99,7 @@ class ClientTable
             $item->setClientUid($this->generateUUID());
         }
         if(empty($item->getStatus())) {
-            $item->setStatus(ClientModel::STATUS_NEW);
+            $item->setStatus(Model::STATUS_NEW);
         }
 
         $data = [

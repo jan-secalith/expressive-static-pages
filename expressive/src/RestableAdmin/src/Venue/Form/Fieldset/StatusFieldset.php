@@ -11,6 +11,7 @@ use Zend\InputFilter\InputFilterProviderInterface;
 
 class StatusFieldset extends Fieldset implements InputFilterProviderInterface
 {
+
     public function __construct($name = null, $options = array())
     {
         parent::__construct($name,$options);
@@ -27,7 +28,7 @@ class StatusFieldset extends Fieldset implements InputFilterProviderInterface
     {
         if( ! array_key_exists('status_code_value',$options))
         {
-            $curr = $this->getObject()->getStatusCurrentWithLabel(StatusModel::STOCK_STATUS_DEFAULT);
+            $curr = $this->getObject()->getStatusCurrentWithLabel(StatusModel::STATUS_DEFAULT,false);
             $status_code_options = $this->getObject()->getStatusAvailableWithLabels();
         }
 

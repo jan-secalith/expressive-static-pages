@@ -14,13 +14,13 @@ class VenueModel implements CommonModelInterface
     public $updated;
     public $created;
 
-    public const VENUE_STATUS_NEW = 0;
-    public const VENUE_STATUS_PROCESSING = 1;
-    public const VENUE_STATUS_DEPLOYED = 2;
-    public const VENUE_STATUS_ACTIVE = 3;
-    public const VENUE_STATUS_SUSPENDED = 4;
-    public const VENUE_STATUS_REMOVED = 5;
-    public const VENUE_STATUS_ARCHIVED = 6;
+    public const STATUS_NEW = 0;
+    public const STATUS_PROCESSING = 1;
+    public const STATUS_DEPLOYED = 2;
+    public const STATUS_ACTIVE = 3;
+    public const STATUS_SUSPENDED = 4;
+    public const STATUS_REMOVED = 5;
+    public const STATUS_ARCHIVED = 6;
 
     /**
      * CartModel constructor.

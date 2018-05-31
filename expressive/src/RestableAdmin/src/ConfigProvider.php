@@ -41,8 +41,10 @@ class ConfigProvider
                 Handler\AuthLogoutHandler::class => Handler\Factory\AuthLogoutHandlerFactory::class,
                 Category\Form\CategoryForm::class =>
                     Category\Form\Factory\CategoryFormServiceFactory::class,
-                Venue\Form\WriteForm::class =>
+                Venue\Form\VenueWriteForm::class =>
                     Venue\Form\Factory\VenueFormServiceFactory::class,
+                Client\Form\ClientWriteForm::class =>
+                    Client\Form\Factory\VenueFormServiceFactory::class,
             ],
             'delegators' => [
                 // It is worth to remind that Delegators are loaded using FIFO method.
@@ -452,7 +454,8 @@ class ConfigProvider
                                         'action' => [
                                             'route' => 'restable.admin.client.create.post',
                                         ],
-                                        'form_factory' => \RestableAdmin\Client\Form\ClientWriteForm::class,
+//                                        'form_factory' => \RestableAdmin\Client\Form\ClientWriteForm::class,
+                                        'object' => \RestableAdmin\Client\Form\ClientWriteForm::class,
                                         'save' => [
                                             'fieldset_client' => [
                                                 'priority' => 100,
@@ -563,7 +566,7 @@ class ConfigProvider
                                             'route' => 'restable.admin.venue.create.post',
                                         ],
                                         'name' => 'form_create',
-                                        'form_factory' => \RestableAdmin\Venue\Form\WriteForm::class,
+                                        'form_factory' => \RestableAdmin\Venue\Form\VenueWriteForm::class,
                                         'template' => 'restable-admin-venue::form-create',
                                     ]
                                 ],
@@ -607,7 +610,7 @@ class ConfigProvider
                                         'action' => [
                                             'route' => 'restable.admin.venue.create.post',
                                         ],
-                                        'form_factory' => \RestableAdmin\Venue\Form\WriteForm::class,
+                                        'form_factory' => \RestableAdmin\Venue\Form\VenueWriteForm::class,
                                         'save' => [
                                             'fieldset_venue' => [
                                                 'priority' => 100,
@@ -630,10 +633,6 @@ class ConfigProvider
                                                     ],
                                                 ],
                                             ],
-                                            'fieldset_status' => [
-                                                'priority' => 110,
-                                                'fieldset_name' => 'fieldset_status',
-                                            ],
                                             'collection_contact' => [
                                                 'priority' => 120,
                                                 'fieldset_name' => 'collection_contact',
@@ -648,7 +647,7 @@ class ConfigProvider
                                                         'field_name' => 'client_uid',
                                                         'source' => [
                                                             'type' => 'result-insert',
-                                                            'source_name' => 'fieldset_client',
+                                                            'source_name' => 'fieldset_venue',
                                                             'source_field_name' => 'client_uid',
                                                         ],
                                                     ],
@@ -669,7 +668,7 @@ class ConfigProvider
                                                         'field_name' => 'client_uid',
                                                         'source' => [
                                                             'type' => 'result-insert',
-                                                            'source_name' => 'fieldset_client',
+                                                            'source_name' => 'fieldset_venue',
                                                             'source_field_name' => 'client_uid',
                                                         ],
                                                     ],

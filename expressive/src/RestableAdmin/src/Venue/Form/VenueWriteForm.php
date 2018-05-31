@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace RestableAdmin\Venue\Form;
 
+use RestableAdmin\Venue\Model\VenueWriteModel;
 use Zend\Form\Form as Form;
 use Zend\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilter;
 
-class WriteForm extends Form
+class VenueWriteForm extends Form
 {
     private $clients;
 
@@ -21,7 +22,7 @@ class WriteForm extends Form
         $this
             ->setAttribute('method', 'post')
             ->setHydrator(new ClassMethods(true))
-//            ->setObject(new WriteModel())
+            ->setObject(new VenueWriteModel())
             ->setInputFilter($this->addInputFilter())
         ;
 

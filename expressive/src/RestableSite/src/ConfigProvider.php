@@ -93,7 +93,7 @@ class ConfigProvider
             'route' => [
                 'home' => [
                     'cache_response' => [
-                        'enabled' => true,
+                        'enabled' => false,
                     ],
                     'module' => [
                         'static_pages' => [

@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace RestableAdmin\Venue\Form\Fieldset;
 
 use Zend\InputFilter\InputFilterProviderInterface;
-use RestableAdmin\Venue\Model\WriteModel;
+use RestableAdmin\Venue\Model\VenueWriteModel;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ClassMethods;
-use Zend\InputFilter\InputFilter;
 
 class WriteFieldset extends Fieldset implements InputFilterProviderInterface
 {
@@ -17,7 +16,7 @@ class WriteFieldset extends Fieldset implements InputFilterProviderInterface
         parent::__construct($name,$options);
 
         $this->setHydrator(new ClassMethods(true));
-        $this->setObject(new WriteModel());
+        $this->setObject(new VenueWriteModel());
 //        $this->setInputFilter($this->addInputFilter())
 
         $this->addElements();

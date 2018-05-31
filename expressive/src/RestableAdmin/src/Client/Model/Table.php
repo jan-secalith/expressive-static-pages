@@ -7,12 +7,13 @@
 namespace RestableAdmin\Client\Model;
 
 use RestableAdmin\Client\Model\Model;
-use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
-use Ramsey\Uuid\Uuid;
 use Zend\Db\TableGateway\TableGateway;
+use Common\Model\GerenateUUIDTrait;
 
 class Table
 {
+    use GerenateUUIDTrait;
+
     /**
      * @var TableGateway
      */
@@ -119,20 +120,4 @@ class Table
         $data = ['order_id' => $item->getOrderId()];
         $this->tableGateway->delete($data);
     }
-
-    /**
-     * @return string
-     */
-    private function generateUUID()
-    {
-        #TODO: make as Adapter
-        try {
-            $uuid4 = Uuid::uuid4();
-
-            return $uuid4->toString();
-        } catch (UnsatisfiedDependencyException $e) {
-            echo 'Caught exception: ' . $e->getMessage() . "\n";
-        }
-    }
-
 }

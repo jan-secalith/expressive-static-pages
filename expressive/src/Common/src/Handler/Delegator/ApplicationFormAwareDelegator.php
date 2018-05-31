@@ -38,6 +38,8 @@ class ApplicationFormAwareDelegator
                     } elseif(array_key_exists('form_factory',$formAppConfig)) {
                         if($container->has($formAppConfig['form_factory'])) {
                             $form = $container->get($formAppConfig['form_factory']);
+                        } else {
+                            throw new \Exception("Unable to find " . $formAppConfig['form_factory'] . ' in thje container.' );
                         }
                     }
                     $formIndexName = (array_key_exists('name',$formAppConfig))

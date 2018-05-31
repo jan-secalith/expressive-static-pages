@@ -6,10 +6,14 @@
  */
 namespace RestableAdmin\Venue\Model;
 
+use Common\Model\GerenateUUIDTrait;
+use RestableAdmin\Venue\Model\VenueModel;
 use Zend\Db\TableGateway\TableGateway;
 
 class VenueTable
 {
+    use GerenateUUIDTrait;
+
     /**
      * @var TableGateway
      */
@@ -86,27 +90,39 @@ class VenueTable
     }
 
     /**
-     * @param \Order\Model\OrderModel $item
+     * @param \RestableAdmin\Venue\Model\VenueModel $item
      */
-    public function saveItem($item)
+    public function saveItem(VenueModel $item)
     {
         $updated = new \DateTime('now');
 
+        if(empty($item->getVenueUid())) {
+            $item->setVenueUid($this->generateUUID());
+        }
+        if(empty($item->getStatus())) {
+            $item->setStatus(VenueModel::STATUS_NEW);
+        }
+
         $data = [
-            'order_id' => $item->getOrderId(),
-            'cart_id' => $item->getCartId(),
-            'currency_code' => strtoupper($item->getCurrencyCode()),
-            'total' => $item->getTotal(),
+            'venue_uid' => $item->getVenueUid(),
+            'client_uid' => $item->getClientUid(),
             'status' => $item->getStatus(),
             'created' => $updated->format('Y-m-d\TH:i:s.u'),
         ];
-        $this->tableGateway->insert($data);
+
+        $rowsAffected = $this->tableGateway->insert($data);
+
+        return ['rows_affected'=>$rowsAffected,'item'=>$item];
     }
 
-    public function deleteItem($item)
+    /**
+     * @param $item
+     */
+    public function deleteItem(VenueModel $item)
     {
-        $data = ['order_id' => $item->getOrderId()];
+        $data = ['venue_uid' => $item->getVenueUid()];
         $this->tableGateway->delete($data);
     }
+
 
 }

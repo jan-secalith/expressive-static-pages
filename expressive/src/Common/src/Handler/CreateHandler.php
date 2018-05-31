@@ -60,6 +60,7 @@ class CreateHandler implements RequestHandlerInterface,
         $messages = null;
         $rowsAffected = null;
         $results = null;
+        $field_change = null;
 
         if(strtoupper($request->getMethod())==="POST") {
             $postData = $request->getParsedBody();
@@ -84,7 +85,7 @@ class CreateHandler implements RequestHandlerInterface,
                                                 if($this->hasFieldsetService($fieldsetConfig['fieldset_name'])) {
 
 
-                                                    $field_change = null;
+
 
                                                     if(isset($fieldsetConfig['entity_change'])) {
                                                         foreach($fieldsetConfig['entity_change'] as $entity_change ) {
@@ -113,7 +114,8 @@ class CreateHandler implements RequestHandlerInterface,
                                                                     $dataSourceFieldset  = (is_array($formData))
                                                                         ? $formData[$entityChangeSourceName]
                                                                         : $formData->get($entityChangeSourceName);
-
+//var_dump($fieldsetConfig);
+//var_dump($formData);
                                                                     $formData->get($fieldsetConfig['fieldset_name'])
                                                                         ->setStatus($dataSourceFieldset->{$entity_change['source']['source_field_name']});
                                                                     ;

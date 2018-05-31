@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace RestableAdmin\Venue\Form\Factory;
+namespace RestableAdmin\Client\Form\Factory;
 
-use RestableAdmin\Venue\Form\VenueWriteForm;
+use RestableAdmin\Client\Form\ClientWriteForm;
 use Psr\Container\ContainerInterface;
 
-class VenueFormServiceFactory
+class ClientFormServiceFactory
 {
     public function __invoke(ContainerInterface $container, $requestedName = null)
     {
@@ -21,7 +21,7 @@ class VenueFormServiceFactory
             $formCategories[$category->getClientUid()] = $category->getClientName();
         }
 
-        return new VenueWriteForm('form_create',[],$formCategories);
+        return new ClientWriteForm('form_create',[],$formCategories);
 
     }
 }

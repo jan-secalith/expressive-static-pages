@@ -44,7 +44,7 @@ class ConfigProvider
                 Venue\Form\VenueWriteForm::class =>
                     Venue\Form\Factory\VenueFormServiceFactory::class,
                 Client\Form\ClientWriteForm::class =>
-                    Client\Form\Factory\VenueFormServiceFactory::class,
+                    Client\Form\Factory\ClientFormServiceFactory::class,
             ],
             'delegators' => [
                 // It is worth to remind that Delegators are loaded using FIFO method.
@@ -89,6 +89,11 @@ class ConfigProvider
                     'application_id' => '9',
                     'application_name' => 'restableadmin',
                 ]
+            ],
+            'access_filter' => [
+                'options' => [
+                    'mode' => 'restrictive',
+                ],
             ],
             'table_service' => [
                 'RestableAdmin\Admin\TableService' => [

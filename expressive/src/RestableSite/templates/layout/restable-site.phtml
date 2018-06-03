@@ -120,6 +120,12 @@ $this->inlineScript()
             .clearfix{
                 clear:both
             }
+
+            .carousel-inner,
+            .carousel-inner .carousel-item,
+            .carousel-inner .carousel-item > div{
+                height: 100%;
+            }
         </style>
     </head>
 
@@ -205,8 +211,8 @@ $this->inlineScript()
                     <ul class="list-unstyled text-small">
                         <li><a class="text-muted" href="#">Online Booking</a></li>
                         <li><a class="text-muted" href="#">Point of Sale</a></li>
-                        <li><a class="text-muted" href="<?=$this->url('stock.product.list')?>"">Stock Monitoring</a></li>
-                        <li><a class="text-muted" href="<?=$this->url('restable.admin.auth.login');?>">Business Website</a></li>
+                        <li><a class="text-muted" href="#">Stock Monitoring</a></li>
+                        <li><a class="text-muted" href="#">Business Website</a></li>
                     </ul>
                 </div>
                 <div class="col-6 col-md">
@@ -232,7 +238,7 @@ $this->inlineScript()
                     <h5>Other</h5>
                     <ul class="list-unstyled text-small">
                         <li><a class="text-muted" href="#">ResTable Service</a></li>
-                        <li><a class="text-muted" href="<?=$this->url('restable.site.page.privacy_policy')?>">Privacy Policy</a></li>
+                        <li><a class="text-muted" href="#">Privacy Policy</a></li>
                         <li><a class="text-muted" href="#">Terms</a></li>
                         <li><a class="text-muted" href="#">Sitemap</a></li>
                     </ul>

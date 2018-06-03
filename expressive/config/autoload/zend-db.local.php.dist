@@ -1,0 +1,36 @@
+<?php
+
+return [
+    'db' => [
+        'adapters' => [
+            'Application\Db\LocalAdapter' => [
+                'driver' => 'Pdo_Mysql',
+                'dsn'    => 'mysql:dbname=restable;host=localhost;',
+                'username' => 'root',
+                'password' => 'root'
+            ],
+            'Application\Db\LocalSQLiteAdapter' => [
+                'driver' => 'Pdo_Sqlite',
+                'dsn'    => 'sqlite:./data/db/db.sqlite',
+            ],
+            'Restable\Db\UserAdapter' => [
+                'driver' => 'Pdo_Mysql',
+                'dsn'    => 'mysql:dbname=credentials;host=localhost;',
+                'username' => 'root',
+                'password' => 'root'
+            ],
+            'Restable\Db\CredentialsAdapter' => [
+                'driver' => 'Pdo_Mysql',
+                'dsn'    => 'mysql:dbname=credentials;host=localhost;',
+                'username' => 'root',
+                'password' => 'root'
+            ],
+            'Restable\Db\AclAdapter' => [
+                'driver' => 'Pdo_Mysql',
+                'dsn'    => 'mysql:dbname=restable_acl;host=localhost;',
+                'username' => 'root',
+                'password' => 'root'
+            ],
+        ],
+    ],
+];

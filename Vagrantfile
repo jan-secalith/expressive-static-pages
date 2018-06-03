@@ -139,6 +139,7 @@ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/source
 sudo apt-get update && sudo apt-get install -y yarn
 ## Gulp has to be installed with npm
 sudo npm install --global gulp-cli -D
+npm install gulp --save-dev
 ##
 
 #############

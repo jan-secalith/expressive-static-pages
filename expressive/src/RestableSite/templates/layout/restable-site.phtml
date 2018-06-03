@@ -1,10 +1,10 @@
 <?php
 $this->headLink()
-    ->prependStylesheet('https://use.fontawesome.com/releases/v5.0.6/css/all.css')
-    ->prependStylesheet('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css');
+//    ->prependStylesheet('https://use.fontawesome.com/releases/v5.0.6/css/all.css')
+    ->prependStylesheet('/assets/styles/styles.min.css');
 $this->inlineScript()
-    ->prependFile('https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js')
-    ->prependFile('https://code.jquery.com/jquery-3.3.1.min.js');
+    ->prependFile('/assets/scripts/scripts.min.js')
+;
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +26,8 @@ $this->inlineScript()
         <meta name="theme-color" content="#efefef">
 
         <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
-        
-        <?=$this->headTitle('zend-expressive')->setSeparator(' - ')->setAutoEscape(false)?>
+
+        <?=$this->headTitle('ResTable.co.uk')->setSeparator(' - ')->setAutoEscape(false)?>
         <?=$this->headMeta()?>
         <?=$this->headLink()?>
         <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,600|Lato:400,700|Titillium+Web:400,700" rel="stylesheet">

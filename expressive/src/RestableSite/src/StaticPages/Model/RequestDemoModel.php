@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace RestableSite\StaticPages\Model;
 
-use Common\Model\CommonModelInterface;
+use Secalith\ExpressiveAdrCommon\Model\CommonModelInterface;
 
 class RequestDemoModel implements CommonModelInterface
 {

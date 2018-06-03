@@ -14,6 +14,7 @@ $cacheConfig = [
 
 $aggregator = new ConfigAggregator([
 \Zend\Router\ConfigProvider::class,
+    \Secalith\ExpressiveAdrCommon\ConfigProvider::class,
 //    \Zend\Navigation\ConfigProvider::class,
     \Zend\Paginator\ConfigProvider::class,
     \Zend\Cache\ConfigProvider::class,

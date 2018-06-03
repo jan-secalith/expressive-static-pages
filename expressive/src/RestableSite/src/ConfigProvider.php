@@ -183,8 +183,6 @@ class ConfigProvider
                     ],
                     'form' => [
                         [
-                            // https://framework.zend.com/blog/2017-06-21-zend-hydrator.html
-                            // https://framework.zend.com/manual/2.4/en/modules/zend.stdlib.hydrator.namingstrategy.mapnamingstrategy.html
                             'name' => 'form_request_demo',
                             'map_direction_src' => 'form',
                             'map' => [

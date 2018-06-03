@@ -18,6 +18,7 @@
     "config": {
         "sort-packages": true
     },
+    "minimum-stability": "stable",
     "extra": {
         "zf": {
             "component-whitelist": [
@@ -42,6 +43,7 @@
         "ramsey/uuid": "^3.7",
         "roave/security-advisories": "dev-master",
         "robmorgan/phinx": "^0.9.2",
+        "secalith/expressive-adr-common": "dev-master",
         "zendframework/zend-authentication": "^2.6",
         "zendframework/zend-cache": "^2.8",
         "zendframework/zend-component-installer": "^2.1.1",
@@ -82,7 +84,8 @@
             "Product\\": "src/Product/src/",
             "Stock\\": "src/Stock/src/",
             "Authentication\\": "src/Authentication/src/",
-            "RestableAdmin\\": "src/RestableAdmin/src/"
+            "RestableAdmin\\": "src/RestableAdmin/src/",
+            "Secalith\\ExpressiveAdrCommon\\": "vendor/secalith/expressive-adr-common/src/"
         }
     },
     "autoload-dev": {

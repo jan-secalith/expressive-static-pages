@@ -79,12 +79,7 @@
         "psr-4": {
             "App\\": "src/App/src/",
             "RestableSite\\": "src/RestableSite/src/",
-            "RestableStock\\": "src/RestableStock/src/",
             "Common\\": "src/Common/src/",
-            "Product\\": "src/Product/src/",
-            "Stock\\": "src/Stock/src/",
-            "Authentication\\": "src/Authentication/src/",
-            "RestableAdmin\\": "src/RestableAdmin/src/",
             "Secalith\\ExpressiveAdrCommon\\": "vendor/secalith/expressive-adr-common/src/"
         }
     },

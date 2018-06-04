@@ -1146,12 +1146,78 @@ class ConfigProvider
                                             ],
                                             'object' => Contact\Form\AddressWriteForm::class,
                                             'read' => [
+                                                'fieldset_client' => [
+                                                    'fieldset_name' => 'fieldset_client',
+                                                    'type' => 'fieldset',
+                                                    'partial' => 'restable-admin-client::read-client',
+                                                    'service' => [
+                                                        [
+                                                            'service_name'=>'RestableAdmin\Client\TableService',
+                                                            'method' => 'getItemByUid',
+                                                            'arguments' => [
+                                                                [
+                                                                    'type' => 'service',
+                                                                    'service_name' => \Common\Helper\CurrentRouteNameHelper::class,
+                                                                    'method' => 'getMatchedParam',
+                                                                    'arg_name' => 'client_uid',
+                                                                ],
+                                                            ],
+                                                        ],
+
+                                                    ],
+                                                ],
                                                 'collection_address' => [
                                                     'fieldset_name' => 'collection_address',
                                                     'service' => [
                                                         [
-                                                            'name'=>'RestableAdmin\Contact\Address\TableService',
-                                                            'method' => 'getItem'
+                                                            'service_name'=>'RestableAdmin\Contact\Address\TableService',
+                                                            'method' => 'getItemByClientUid',
+                                                            'arguments' => [
+                                                                [
+                                                                    'type' => 'service',
+                                                                    'service_name' => \Common\Helper\CurrentRouteNameHelper::class,
+                                                                    'method' => 'getMatchedParam',
+                                                                    'arg_name' => 'client_uid',
+                                                                ],
+                                                            ],
+//                                                            'source_name' => 'fieldset_client',
+//                                                            'source_field_name' => 'client_uid',
+                                                        ],
+
+                                                    ],
+                                                ],
+                                                'collection_contact' => [
+                                                    'fieldset_name' => 'collection_contact',
+                                                    'service' => [
+                                                        [
+                                                            'service_name'=>'RestableAdmin\Contact\TableService',
+                                                            'method' => 'getItemByClientUid',
+                                                            'arguments' => [
+                                                                [
+                                                                    'type' => 'service',
+                                                                    'service_name' => \Common\Helper\CurrentRouteNameHelper::class,
+                                                                    'method' => 'getMatchedParam',
+                                                                    'arg_name' => 'client_uid',
+                                                                ],
+                                                            ],
+                                                        ],
+
+                                                    ],
+                                                ],
+                                                'collection_venues' => [
+                                                    'fieldset_name' => 'collection_venues',
+                                                    'service' => [
+                                                        [
+                                                            'service_name'=>'RestableAdmin\Venue\TableService',
+                                                            'method' => 'getItemByClientUid',
+                                                            'arguments' => [
+                                                                [
+                                                                    'type' => 'service',
+                                                                    'service_name' => \Common\Helper\CurrentRouteNameHelper::class,
+                                                                    'method' => 'getMatchedParam',
+                                                                    'arg_name' => 'client_uid',
+                                                                ],
+                                                            ],
                                                         ],
 
                                                     ],

@@ -71,4 +71,10 @@ class CurrentRouteNameHelper
         $matchedParams = $this->routeResult->getMatchedParams();
         return $matchedParams[$paramName];
     }
+
+    public function getMatchedParams()
+    {
+        $matchedParams = $this->routeResult->getMatchedParams();
+        return $matchedParams;
+    }
 }

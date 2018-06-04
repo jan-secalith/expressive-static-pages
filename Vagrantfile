@@ -129,16 +129,16 @@ php vendor/bin/phinx migrate
 ################
 
 ## Install Node.js
-curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
-sudo bash nodesource_setup.sh
-sudo rm nodesource_setup.sh
+#curl -sL https://deb.nodesource.com/setup_8.x -o nodesource_setup.sh
+#sudo bash nodesource_setup.sh
+#sudo rm nodesource_setup.sh
 
 ## Install YARN package Manager
-curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt-get update && sudo apt-get install -y yarn
+#curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+#echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+#sudo apt-get update && sudo apt-get install -y yarn
 ## Gulp has to be installed with npm
-sudo npm install --global gulp-cli -D
+#sudo npm install --global gulp-cli -D
 ##
 
 #############

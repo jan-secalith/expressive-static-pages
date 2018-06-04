@@ -120,4 +120,15 @@ class Table
         $data = ['order_id' => $item->getOrderId()];
         $this->tableGateway->delete($data);
     }
+
+    public function getItemByUid($client_uid)
+    {
+        $rowset = $this->tableGateway->select(['client_uid' => $client_uid]);
+        $row = $rowset->current();
+        if (!$row) {
+            throw new \Exception("Could not find row $client_uid");
+        }
+        return $row;
+    }
+
 }

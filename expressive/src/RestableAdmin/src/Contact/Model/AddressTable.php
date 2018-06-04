@@ -88,6 +88,15 @@ class AddressTable
         return $row;
     }
 
+    public function getItemByClientUid($client_uid)
+    {
+        $rowset = $this->tableGateway->select(['client_uid' => $client_uid]);
+
+        $row = $rowset->buffer();
+
+        return $row;
+    }
+
     /**
      * @param \RestableAdmin\Client\Model\Model $item
      */

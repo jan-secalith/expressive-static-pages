@@ -56,6 +56,15 @@ class VenueTable
         return $row;
     }
 
+    public function getItemByClientUid($client_uid)
+    {
+        $rowset = $this->tableGateway->select(['client_uid' => $client_uid]);
+
+        $row = $rowset->buffer();
+
+        return $row;
+    }
+
     public function getItemCount($id = null)
     {
         if ($id===null) {

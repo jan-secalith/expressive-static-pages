@@ -28,17 +28,21 @@ class ReadHandler implements RequestHandlerInterface, DataAwareInterface
 
     private $template;
 
+    private $resources;
+
     private $urlHelper;
 
     public function __construct(
         Router\RouterInterface $router,
         Template\TemplateRendererInterface $template = null,
         string $containerName,
+        array $resources = [],
         UrlHelper $urlHelper = null
     ) {
         $this->router        = $router;
         $this->template      = $template;
         $this->containerName = $containerName;
+        $this->addData($resources,'resources');
         $this->urlHelper = $urlHelper;
     }
 

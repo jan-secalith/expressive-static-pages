@@ -67,15 +67,54 @@ class ReadHandlerAbstractFactory implements AbstractFactoryInterface
 
             $urlHelper = $serviceLocator->get(UrlHelper::class);
 
+            $resources = [];
+
             if(array_key_exists($routeName,$handlerConfig['route'])){
                     if(array_key_exists($requestMethod,$handlerConfig['route'][$routeName])) {
 
                         $routeConfig = $handlerConfig['route'][$routeName][$requestMethod];
 
+                        if( array_key_exists('data_template_model',$routeConfig) ) {
+                            if(array_key_exists('main',$routeConfig['data_template_model'])) {
+                                foreach($routeConfig['data_template_model']['main'] as $mainContentDeclaration) {
+                                    if(array_key_exists('read',$mainContentDeclaration)) {
+                                        foreach($mainContentDeclaration['read'] as $fieldsetConfig) {
+                                            if(array_key_exists('service',$fieldsetConfig)) {
+                                                foreach($fieldsetConfig['service'] as $serviceConfig) {
+                                                    if($serviceLocator->has($serviceConfig['service_name'])) {
+                                                        $requestedService = $serviceLocator->get($serviceConfig['service_name']);
+                                                        if(method_exists($requestedService,$serviceConfig['method'])) {
+                                                            if(array('arguments',$serviceConfig)) {
+                                                                foreach($serviceConfig['arguments'] as $arg) {
+                                                                    if($arg['type'] == 'service') {
+                                                                        if($serviceLocator->has($arg['service_name'])) {
+                                                                            $argService = $serviceLocator->get($arg['service_name']);
+                                                                            $argVal[] = $argService->{$arg['method']}($arg['arg_name']);
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                            $resources[$fieldsetConfig['fieldset_name']]['data'] = $requestedService->{$serviceConfig['method']}($argVal[0]);
+                                                            $resources[$fieldsetConfig['fieldset_name']]['service_config'] = $fieldsetConfig;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+//                        var_dump($resources);
+
+                        //
+
                         $targetClass = new ReadHandler(
                             $router,
                             $template,
                             get_class($serviceLocator),
+                            $resources,
                             $urlHelper
                         );
 

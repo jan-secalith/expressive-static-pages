@@ -1,0 +1,29 @@
+
+
+<?=$this->partial("restable-admin-partial::partial-header",['heading'=>$data_template_model['heading']]);?>
+
+<?php if(isset($messages)&&array_key_exists('error',$messages)):?>
+    <?=$this->flashMessage($messages['error'],'error');?>
+<?php endif;?>
+<?php if(isset($messages)&&array_key_exists('info',$messages)):?>
+    <?=$this->flashMessage($messages['info'],'info');?>
+<?php endif;?>
+
+<?php
+
+    if($resources):
+
+        ?>
+
+    <?php foreach($resources as $res):  ?>
+
+    <?php if(array_key_exists('partial',$res['service_config'])): ?>
+            <?=$this->partial($res['partial'],['resource'=>$res]);?>
+    <?php endif;?>
+
+    <?php endforeach;?>
+
+<?php
+            echo 8;
+    endif;
+
